@@ -28,7 +28,7 @@
       // Service Worker als Blob registrieren (kein separates File noetig)
       if ("serviceWorker" in navigator) {
         var swCode = [
-          'var CACHE = "singleiter-v1.0.0";',
+          'var CACHE = "singleiter-v1.1.0";',
           'var URLS = ["/"];',
           'self.addEventListener("install", function(e) {',
           "  e.waitUntil(caches.open(CACHE).then(function(c) { return c.addAll(URLS); }));",
