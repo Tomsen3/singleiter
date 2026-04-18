@@ -1,4 +1,10 @@
 {
-  "version": "1.0.1",
-  "changelog": "Capo-Anzeige repariert, Setlist direkt erstellbar"
+  "version": "1.1.0",
+  "changelog": [
+    "Praxisteil stark erweitert: 10 Situationen statt 5",
+    "Neue Bereiche: Stundenaufbau, Liedauswahl, Stimmeinständel",
+    "Checkliste vor der Stunde (abhakbar, Reset-Funktion)",
+    "Situationen bearbeitbar und neue hinzufügbar (Supabase-Sync)",
+    "Mehr Formulierungsbeispiele pro Situation"
+  ]
 }
