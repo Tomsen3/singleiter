@@ -21,14 +21,14 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-      var APP_VERSION = "1.2.0";
+      var APP_VERSION = "1.3.0";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
       // Service Worker als Blob registrieren (kein separates File noetig)
       if ("serviceWorker" in navigator) {
         var swCode = [
-          'var CACHE = "singleiter-v1.1.0";',
+         'var CACHE = "singleiter-v' + APP_VERSION + '";',
           'var URLS = ["/"];',
           'self.addEventListener("install", function(e) {',
           "  e.waitUntil(caches.open(CACHE).then(function(c) { return c.addAll(URLS); }));",
@@ -2857,12 +2857,16 @@
             var appSong = dbSongToApp(row);
             if (vorhandener) {
               appSong.id = vorhandener.id;
-              // Supabase-Daten haben beim Sync Vorrang (sind die kanonische Quelle)
+             // Supabase-Daten haben beim Sync Vorrang (sind die kanonische Quelle)
               // Lokale Werte werden nur verwendet, wenn Supabase keinen Wert hat
               appSong.capo = appSong.capo || vorhandener.capo;
               appSong.akkorde = appSong.akkorde || vorhandener.akkorde;
               appSong.text = appSong.text || vorhandener.text;
               appSong.notizen = appSong.notizen || vorhandener.notizen;
+              appSong.sprache = appSong.sprache || vorhandener.sprache;
+              appSong.land = appSong.land || vorhandener.land;
+              appSong.kategorie = appSong.kategorie || vorhandener.kategorie;
+              appSong.stimmung = appSong.stimmung || vorhandener.stimmung;
           } else {
               appSong.id = Date.now() + Math.floor(Math.random() * 10000);
             }
