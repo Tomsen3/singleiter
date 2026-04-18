@@ -20,8 +20,9 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.3.0";
+      var APP_VERSION = "1.4.0";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -1817,8 +1818,18 @@
             class="form-textarea"
             id="add-notizen"
             style="min-height: 60px"
-            placeholder="Hinweise zur Auff&uuml;hrung..."
+            placeholder="Hinweise zur Aufführung..."
           ></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Noten (ABC-Format)</label>
+          <textarea
+            class="form-textarea"
+            id="add-noten-abc"
+            style="min-height: 80px; font-family: monospace; font-size: 13px;"
+            placeholder="X:1&#10;T:Titel&#10;M:4/4&#10;L:1/4&#10;K:C&#10;C D E F | G A B c |"
+          ></textarea>
+          <div style="font-size: 11px; color: var(--text2); margin-top: 4px;">ABC-Notation – Hilfe: <a href="https://editor.drawthedots.com" target="_blank" style="color: var(--accent);">editor.drawthedots.com</a></div>
         </div>
         <!-- Klassifikation -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
@@ -2693,6 +2704,7 @@
           akkorde: song.akkorde || "",
           text: song.text || "",
           notizen: song.notizen || "",
+          noten_abc: song.noten_abc || "",
           sprache: song.sprache || "",
           land: song.land || "",
           kategorie: song.kategorie || "",
@@ -2715,6 +2727,7 @@
           akkorde: row.akkorde || "",
           text: row.text || "",
           notizen: row.notizen || "",
+          noten_abc: row.noten_abc || "",
           sprache: row.sprache || "",
           land: row.land || "",
           kategorie: row.kategorie || "",
@@ -2863,6 +2876,7 @@
               appSong.akkorde = appSong.akkorde || vorhandener.akkorde;
               appSong.text = appSong.text || vorhandener.text;
               appSong.notizen = appSong.notizen || vorhandener.notizen;
+              appSong.noten_abc = appSong.noten_abc || vorhandener.noten_abc;
               appSong.sprache = appSong.sprache || vorhandener.sprache;
               appSong.land = appSong.land || vorhandener.land;
               appSong.kategorie = appSong.kategorie || vorhandener.kategorie;
@@ -3674,6 +3688,28 @@
           escHtml(song.text || "(kein Text hinterlegt)") +
           "</div>" +
           akkordSection +
+          (song.noten_abc
+            ? '<div style="margin-top:12px;">' +
+              '<div style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--surface2); border-radius:8px; cursor:pointer;" onclick="toggleNotenAnzeige()">' +
+              '<span style="font-size:11px; font-weight:500; letter-spacing:0.08em; color:var(--accent); text-transform:uppercase;">&#9834; Noten</span>' +
+              '<span id="noten-toggle-label" style="font-size:12px; color:var(--text2); background:var(--surface); border-radius:6px; padding:3px 10px; border:0.5px solid var(--border);">einblenden</span>' +
+              '</div>' +
+              '<div id="noten-abc-box" style="display:none; margin-top:4px; background:white; border-radius:8px; border:0.5px solid var(--border); padding:12px;">' +
+              '<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">' +
+              '<span style="font-size:11px; color:var(--text2); white-space:nowrap;">Größe:</span>' +
+              '<input type="range" id="noten-scale-slider" min="50" max="150" value="100" step="5" style="flex:1;" oninput="notenScaleAendern(this.value)">' +
+              '<span id="noten-scale-label" style="font-size:11px; color:var(--text2); min-width:32px; text-align:right;">100%</span>' +
+              '</div>' +
+              '<div id="noten-abc-render"></div>' +
+              '<div style="margin-top:6px; text-align:right;">' +
+              '<span onclick="toggleAbcCode()" style="font-size:11px; color:var(--text2); cursor:pointer; text-decoration:underline;">ABC-Code anzeigen</span>' +
+              '</div>' +
+              '<pre id="noten-abc-code" style="display:none; margin-top:8px; font-size:11px; color:var(--text2); background:var(--surface2); padding:10px; border-radius:6px; white-space:pre-wrap; font-family:monospace;">' +
+              escHtml(song.noten_abc) +
+              '</pre>' +
+              '</div>' +
+              '</div>'
+            : "") +
           (song.notizen
             ? '<div style="margin-top:12px; padding:12px; background:var(--surface2); border-radius:8px; font-size:0.85rem; color:var(--text2)">&#128161; ' +
               escHtml(song.notizen) +
@@ -3759,6 +3795,49 @@
       function closeDetail() {
         document.getElementById("song-list-view").style.display = "block";
         document.getElementById("song-detail-view").classList.remove("open");
+      }
+
+      function renderNoten(scale) {
+        var song = state.currentSong;
+        if (!song || !song.noten_abc || !window.ABCJS) return;
+        var container = document.getElementById("noten-abc-render");
+        if (!container) return;
+        setTimeout(function() {
+          var breite = container.offsetWidth || 320;
+          ABCJS.renderAbc("noten-abc-render", song.noten_abc, {
+            staffwidth: Math.floor(breite * 0.95),
+            scale: scale || 1
+          });
+        }, 50);
+      }
+
+      function toggleNotenAnzeige() {
+        var box = document.getElementById("noten-abc-box");
+        var label = document.getElementById("noten-toggle-label");
+        if (!box) return;
+        var offen = box.style.display === "none";
+        box.style.display = offen ? "block" : "none";
+        label.textContent = offen ? "ausblenden" : "einblenden";
+        if (offen && window.ABCJS && !box.dataset.rendered) {
+          var slider = document.getElementById("noten-scale-slider");
+          var scale = parseFloat((slider || {}).value || 100) / 100;
+          renderNoten(scale);
+          box.dataset.rendered = "1";
+        }
+      }
+
+      function notenScaleAendern(val) {
+        var label = document.getElementById("noten-scale-label");
+        if (label) label.textContent = val + "%";
+        var box = document.getElementById("noten-abc-box");
+        if (box) box.dataset.rendered = "1";
+        renderNoten(parseFloat(val) / 100);
+      }
+
+      function toggleAbcCode() {
+        var el = document.getElementById("noten-abc-code");
+        if (!el) return;
+        el.style.display = el.style.display === "none" ? "block" : "none";
       }
 
       // ============================================================
@@ -4375,6 +4454,24 @@
 
         document.getElementById("spick-text").textContent =
           song.text || "(kein Text)";
+
+        // Noten-Toggle anzeigen wenn ABC vorhanden
+        var spickNotenToggle = document.getElementById("spick-noten-toggle");
+        var spickNotenBox = document.getElementById("spick-noten-box");
+        var spickNotenRender = document.getElementById("spick-noten-render");
+        if (song.noten_abc && spickNotenToggle) {
+          spickNotenToggle.style.display = "block";
+          // Noten-Box schließen beim Liedwechsel
+          if (spickNotenBox) {
+            spickNotenBox.style.display = "none";
+            if (spickNotenBox.dataset) spickNotenBox.dataset.rendered = "";
+          }
+          var btn = document.getElementById("spick-noten-btn");
+          if (btn) btn.textContent = "\u266a Noten einblenden";
+        } else if (spickNotenToggle) {
+          spickNotenToggle.style.display = "none";
+          if (spickNotenBox) spickNotenBox.style.display = "none";
+        }
       }
 
       function spickPrev() {
@@ -4396,6 +4493,48 @@
         document.getElementById("spickzettel").classList.remove("open");
         state._spickSingle = null;
         closeNotfall();
+      }
+
+      function toggleSpickNoten() {
+        var box = document.getElementById("spick-noten-box");
+        var btn = document.getElementById("spick-noten-btn");
+        if (!box) return;
+        var offen = box.style.display === "none";
+        box.style.display = offen ? "block" : "none";
+        btn.textContent = offen ? "\u266a Noten ausblenden" : "\u266a Noten einblenden";
+        if (offen && window.ABCJS && !box.dataset.rendered) {
+          var ids = state._spickSingle || state.spickListe;
+          var song = state.songs.find(function(s) { return s.id === ids[state.spickIndex]; });
+          if (song && song.noten_abc) {
+            var slider = document.getElementById("spick-noten-slider");
+            var scale = parseFloat((slider || {}).value || 100) / 100;
+            spickRenderNoten(song, scale);
+            box.dataset.rendered = "1";
+          }
+        }
+      }
+
+      function spickRenderNoten(song, scale) {
+        if (!song || !song.noten_abc || !window.ABCJS) return;
+        setTimeout(function() {
+          var container = document.getElementById("spick-noten-render");
+          if (!container) return;
+          var breite = container.offsetWidth || 320;
+          ABCJS.renderAbc("spick-noten-render", song.noten_abc, {
+            staffwidth: Math.floor(breite * 0.95),
+            scale: scale || 1
+          });
+        }, 50);
+      }
+
+      function spickNotenScaleAendern(val) {
+        var label = document.getElementById("spick-noten-label");
+        if (label) label.textContent = val + "%";
+        var ids = state._spickSingle || state.spickListe;
+        var song = state.songs.find(function(s) { return s.id === ids[state.spickIndex]; });
+        var box = document.getElementById("spick-noten-box");
+        if (box) box.dataset.rendered = "1";
+        spickRenderNoten(song, parseFloat(val) / 100);
       }
 
       function toggleNotfall() {
@@ -4821,6 +4960,7 @@
         document.getElementById("add-akkorde").value = song.akkorde || "";
         document.getElementById("add-text").value = song.text || "";
         document.getElementById("add-notizen").value = song.notizen || "";
+        document.getElementById("add-noten-abc").value = song.noten_abc || "";
         document.getElementById("add-stimmung").value = song.stimmung || "";
         if (song.tonart) {
           var parts = song.tonart.split("-");
@@ -4893,6 +5033,7 @@
           akkorde: document.getElementById("add-akkorde").value.trim(),
           text: document.getElementById("add-text").value,
           notizen: document.getElementById("add-notizen").value,
+          noten_abc: document.getElementById("add-noten-abc").value,
           sprache: document.getElementById("add-sprache").value,
           land: document.getElementById("add-land").value,
           kategorie: document.getElementById("add-kategorie").value,
@@ -4939,6 +5080,7 @@
             "add-akkorde",
             "add-text",
             "add-notizen",
+            "add-noten-abc",
           ].forEach(function (id) {
             document.getElementById(id).value = "";
           });
@@ -5139,6 +5281,17 @@
         <div class="spick-akkorde-text" id="spick-akkorde-text"></div>
       </div>
       <div class="spick-text" id="spick-text"></div>
+      <div id="spick-noten-toggle" style="display:none; margin:12px 0 4px;">
+        <button onclick="toggleSpickNoten()" id="spick-noten-btn" style="font-size:12px; padding:5px 14px; border-radius:8px; border:1px solid rgba(255,255,255,0.3); background:rgba(255,255,255,0.1); color:white; cursor:pointer;">&#9834; Noten einblenden</button>
+      </div>
+      <div id="spick-noten-box" style="display:none; margin:8px 0 12px;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+          <span style="font-size:11px; color:rgba(255,255,255,0.5); white-space:nowrap;">Größe:</span>
+          <input type="range" id="spick-noten-slider" min="50" max="150" value="100" step="5" style="flex:1;" oninput="spickNotenScaleAendern(this.value)">
+          <span id="spick-noten-label" style="font-size:11px; color:rgba(255,255,255,0.5); min-width:32px; text-align:right;">100%</span>
+        </div>
+        <div id="spick-noten-render" style="background:white; border-radius:8px; padding:8px;"></div>
+      </div>
       <button class="spick-notfall" onclick="toggleNotfall()">
         &#9888;&#65039; Notfall
       </button>

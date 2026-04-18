@@ -1,10 +1,10 @@
 {
-  "version": "1.3.0",
+  "version": "1.4.0",
   "changelog": [
-    "Praxisteil stark erweitert: 10 Situationen statt 5",
-    "Neue Bereiche: Stundenaufbau, Liedauswahl, Stimmeinständel",
-    "Checkliste vor der Stunde (abhakbar, Reset-Funktion)",
-    "Situationen bearbeitbar und neue hinzufügbar (Supabase-Sync)",
-    "Mehr Formulierungsbeispiele pro Situation"
+    "Noten-Funktion: ABC-Notation pro Lied eintragbar",
+    "Notenansicht in Detailansicht (unter Griffakkorde, ein-/ausblendbar)",
+    "Notenansicht im Spickzettel (ein-/ausblendbar, nur wenn vorhanden)",
+    "Größenschieberegler für Noten (50–150%)",
+    "Geräte-Sync: alle Felder werden korrekt synchronisiert (Text, Akkorde, Sprache, Land, Kategorie, Stimmung, Noten)"
   ]
 }
