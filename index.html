@@ -21,7 +21,7 @@
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-      var APP_VERSION = "1.1.0";
+      var APP_VERSION = "1.2.0";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -1701,7 +1701,7 @@
       </div>
       <div class="backup-card">
         <h3>&#128260; App-Version</h3>
-        <p>Aktuelle Version: <strong id="version-anzeige">1.1.0</strong></p>
+        <p>Aktuelle Version: <strong id="version-anzeige">1.2.0</strong></p>
         <button
           class="action-btn"
           onclick="pruefeAufUpdate()"
@@ -2857,12 +2857,13 @@
             var appSong = dbSongToApp(row);
             if (vorhandener) {
               appSong.id = vorhandener.id;
-              // lokale Felder haben Vorrang (koennen neuer sein als Supabase)
-              appSong.capo = vorhandener.capo || appSong.capo;
-              appSong.akkorde = vorhandener.akkorde || appSong.akkorde;
-              appSong.text = vorhandener.text || appSong.text;
-              appSong.notizen = vorhandener.notizen || appSong.notizen;
-            } else {
+              // Supabase-Daten haben beim Sync Vorrang (sind die kanonische Quelle)
+              // Lokale Werte werden nur verwendet, wenn Supabase keinen Wert hat
+              appSong.capo = appSong.capo || vorhandener.capo;
+              appSong.akkorde = appSong.akkorde || vorhandener.akkorde;
+              appSong.text = appSong.text || vorhandener.text;
+              appSong.notizen = appSong.notizen || vorhandener.notizen;
+          } else {
               appSong.id = Date.now() + Math.floor(Math.random() * 10000);
             }
             return appSong;
