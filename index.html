@@ -2744,37 +2744,38 @@
           await sb.from("lieder").delete().eq("id", supabaseId);
         } catch (e) {}
       }
-async function speichereListenInSupabase() {
-  if (!sb) return;
-  try {
-    await sb.from("einstellungen").upsert({
-      id: "singleiter_listen",
-      wert: state.listen,
-      aktualisiert_am: new Date().toISOString()
-    });
-  } catch (e) {}
-}
+      async function speichereListenInSupabase() {
+        if (!sb) return;
+        try {
+          await sb.from("einstellungen").upsert({
+            id: "singleiter_listen",
+            wert: state.listen,
+            aktualisiert_am: new Date().toISOString()
+          });
+        } catch (e) {}
+      }
 
-async function ladeListenVonSupabase() {
-  if (!sb) return;
-  try {
-    var res = await sb
-      .from("einstellungen")
-      .select("wert")
-      .eq("id", "singleiter_listen")
-      .single();
-    if (res.error || !res.data) return;
-    var geladen = res.data.wert;
-    if (geladen.sprachen && geladen.sprachen.length > 0)
-      state.listen.sprachen = geladen.sprachen;
-    if (geladen.laender && geladen.laender.length > 0)
-      state.listen.laender = geladen.laender;
-    if (geladen.kategorien && geladen.kategorien.length > 0)
-      state.listen.kategorien = geladen.kategorien;
-    saveToStorage();
-    if (document.getElementById("listenverwaltung")) renderEinstellungen();
-  } catch (e) {}
-}
+      async function ladeListenVonSupabase() {
+        if (!sb) return;
+        try {
+          var res = await sb
+            .from("einstellungen")
+            .select("wert")
+            .eq("id", "singleiter_listen")
+            .single();
+          if (res.error || !res.data) return;
+          var geladen = res.data.wert;
+          if (geladen.sprachen && geladen.sprachen.length > 0)
+            state.listen.sprachen = geladen.sprachen;
+          if (geladen.laender && geladen.laender.length > 0)
+            state.listen.laender = geladen.laender;
+          if (geladen.kategorien && geladen.kategorien.length > 0)
+            state.listen.kategorien = geladen.kategorien;
+          saveToStorage();
+          if (document.getElementById("listenverwaltung")) renderEinstellungen();
+        } catch (e) {}
+      }
+
       // ============================================================
       // STATE
       // ============================================================
