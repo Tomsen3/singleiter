@@ -1,10 +1,11 @@
 {
   "version": "1.4.2",
   "changelog": [
+    "Scroll-Position wird beim Zurücknavigieren wiederhergestellt",
     "Noten-Funktion: ABC-Notation pro Lied eintragbar",
     "Notenansicht in Detailansicht (unter Griffakkorde, ein-/ausblendbar)",
     "Notenansicht im Spickzettel (ein-/ausblendbar, nur wenn vorhanden)",
     "Größenschieberegler für Noten (50–150%)",
-    "Geräte-Sync: alle Felder werden korrekt synchronisiert (Text, Akkorde, Sprache, Land, Kategorie, Stimmung, Noten)"
+    "Geräte-Sync: alle Felder werden korrekt synchronisiert"
   ]
 }
