@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.4.2";
+      var APP_VERSION = "1.4.3";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -3459,7 +3459,7 @@
         });
         transpState.capoSession = 0;
         transpState.transpSession = 0;
-        state._songListScrollTop = document.getElementById("song-list-view").scrollTop
+        state._songListScrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY || 0;
           || document.getElementById("view-repertoire").scrollTop
           || window.scrollY || 0;
         document.getElementById("song-list-view").style.display = "none";
@@ -3771,9 +3771,9 @@
         document.getElementById("song-detail-view").classList.remove("open");
         var savedScroll = state._songListScrollTop || 0;
         setTimeout(function() {
-          document.getElementById("song-list-view").scrollTop = savedScroll;
-          document.getElementById("view-repertoire").scrollTop = savedScroll;
           window.scrollTo(0, savedScroll);
+          document.documentElement.scrollTop = savedScroll;
+          document.body.scrollTop = savedScroll;
         }, 30);
       }
 
