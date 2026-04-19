@@ -1673,7 +1673,7 @@
       </div>
       <div class="backup-card">
         <h3>&#128260; App-Version</h3>
-        <p>Aktuelle Version: <strong id="version-anzeige">1.2.0</strong></p>
+        <p>Aktuelle Version: <strong id="version-anzeige"></strong></p>
         <button
           class="action-btn"
           onclick="pruefeAufUpdate()"
@@ -5183,6 +5183,7 @@
       // ============================================================
       // START
       // ============================================================
+       document.getElementById("version-anzeige").textContent = APP_VERSION;
       function pruefeAufUpdate() {
         fetch(GITHUB_VERSION_URL + "?t=" + Date.now())
           .then(function (r) {
