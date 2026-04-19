@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.4.9";
+      var APP_VERSION = "1.5.0";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -2940,8 +2940,16 @@
               return idMap[id] || id;
             });
           });
+          // listen NICHT überschreiben – werden separat via ladeListenVonSupabase geladen
+          var aktListen = state.listen;
           saveToStorage();
-          renderSongList();
+          state.listen = aktListen;
+          // renderSongList nur wenn wir nicht gerade in der Detailansicht sind
+          var detailOffen = document.getElementById("song-detail-view") &&
+                            document.getElementById("song-detail-view").classList.contains("open");
+          if (!detailOffen) {
+            renderSongList();
+          }
           showToast(neueSongs.length + " Lieder geladen");
         });
       }
@@ -3834,10 +3842,16 @@
         var pos = state._songListScrollTop || 0;
         document.getElementById("song-list-view").style.display = "block";
         document.getElementById("song-detail-view").classList.remove("open");
-        // Mehrfach versuchen damit async renderSongList-Aufrufe uns nicht überholen
-        setTimeout(function() { setScrollPos(pos); }, 0);
-        setTimeout(function() { setScrollPos(pos); }, 80);
-        setTimeout(function() { setScrollPos(pos); }, 250);
+        // Scroll wiederholt setzen - schützt gegen späte async renderSongList-Aufrufe
+        var scrollVersuche = 0;
+        function scrollZurueck() {
+          setScrollPos(pos);
+          scrollVersuche++;
+          if (scrollVersuche < 8) {
+            setTimeout(scrollZurueck, 80);
+          }
+        }
+        scrollZurueck();
       }
 
       function renderNoten(scale) {
