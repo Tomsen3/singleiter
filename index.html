@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.4.8";
+      var APP_VERSION = "1.4.9";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -2663,6 +2663,27 @@
         }
       }
 
+      function getScrollEl() {
+        // Findet das tatsaechlich scrollende Element
+        var els = [document.documentElement, document.body, document.getElementById('view-repertoire')];
+        for (var i = 0; i < els.length; i++) {
+          if (els[i] && els[i].scrollTop > 0) return els[i];
+        }
+        return document.documentElement;
+      }
+
+      function getScrollPos() {
+        return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      }
+
+      function setScrollPos(pos) {
+        window.scrollTo(0, pos);
+        document.documentElement.scrollTop = pos;
+        document.body.scrollTop = pos;
+        var vr = document.getElementById('view-repertoire');
+        if (vr) vr.scrollTop = pos;
+      }
+
       function appSongToDb(song) {
         var parts = (song.tonart || "").split("-");
         return {
@@ -3503,7 +3524,7 @@
         transpState.capoSession = 0;
         transpState.transpSession = 0;
         if (!_skipScrollSave) {
-          state._songListScrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY || 0;
+          state._songListScrollTop = getScrollPos();
         }
         document.getElementById("song-list-view").style.display = "none";
         var detail = document.getElementById("song-detail-view");
@@ -3810,10 +3831,13 @@
       }
 
       function closeDetail() {
-        state._restoreScroll = state._songListScrollTop || 0;
+        var pos = state._songListScrollTop || 0;
         document.getElementById("song-list-view").style.display = "block";
         document.getElementById("song-detail-view").classList.remove("open");
-        renderSongList();
+        // Mehrfach versuchen damit async renderSongList-Aufrufe uns nicht überholen
+        setTimeout(function() { setScrollPos(pos); }, 0);
+        setTimeout(function() { setScrollPos(pos); }, 80);
+        setTimeout(function() { setScrollPos(pos); }, 250);
       }
 
       function renderNoten(scale) {
@@ -5057,14 +5081,14 @@
       function cancelEdit() {
         var savedScroll = state._songListScrollTop || 0;
         if (editSongId) {
-          // zurueck zur Detailansicht – Scroll-Position NICHT ueberschreiben
           showView("repertoire");
-          openSong(editSongId, true); // true = skipScrollSave
+          openSong(editSongId, true);
           state._songListScrollTop = savedScroll;
         } else {
-          state._restoreScroll = savedScroll;
           showView("repertoire");
-          renderSongList();
+          setTimeout(function() { setScrollPos(savedScroll); }, 0);
+          setTimeout(function() { setScrollPos(savedScroll); }, 80);
+          setTimeout(function() { setScrollPos(savedScroll); }, 250);
         }
         editSongId = null;
       }
