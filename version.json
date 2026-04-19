@@ -1,11 +1,4 @@
 {
-  "version": "1.4.3",
-  "changelog": [
-    "Scroll-Position wird beim Zurücknavigieren wiederhergestellt",
-    "Noten-Funktion: ABC-Notation pro Lied eintragbar",
-    "Notenansicht in Detailansicht (unter Griffakkorde, ein-/ausblendbar)",
-    "Notenansicht im Spickzettel (ein-/ausblendbar, nur wenn vorhanden)",
-    "Größenschieberegler für Noten (50–150%)",
-    "Geräte-Sync: alle Felder werden korrekt synchronisiert"
-  ]
+  "version": "1.4.4",
+  "changelog": "Einstellungen (Sprachen, Länder, Kategorien) werden jetzt über Supabase synchronisiert"
 }
