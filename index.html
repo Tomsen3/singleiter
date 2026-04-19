@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.4.4";
+      var APP_VERSION = "1.4.5";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -3807,7 +3807,7 @@
           window.scrollTo(0, savedScroll);
           document.documentElement.scrollTop = savedScroll;
           document.body.scrollTop = savedScroll;
-        }, 30);
+        }, 50);
       }
 
       function renderNoten(scale) {
@@ -4963,6 +4963,10 @@
           return s.id === id;
         });
         if (!song) return;
+        // Scroll-Position merken (falls noch nicht gesetzt)
+        if (!state._songListScrollTop) {
+          state._songListScrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.scrollY || 0;
+        }
         editSongId = id;
         document.getElementById("add-view-title").textContent =
           "Lied bearbeiten";
@@ -4991,12 +4995,18 @@
       }
 
       function cancelEdit() {
+        var savedScroll = state._songListScrollTop || 0;
         if (editSongId) {
           // zurueck zum Lied
           showView("repertoire");
           openSong(editSongId);
         } else {
           showView("repertoire");
+          setTimeout(function() {
+            window.scrollTo(0, savedScroll);
+            document.documentElement.scrollTop = savedScroll;
+            document.body.scrollTop = savedScroll;
+          }, 50);
         }
         editSongId = null;
       }

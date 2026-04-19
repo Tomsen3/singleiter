@@ -1,4 +1,4 @@
 {
-  "version": "1.4.4",
+  "version": "1.4.5",
   "changelog": "Einstellungen (Sprachen, Länder, Kategorien) werden jetzt über Supabase synchronisiert"
 }
