@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.4.5";
+      var APP_VERSION = "1.4.6";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -3175,6 +3175,16 @@
             );
           })
           .join("");
+        // Scroll-Position wiederherstellen nach Rueckkehr aus Detail/Edit
+        if (state._restoreScroll) {
+          var pos = state._restoreScroll;
+          state._restoreScroll = 0;
+          setTimeout(function() {
+            window.scrollTo(0, pos);
+            document.documentElement.scrollTop = pos;
+            document.body.scrollTop = pos;
+          }, 0);
+        }
       }
 
       function escHtml(str) {
@@ -3800,14 +3810,10 @@
       }
 
       function closeDetail() {
+        state._restoreScroll = state._songListScrollTop || 0;
         document.getElementById("song-list-view").style.display = "block";
         document.getElementById("song-detail-view").classList.remove("open");
-        var savedScroll = state._songListScrollTop || 0;
-        setTimeout(function() {
-          window.scrollTo(0, savedScroll);
-          document.documentElement.scrollTop = savedScroll;
-          document.body.scrollTop = savedScroll;
-        }, 50);
+        renderSongList();
       }
 
       function renderNoten(scale) {
@@ -3911,6 +3917,16 @@
             );
           })
           .join("");
+        // Scroll-Position wiederherstellen nach Rueckkehr aus Detail/Edit
+        if (state._restoreScroll) {
+          var pos = state._restoreScroll;
+          state._restoreScroll = 0;
+          setTimeout(function() {
+            window.scrollTo(0, pos);
+            document.documentElement.scrollTop = pos;
+            document.body.scrollTop = pos;
+          }, 0);
+        }
       }
 
       function openSongFromFavorit(id) {
@@ -4009,6 +4025,16 @@
             );
           })
           .join("");
+        // Scroll-Position wiederherstellen nach Rueckkehr aus Detail/Edit
+        if (state._restoreScroll) {
+          var pos = state._restoreScroll;
+          state._restoreScroll = 0;
+          setTimeout(function() {
+            window.scrollTo(0, pos);
+            document.documentElement.scrollTop = pos;
+            document.body.scrollTop = pos;
+          }, 0);
+        }
       }
 
       function moveSpickItem(idx, dir) {
@@ -4135,6 +4161,16 @@
             );
           })
           .join("");
+        // Scroll-Position wiederherstellen nach Rueckkehr aus Detail/Edit
+        if (state._restoreScroll) {
+          var pos = state._restoreScroll;
+          state._restoreScroll = 0;
+          setTimeout(function() {
+            window.scrollTo(0, pos);
+            document.documentElement.scrollTop = pos;
+            document.body.scrollTop = pos;
+          }, 0);
+        }
       }
 
       function openSetlistEditor(id) {
@@ -4201,6 +4237,16 @@
             );
           })
           .join("");
+        // Scroll-Position wiederherstellen nach Rueckkehr aus Detail/Edit
+        if (state._restoreScroll) {
+          var pos = state._restoreScroll;
+          state._restoreScroll = 0;
+          setTimeout(function() {
+            window.scrollTo(0, pos);
+            document.documentElement.scrollTop = pos;
+            document.body.scrollTop = pos;
+          }, 0);
+        }
       }
 
       function moveSetlistEditorItem(idx, dir) {
@@ -4360,6 +4406,16 @@
             );
           })
           .join("");
+        // Scroll-Position wiederherstellen nach Rueckkehr aus Detail/Edit
+        if (state._restoreScroll) {
+          var pos = state._restoreScroll;
+          state._restoreScroll = 0;
+          setTimeout(function() {
+            window.scrollTo(0, pos);
+            document.documentElement.scrollTop = pos;
+            document.body.scrollTop = pos;
+          }, 0);
+        }
       }
 
       function liedSuchAuswaehlen(id) {
@@ -4772,6 +4828,16 @@
             );
           })
           .join("");
+        // Scroll-Position wiederherstellen nach Rueckkehr aus Detail/Edit
+        if (state._restoreScroll) {
+          var pos = state._restoreScroll;
+          state._restoreScroll = 0;
+          setTimeout(function() {
+            window.scrollTo(0, pos);
+            document.documentElement.scrollTop = pos;
+            document.body.scrollTop = pos;
+          }, 0);
+        }
       }
 
       function toggleHandbuch(i, btn) {
@@ -4995,18 +5061,14 @@
       }
 
       function cancelEdit() {
-        var savedScroll = state._songListScrollTop || 0;
         if (editSongId) {
           // zurueck zum Lied
           showView("repertoire");
           openSong(editSongId);
         } else {
+          state._restoreScroll = state._songListScrollTop || 0;
           showView("repertoire");
-          setTimeout(function() {
-            window.scrollTo(0, savedScroll);
-            document.documentElement.scrollTop = savedScroll;
-            document.body.scrollTop = savedScroll;
-          }, 50);
+          renderSongList();
         }
         editSongId = null;
       }
