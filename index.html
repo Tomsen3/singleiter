@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.5.0";
+      var APP_VERSION = "1.5.1";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -5173,12 +5173,15 @@
               saveToStorage();
             }
           });
-          showToast("Lied gespeichert \u2705");
+         showToast("Lied gespeichert \u2705");
           var savedId = editSongId;
+          var savedScroll = state._songListScrollTop || 0;
           editSongId = null;
+          state._restoreScroll = savedScroll;
           showView("repertoire");
           renderSongList();
-          openSong(savedId);
+          openSong(savedId, true);
+          state._songListScrollTop = savedScroll;
         } else {
           var newSong = Object.assign(
             { id: Date.now(), stimmung: "verbindend" },
