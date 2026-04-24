@@ -1330,8 +1330,9 @@
           text-align: center;
         }
         .song-card {
-          align-items: flex-start;
-          padding: 14px;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 12px;
         }
         .song-title {
           white-space: normal;
@@ -1340,12 +1341,13 @@
           line-height: 1.2;
         }
         .song-card-actions {
-          flex-direction: column;
-          gap: 6px;
+          flex-direction: row;
+          gap: 4px;
         }
         .card-btn {
-          min-width: 42px;
-          min-height: 42px;
+          min-width: 38px;
+          min-height: 38px;
+          padding: 5px;
         }
       }
 
