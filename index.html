@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.5.10";
+      var APP_VERSION = "1.5.19";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -43,7 +43,7 @@
           class="icon-btn"
           onclick="showView('einstellungen')"
           title="Einstellungen"
-          aria-label="Einstellungen öffnen"
+          aria-label="Einstellungen Ã¶ffnen"
         >
           &#9881;&#65039;
         </button>
@@ -51,7 +51,7 @@
           class="icon-btn"
           onclick="showAddView()"
           title="Lied hinzuf&uuml;gen"
-          aria-label="Lied hinzufügen"
+          aria-label="Lied hinzufÃ¼gen"
         >
           &#10133;
         </button>
@@ -114,60 +114,64 @@
             &#9881; Filter
           </button>
         </div>
-        <div
-          id="filter-panel"
-          style="
-            display: none;
-            background: var(--surface2);
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius);
-            padding: 12px;
-            margin-bottom: 12px;
-          "
-        >
+        <div class="quick-filter-row" aria-label="Schnellfilter">
+          <label class="quick-filter">
+            <input type="checkbox" id="filter-favoriten" onchange="filterSongs()" />
+            <span>Favoriten</span>
+          </label>
+          <label class="quick-filter">
+            <input type="checkbox" id="filter-mit-noten" onchange="filterSongs()" />
+            <span>mit Noten</span>
+          </label>
+          <label class="quick-filter">
+            <input type="checkbox" id="filter-ohne-sprache" onchange="filterSongs()" />
+            <span>ohne Sprache</span>
+          </label>
+          <label class="quick-filter">
+            <input type="checkbox" id="filter-ohne-kategorie" onchange="filterSongs()" />
+            <span>ohne Kategorie</span>
+          </label>
+        </div>
+        <div id="filter-panel" class="filter-panel">
           <div class="filter-grid">
             <div>
-              <label class="form-label" for="filter-sprache" style="margin-bottom: 4px">Sprache</label>
+              <label class="form-label filter-label" for="filter-sprache">Sprache</label>
               <select
                 class="filter-select"
                 id="filter-sprache"
                 onchange="filterSongs()"
-                style="width: 100%"
               >
                 <option value="">Alle</option>
               </select>
             </div>
             <div>
-              <label class="form-label" for="filter-land" style="margin-bottom: 4px">
+              <label class="form-label filter-label" for="filter-land">
                 Land/Herkunft
               </label>
               <select
                 class="filter-select"
                 id="filter-land"
                 onchange="filterSongs()"
-                style="width: 100%"
               >
                 <option value="">Alle</option>
               </select>
             </div>
             <div>
-              <label class="form-label" for="filter-kategorie" style="margin-bottom: 4px">Kategorie</label>
+              <label class="form-label filter-label" for="filter-kategorie">Kategorie</label>
               <select
                 class="filter-select"
                 id="filter-kategorie"
                 onchange="filterSongs()"
-                style="width: 100%"
               >
                 <option value="">Alle</option>
               </select>
             </div>
             <div>
-              <label class="form-label" for="filter-stimmung" style="margin-bottom: 4px">Stimmung</label>
+              <label class="form-label filter-label" for="filter-stimmung">Stimmung</label>
               <select
                 class="filter-select"
                 id="filter-stimmung"
                 onchange="filterSongs()"
-                style="width: 100%"
               >
                 <option value="">Alle</option>
                 <option value="verbindend">verbindend</option>
@@ -179,10 +183,7 @@
             </div>
           </div>
           <div class="filter-footer">
-            <span
-              id="filter-count"
-              style="font-size: 0.8rem; color: var(--text3)"
-            ></span>
+            <span id="filter-count" class="filter-count"></span>
             <button class="transpose-reset" onclick="resetFilter()">
               Filter zur\u00fccksetzen
             </button>
@@ -196,104 +197,54 @@
     <!-- SETLIST VIEW -->
     <div id="view-setlist" class="view">
       <!-- Sub-Tabs -->
-      <div
-        style="
-          display: flex;
-          gap: 0;
-          margin-bottom: 16px;
-          border-bottom: 2px solid var(--border);
-        "
-      >
+      <div class="subtab-bar">
         <button
+          class="subtab-btn active"
           id="subtab-spick-btn"
           onclick="showSetlistSubtab('spick')"
-          style="
-            flex: 1;
-            padding: 10px;
-            background: none;
-            border: none;
-            font-family: var(--font-body);
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--accent);
-            border-bottom: 2px solid var(--accent);
-            margin-bottom: -2px;
-            cursor: pointer;
-          "
         >
           &#127908; Spickzettel
         </button>
         <button
+          class="subtab-btn"
           id="subtab-sets-btn"
           onclick="showSetlistSubtab('sets')"
-          style="
-            flex: 1;
-            padding: 10px;
-            background: none;
-            border: none;
-            font-family: var(--font-body);
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--text3);
-            border-bottom: 2px solid transparent;
-            margin-bottom: -2px;
-            cursor: pointer;
-          "
         >
           &#128203; Setlists
           <span
             id="setlist-count-badge"
-            style="
-              display: none;
-              background: var(--accent);
-              color: white;
-              border-radius: 10px;
-              padding: 1px 7px;
-              font-size: 0.72rem;
-              margin-left: 4px;
-            "
+            class="count-badge"
           ></span>
         </button>
       </div>
 
       <!-- Spickzettel-Subtab -->
       <div id="subtab-spick">
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 8px;
-          "
-        >
+        <div class="toolbar-row space-between tight">
           <div
-            class="section-subtitle"
+            class="section-subtitle no-margin"
             id="spick-list-subtitle"
-            style="margin: 0"
           >
             Spontane Programmliste
           </div>
           <button
-            class="action-btn"
+            class="action-btn compact-btn"
             onclick="clearSpickListe()"
-            style="font-size: 0.8rem; padding: 5px 10px"
           >
             &#128465; Leeren
           </button>
         </div>
         <div id="spick-list-container"></div>
         <button
-          class="action-btn"
+          class="action-btn full"
           onclick="spickListeAddMode()"
-          style="width: 100%; justify-content: center; margin-top: 8px"
         >
           &#10133; Lied hinzuf&uuml;gen
         </button>
-        <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap">
+        <div class="toolbar-row wrap spaced">
           <button
-            class="action-btn primary"
+            class="action-btn primary flex"
             onclick="startSpickzettelFromListe()"
-            style="flex: 1; justify-content: center"
           >
             &#127908; Spickzettel starten
           </button>
@@ -304,19 +255,17 @@
       </div>
 
       <!-- Setlists-Subtab -->
-      <div id="subtab-sets" style="display: none">
-        <div style="display: flex; gap: 8px; margin-bottom: 12px">
+      <div id="subtab-sets" class="hidden-panel">
+        <div class="toolbar-row form-row">
           <input
-            class="form-input"
+            class="form-input flex-fill"
             id="neue-setlist-name"
             type="text"
             placeholder="Name der neuen Setlist..."
-            style="flex: 1"
           />
           <button
             class="action-btn primary"
             onclick="neueSetlist()"
-            style="flex-shrink: 0"
           >
             + Neu
           </button>
@@ -328,65 +277,53 @@
     <!-- SETLIST EDITOR OVERLAY -->
     <div
       id="setlist-editor"
-      style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--bg);
-        z-index: 200;
-        overflow-y: auto;
-        padding: 16px;
-      "
+      role="dialog"
+      aria-modal="true"
+      aria-label="Setlist bearbeiten"
+      aria-hidden="true"
+      class="overlay-panel setlist-editor-panel"
     >
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
-        "
-      >
-        <button class="back-btn" onclick="closeSetlistEditor()" aria-label="Setlist-Editor schließen">&#8592;</button>
+      <div class="toolbar-row form-row">
+        <button class="back-btn" onclick="closeSetlistEditor()" aria-label="Setlist-Editor schlieÃŸen">&#8592;</button>
         <label class="sr-only" for="setlist-editor-name">Setlist-Name</label>
         <input
-          class="form-input"
+          class="form-input editor-title-input"
           id="setlist-editor-name"
           type="text"
           placeholder="Setlist-Name"
-          style="flex: 1; font-weight: 600"
         />
       </div>
       <div id="setlist-editor-container"></div>
+      <div class="setlist-editor-summary" id="setlist-editor-summary"></div>
       <button
-        class="action-btn"
+        class="action-btn full"
         onclick="setlistEditorAddMode()"
-        style="width: 100%; justify-content: center; margin-top: 8px"
       >
         &#10133; Lied hinzuf&uuml;gen
       </button>
-      <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap">
+      <div class="toolbar-row wrap spaced">
         <button
-          class="action-btn primary"
+          class="action-btn primary flex"
           onclick="saveSetlistEditor()"
-          style="flex: 1; justify-content: center"
         >
           &#9989; Speichern
         </button>
         <button
-          class="action-btn"
+          class="action-btn flex"
           onclick="setlistInSpickzettelLaden()"
-          style="flex: 1; justify-content: center"
         >
           &#127908; In Spickzettel laden
         </button>
         <button
-          class="action-btn"
+          class="action-btn flex"
+          onclick="startSetlistDirekt(editSetlistId)"
+        >
+          &#9654; Direkt starten
+        </button>
+        <button
+          class="action-btn danger icon"
           onclick="deleteSetlist()"
-          style="border-color: #dc2626; color: #dc2626"
-          aria-label="Setlist löschen"
+          aria-label="Setlist lÃ¶schen"
         >
           &#128465;
         </button>
@@ -396,38 +333,23 @@
     <!-- LIED-SUCH-OVERLAY (fuer Spickzettel + Setlist-Editor) -->
     <div
       id="lied-such-overlay"
-      style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: var(--bg);
-        z-index: 300;
-        overflow-y: auto;
-        padding: 16px;
-      "
+      role="dialog"
+      aria-modal="true"
+      aria-label="Lied suchen"
+      aria-hidden="true"
+      class="overlay-panel search-overlay-panel"
     >
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 12px;
-        "
-      >
-        <button class="back-btn" onclick="closeLiedSuchOverlay()" aria-label="Liedsuche schließen">
+      <div class="toolbar-row form-row">
+        <button class="back-btn" onclick="closeLiedSuchOverlay()" aria-label="Liedsuche schlieÃŸen">
           &#8592;
         </button>
         <label class="sr-only" for="lied-such-input">Lied suchen</label>
         <input
-          class="search-input"
+          class="search-input search-overlay-input"
           id="lied-such-input"
           type="text"
           placeholder="&#128269; Lied suchen..."
           oninput="renderLiedSuchOverlay()"
-          style="margin: 0; flex: 1"
         />
       </div>
       <div id="lied-such-liste"></div>
@@ -586,7 +508,7 @@
     </div>
 
     <!-- HANDBUCH BEARBEITUNGS-MODAL -->
-    <div class="handbuch-modal-overlay" id="handbuch-modal">
+    <div class="handbuch-modal-overlay" id="handbuch-modal" role="dialog" aria-modal="true" aria-labelledby="handbuch-modal-titel" aria-hidden="true">
       <div class="handbuch-modal">
         <h3 id="handbuch-modal-titel">Situation bearbeiten</h3>
         <label for="hb-titel">Titel</label>
@@ -631,16 +553,30 @@
       <div class="section-title">Einstellungen</div>
 
       <!-- Listenwerte verwalten -->
+      <div class="settings-group-title">Repertoirepflege</div>
+      <div class="settings-group">
       <div class="backup-card">
         <h3>&#127968; Sprachen, L&auml;nder, Kategorien</h3>
-        <p style="margin-bottom: 10px">
+        <p>
           Werte hinzuf&uuml;gen oder l&ouml;schen. Diese Auswahlen erscheinen im
           Bearbeiten-Formular und im Filter.
         </p>
         <div id="listenverwaltung"></div>
       </div>
 
+      <div class="backup-card">
+        <h3>&#128269; Aufr&auml;umen</h3>
+        <p>
+          Pr&uuml;ft das Repertoire auf fehlende Angaben, doppelte Titel und
+          verwaiste Listenwerte.
+        </p>
+        <div id="datenqualitaet"></div>
+      </div>
+      </div>
+
       <!-- Backup -->
+      <div class="settings-group-title">Datensicherung</div>
+      <div class="settings-group">
       <div class="backup-card">
         <h3>&#128190; Backup &amp; Import</h3>
         <p>
@@ -651,7 +587,7 @@
           <button class="action-btn primary" onclick="exportData()">
             &#128228; Exportieren
           </button>
-          <label class="action-btn" style="cursor: pointer"
+          <label class="action-btn file-input-label"
             >&#128229; Backup ausw&auml;hlen<input
               type="file"
               accept=".json"
@@ -680,43 +616,55 @@
           senden<br />3. Auf Ger&auml;t B: Importieren
         </p>
       </div>
+      </div>
+      <div class="settings-group-title">App</div>
+      <div class="settings-group">
       <div class="backup-card">
         <h3>&#128260; App-Version</h3>
         <p>Aktuelle Version: <strong id="version-anzeige"></strong></p>
         <button
           class="action-btn"
           onclick="pruefeAufUpdate()"
-          style="margin-top: 8px"
         >
           &#128269; Auf Updates pr&uuml;fen
         </button>
+      </div>
       </div>
     </div>
 
     <!-- ADD SONG VIEW -->
     <div id="view-add" class="view">
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 16px;
-        "
-      >
+      <div class="toolbar-row form-row">
         <button
           class="back-btn"
           id="add-back-btn"
           onclick="cancelEdit()"
-          style="font-size: 1.1rem"
-          aria-label="Formular schließen"
+          
+          aria-label="Formular schlieÃŸen"
         >
           &#8592;
         </button>
-        <div class="section-title" id="add-view-title" style="margin-bottom: 0">
+        <div class="section-title no-margin" id="add-view-title">
           Lied hinzuf&uuml;gen
         </div>
       </div>
       <div class="add-form">
+        <div
+          class="form-draft-offer"
+          id="add-draft-offer"
+          hidden
+          aria-live="polite"
+        >
+          <span id="add-draft-offer-text"></span>
+          <div class="form-draft-actions">
+            <button class="action-btn compact" onclick="restoreSongDraft()">
+              Entwurf laden
+            </button>
+            <button class="transpose-reset" onclick="discardSongDraft()">
+              Verwerfen
+            </button>
+          </div>
+        </div>
         <section class="form-section">
           <h3 class="form-section-title">Grunddaten</h3>
           <div class="form-group">
@@ -727,7 +675,10 @@
               type="text"
               placeholder="Liedtitel"
               autocomplete="off"
+              required
+              aria-describedby="add-titel-error"
             />
+            <div class="form-error" id="add-titel-error" aria-live="polite"></div>
           </div>
           <div class="form-group">
             <label class="form-label" for="add-komponist">Komponist:in / Interpret:in</label>
@@ -781,7 +732,7 @@
               placeholder="z.B. II oder 2"
             />
             <div class="form-hint">
-              Leer = kein Capo. Zahl oder röm. Ziffer.
+              Leer = kein Capo. Zahl oder rÃ¶m. Ziffer.
             </div>
           </div>
           <div class="form-group">
@@ -812,7 +763,7 @@
           <textarea
             class="form-textarea form-textarea-small"
             id="add-notizen"
-            placeholder="Hinweise zur Aufführung..."
+            placeholder="Hinweise zur AuffÃ¼hrung..."
           ></textarea>
         </div>
         </section>
@@ -826,7 +777,7 @@
             id="add-noten-abc"
             placeholder="X:1&#10;T:Titel&#10;M:4/4&#10;L:1/4&#10;K:C&#10;C D E F | G A B c |"
           ></textarea>
-          <div style="font-size: 11px; color: var(--text2); margin-top: 4px;">ABC-Notation – Hilfe: <a href="https://editor.drawthedots.com" target="_blank" style="color: var(--accent);">editor.drawthedots.com</a></div>
+          <div style="font-size: 11px; color: var(--text2); margin-top: 4px;">ABC-Notation â€“ Hilfe: <a href="https://editor.drawthedots.com" target="_blank" style="color: var(--accent);">editor.drawthedots.com</a></div>
         </div>
         </section>
 
@@ -899,6 +850,7 @@
         </section>
 
         <div class="form-actions">
+          <div class="form-save-status" id="add-save-status" aria-live="polite"></div>
           <button
             class="action-btn primary"
             onclick="saveSong()"
@@ -920,24 +872,24 @@
     <div class="toast" id="toast"></div>
     <script src="app.js"></script>
     <!-- SPICKZETTEL OVERLAY -->
-    <div class="spickzettel" id="spickzettel">
+    <div class="spickzettel" id="spickzettel" role="dialog" aria-modal="true" aria-labelledby="spick-title" aria-hidden="true">
       <div class="spick-header">
         <div class="spick-nav">
           <button id="spick-prev-btn" onclick="spickPrev()" aria-label="Vorheriges Lied">
             &#9664;
           </button>
           <span id="spick-counter">1 / 1</span>
-          <button id="spick-next-btn" onclick="spickNext()" aria-label="Nächstes Lied">
+          <button id="spick-next-btn" onclick="spickNext()" aria-label="NÃ¤chstes Lied">
             &#9654;
           </button>
         </div>
         <div class="spick-actions">
-          <div class="spick-font-controls" aria-label="Schriftgröße">
+          <div class="spick-font-controls" aria-label="SchriftgrÃ¶ÃŸe">
             <button onclick="changeSpickFontScale(-0.1)" aria-label="Schrift kleiner">
               A-
             </button>
             <span id="spick-font-label">100%</span>
-            <button onclick="changeSpickFontScale(0.1)" aria-label="Schrift größer">
+            <button onclick="changeSpickFontScale(0.1)" aria-label="Schrift grÃ¶ÃŸer">
               A+
             </button>
           </div>
@@ -945,7 +897,7 @@
             class="spick-close"
             onclick="spickzettelAddMode()"
             style="background: rgba(255, 255, 255, 0.15)"
-            aria-label="Lied hinzufügen"
+            aria-label="Lied hinzufÃ¼gen"
           >
             &#10133;
           </button>
@@ -974,34 +926,39 @@
       </div>
       <div id="spick-noten-box" style="display:none; margin:8px 0 12px;">
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-          <label for="spick-noten-slider" style="font-size:11px; color:rgba(255,255,255,0.5); white-space:nowrap;">Größe:</label>
+          <label for="spick-noten-slider" style="font-size:11px; color:rgba(255,255,255,0.78); white-space:nowrap;">GrÃ¶ÃŸe:</label>
           <input type="range" id="spick-noten-slider" min="50" max="150" value="100" step="5" style="flex:1;" oninput="spickNotenScaleAendern(this.value)" aria-describedby="spick-noten-label">
-          <span id="spick-noten-label" style="font-size:11px; color:rgba(255,255,255,0.5); min-width:32px; text-align:right;">100%</span>
+          <span id="spick-noten-label" style="font-size:11px; color:rgba(255,255,255,0.78); min-width:32px; text-align:right;">100%</span>
         </div>
         <div id="spick-noten-render" style="background:white; border-radius:8px; padding:8px;"></div>
       </div>
-        <button class="spick-notfall" onclick="toggleNotfall()" aria-label="Notfall-Hinweise öffnen">
+        <button class="spick-notfall" onclick="toggleNotfall()" aria-label="Notfall-Hinweise Ã¶ffnen">
         &#9888;&#65039; Notfall
       </button>
-      <div class="notfall-modal" id="notfall-modal">
-        <h3>&#9888;&#65039; Gruppe kippt &ndash; was jetzt?</h3>
-        <div class="notfall-tip" onclick="closeNotfall()">
+      <div class="notfall-modal" id="notfall-modal" role="dialog" aria-modal="true" aria-labelledby="notfall-modal-title" aria-hidden="true">
+        <h3 id="notfall-modal-title">&#9888;&#65039; Gruppe kippt &ndash; was jetzt?</h3>
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
           &#127925; Bekanntes Lied einwerfen &ndash; Sicherheit schaffen
         </div>
-        <div class="notfall-tip" onclick="closeNotfall()">
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
           &#129330; Alle atmen gemeinsam &ndash; 3 tiefe Atemz&uuml;ge
         </div>
-        <div class="notfall-tip" onclick="closeNotfall()">
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
           &#128079; K&ouml;rper aktivieren &ndash; klatschen, schnippen,
           stampfen
         </div>
-        <div class="notfall-tip" onclick="closeNotfall()">
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
           &#128172; Kurze Pause ansagen &ndash; "Was braucht ihr gerade?"
         </div>
-        <div class="notfall-tip" onclick="closeNotfall()">
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
           &#128263; Stille zulassen &ndash; nicht sofort auff&uuml;llen
         </div>
       </div>
     </div>
   </body>
 </html>
+
+
+
+
+

@@ -1,4 +1,4 @@
-      var DEFAULT_SONGS = [
+﻿      var DEFAULT_SONGS = [
         {
           id: 1,
           titel: "Namaohm",
@@ -27,7 +27,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "So wie ein Baum\neinzeln und frei\nso wie ein Wald\nbrüderlich sei\nHoch in den Himmel\nfrei zur Sonne hin\ntief in der Erde",
+          text: "So wie ein Baum\neinzeln und frei\nso wie ein Wald\nbrÃ¼derlich sei\nHoch in den Himmel\nfrei zur Sonne hin\ntief in der Erde",
         },
         {
           id: 4,
@@ -47,7 +47,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Wo immer im Streit\nbleibe bereit,\nlerne verzeihen\nWärme allein\nläßt den Samen der Hoffnung",
+          text: "Wo immer im Streit\nbleibe bereit,\nlerne verzeihen\nWÃ¤rme allein\nlÃ¤ÃŸt den Samen der Hoffnung",
         },
         {
           id: 6,
@@ -57,7 +57,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Epo i tai tai é\noh epo i tai tai é\nepo i tai tai\nepo i tuki tki",
+          text: "Epo i tai tai Ã©\noh epo i tai tai Ã©\nepo i tai tai\nepo i tuki tki",
         },
         {
           id: 7,
@@ -77,7 +77,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Alle macht die Sonne warm\nlasst uns tanzen Reich und Arm\nkomm lass uns singen\nob Groß oder Klein",
+          text: "Alle macht die Sonne warm\nlasst uns tanzen Reich und Arm\nkomm lass uns singen\nob GroÃŸ oder Klein",
         },
         {
           id: 9,
@@ -107,7 +107,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Fest verwurzelt in der Erde\noffen für die Schätze des Himmels   2X\nWie ein Baum im Gleichgewicht",
+          text: "Fest verwurzelt in der Erde\noffen fÃ¼r die SchÃ¤tze des Himmels   2X\nWie ein Baum im Gleichgewicht",
         },
         {
           id: 12,
@@ -198,7 +198,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Stille komm hernieder bring mein Herz zur Ruh\nDeine Schwingen decken alle meine Wünsche zu\nNur der Ei-ne allein\nSoll der Wunsch",
+          text: "Stille komm hernieder bring mein Herz zur Ruh\nDeine Schwingen decken alle meine WÃ¼nsche zu\nNur der Ei-ne allein\nSoll der Wunsch",
         },
         {
           id: 21,
@@ -273,13 +273,13 @@
         },
         {
           id: 28,
-          titel: "Ja ich fühle Sinn",
+          titel: "Ja ich fÃ¼hle Sinn",
           capo: "II",
           akkorde: "G D/F# Em Em7 C Am D I Em Em7 C Am D",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Ja ich fühle Sinn,\ngeb das Klagen hin\nUnd was vorher schwer,\nwandelt sich ins Mehr\nLiebe soll allein,\nZiel und Weg mir sein\nWunden werden dann",
+          text: "Ja ich fÃ¼hle Sinn,\ngeb das Klagen hin\nUnd was vorher schwer,\nwandelt sich ins Mehr\nLiebe soll allein,\nZiel und Weg mir sein\nWunden werden dann",
         },
         {
           id: 29,
@@ -310,7 +310,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Like a wave in the ocean\nLike a stream to the sea\nI am in you you are in me\nWe´ve been together forever it seems\nNow we awaken from all our dreams\nMother mother ocean heart\nshine your love on all the world",
+          text: "Like a wave in the ocean\nLike a stream to the sea\nI am in you you are in me\nWeÂ´ve been together forever it seems\nNow we awaken from all our dreams\nMother mother ocean heart\nshine your love on all the world",
         },
         {
           id: 32,
@@ -340,17 +340,17 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "II:  the universe is singing a song\nthe universe is dancing along\nthe universe is singing\non a day like this  :II\nIt´s a high time to dance  3X",
+          text: "II:  the universe is singing a song\nthe universe is dancing along\nthe universe is singing\non a day like this  :II\nItÂ´s a high time to dance  3X",
         },
         {
           id: 35,
-          titel: "I´m gonna rise up singing",
+          titel: "IÂ´m gonna rise up singing",
           capo: "",
           akkorde: "E E B7 A7 E",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "every time I stumble and I fall\nI´m gonna rise up singing",
+          text: "every time I stumble and I fall\nIÂ´m gonna rise up singing",
         },
         {
           id: 36,
@@ -370,7 +370,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Nun Freunde lasst es, uns einmal sagen,\ngut wieder hier zu sein, gut uns zu seh`n.\nMit unsren Wünschen, mit unsren Fragen,\nfühl´n wir uns nicht allein,",
+          text: "Nun Freunde lasst es, uns einmal sagen,\ngut wieder hier zu sein, gut uns zu seh`n.\nMit unsren WÃ¼nschen, mit unsren Fragen,\nfÃ¼hlÂ´n wir uns nicht allein,",
         },
         {
           id: 38,
@@ -390,7 +390,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Tio tio rü dü\nTio tio rü dü\nTio tio rü dü",
+          text: "Tio tio rÃ¼ dÃ¼\nTio tio rÃ¼ dÃ¼\nTio tio rÃ¼ dÃ¼",
         },
         {
           id: 40,
@@ -410,7 +410,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Fließen Fließen,\nFrieden schließen\nund den Wandel stets begrüßen\nWill ins Neue mich ergießen",
+          text: "FlieÃŸen FlieÃŸen,\nFrieden schlieÃŸen\nund den Wandel stets begrÃ¼ÃŸen\nWill ins Neue mich ergieÃŸen",
         },
         {
           id: 42,
@@ -424,13 +424,13 @@
         },
         {
           id: 43,
-          titel: "I´m calling you",
+          titel: "IÂ´m calling you",
           capo: "II",
           akkorde: "4X C G:I Dm7 C/E G F C G",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I: I´m calling you :I\nI: come back to me :I",
+          text: "I: IÂ´m calling you :I\nI: come back to me :I",
         },
         {
           id: 44,
@@ -460,7 +460,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Lache in die Welt hinein\nund sie lacht zurück,\nlache in die Welt hinein\nund spür das Glück!\nLache in die Welt hinein\nund du wirst sehn:\nDinge, die unmöglich waren",
+          text: "Lache in die Welt hinein\nund sie lacht zurÃ¼ck,\nlache in die Welt hinein\nund spÃ¼r das GlÃ¼ck!\nLache in die Welt hinein\nund du wirst sehn:\nDinge, die unmÃ¶glich waren",
         },
         {
           id: 47,
@@ -484,13 +484,13 @@
         },
         {
           id: 49,
-          titel: "ein Stück Himmel",
+          titel: "ein StÃ¼ck Himmel",
           capo: "III",
           akkorde: "G C9 G C9 Em Bm C9 D I G C9 G C9 G C9 D",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I:Ein Stück Himmel überm Land\nmit der Sonne durchgebrannt\nein Stück Himmel für die Seele\nmeine Träume an der Hand :I\nI:Ja so will ich leben\nso will ich leben",
+          text: "I:Ein StÃ¼ck Himmel Ã¼berm Land\nmit der Sonne durchgebrannt\nein StÃ¼ck Himmel fÃ¼r die Seele\nmeine TrÃ¤ume an der Hand :I\nI:Ja so will ich leben\nso will ich leben",
         },
         {
           id: 50,
@@ -510,7 +510,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Meine Stimme wachse.\ntöne mit Herz und Mut.\nDeine Stimme wachse.\ntöne mit Herz und Mut.\nUnsre Stimme wachse.",
+          text: "Meine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nDeine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nUnsre Stimme wachse.",
         },
         {
           id: 52,
@@ -520,7 +520,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Meine Stimme wachse.\ntöne mit Herz und Mut.\nDeine Stimme wachse.\ntöne mit Herz und Mut.\nUnsre Stimme wachse.",
+          text: "Meine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nDeine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nUnsre Stimme wachse.",
         },
         {
           id: 53,
@@ -530,7 +530,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Kommense rein\nkönnen se rausgucken\nKommense rein\nkönnen se rausgucken\nKommense rein\nkönnen se rausgucken",
+          text: "Kommense rein\nkÃ¶nnen se rausgucken\nKommense rein\nkÃ¶nnen se rausgucken\nKommense rein\nkÃ¶nnen se rausgucken",
         },
         {
           id: 54,
@@ -540,17 +540,17 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "ein kleines Lied, ein klitzekleines Lied\nein kleines Lied jeden Tag  2X\nändert Dein Leben\nund es bleibt nichts wie es war\nändert Dein Leben",
+          text: "ein kleines Lied, ein klitzekleines Lied\nein kleines Lied jeden Tag  2X\nÃ¤ndert Dein Leben\nund es bleibt nichts wie es war\nÃ¤ndert Dein Leben",
         },
         {
           id: 55,
-          titel: "der Atem des Frühlings",
+          titel: "der Atem des FrÃ¼hlings",
           capo: "III",
           akkorde: "G9 Am7 C9 D9 G:I: Am7 G/D Am7 G/D :I",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Im Wind kommt und geht\nder Atem des Frühlings.\nWachsen der Seele Flügel dann\nFängt auch mein eigner Frühling an.\nIm Wind kommt und geht\nder Atem des Frühlings.\nWachsen der Seele Flügel dann\nFängt auch mein eigner Frühling an.",
+          text: "Im Wind kommt und geht\nder Atem des FrÃ¼hlings.\nWachsen der Seele FlÃ¼gel dann\nFÃ¤ngt auch mein eigner FrÃ¼hling an.\nIm Wind kommt und geht\nder Atem des FrÃ¼hlings.\nWachsen der Seele FlÃ¼gel dann\nFÃ¤ngt auch mein eigner FrÃ¼hling an.",
         },
         {
           id: 56,
@@ -560,7 +560,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Ich atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben fließt in mich hinein\nI:ein und aus, ein und aus, ein und aus:I\nIch atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben fließt in mich hinein",
+          text: "Ich atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben flieÃŸt in mich hinein\nI:ein und aus, ein und aus, ein und aus:I\nIch atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben flieÃŸt in mich hinein",
         },
         {
           id: 57,
@@ -570,7 +570,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Lass die Sonne\nLass die Sonne in Dein Herz\nDie Sonne in Dein Herz\nvertrau Dich ihr an\nweil sie Dich wärmen kann\nstell Dich in ihr Licht\ndenn sie vergißt Dich nicht\nDenn sie liebt uns alle gleich\nsie liebt uns alle gleich",
+          text: "Lass die Sonne\nLass die Sonne in Dein Herz\nDie Sonne in Dein Herz\nvertrau Dich ihr an\nweil sie Dich wÃ¤rmen kann\nstell Dich in ihr Licht\ndenn sie vergiÃŸt Dich nicht\nDenn sie liebt uns alle gleich\nsie liebt uns alle gleich",
         },
         {
           id: 58,
@@ -580,7 +580,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schön:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren\nAlles das findest Du in einem Body-Song\nI:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schön:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren",
+          text: "I:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schÃ¶n:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren\nAlles das findest Du in einem Body-Song\nI:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schÃ¶n:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren",
         },
         {
           id: 59,
@@ -600,7 +600,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Ich nehme mir die Zeit und bin einfach da\ngenieß die Langsamkeit und ich sage ja\nin diesem Augenblick\nbin ich Eins mit dem Leben\nmit jedem neuen Schritt\nkommt es mir entgegen",
+          text: "Ich nehme mir die Zeit und bin einfach da\ngenieÃŸ die Langsamkeit und ich sage ja\nin diesem Augenblick\nbin ich Eins mit dem Leben\nmit jedem neuen Schritt\nkommt es mir entgegen",
         },
         {
           id: 61,
@@ -620,7 +620,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Mach das Jetzt zum roten Faden\nder zu Dir nach Hause führt\nund Deine ungelösten Fragen\nzu einem Lied das Dich berührt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan\nfang nochmal von vorne an:I\nMach das Jetzt zum roten Faden\nder zu Dir nach Hause führt\nund Deine ungelösten Fragen\nzu einem Lied das Dich berührt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan",
+          text: "Mach das Jetzt zum roten Faden\nder zu Dir nach Hause fÃ¼hrt\nund Deine ungelÃ¶sten Fragen\nzu einem Lied das Dich berÃ¼hrt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan\nfang nochmal von vorne an:I\nMach das Jetzt zum roten Faden\nder zu Dir nach Hause fÃ¼hrt\nund Deine ungelÃ¶sten Fragen\nzu einem Lied das Dich berÃ¼hrt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan",
         },
         {
           id: 63,
@@ -630,17 +630,17 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Du machst nichts falsch in Deinem Leben\nso wie es ist, so ist es eben\nnimm Dein Herz in beide Hände\nDu wirst sehen es spricht Bände\nDinge kommen, Dinge gehen\nwer soll das nochmal versteh´n\nhab die Kontrolle längst verloren,\ndoch Vertrauen wird geboren\nI:Der Rhythmus gibt mir Halt, die Stimmen wärmen mich,",
+          text: "Du machst nichts falsch in Deinem Leben\nso wie es ist, so ist es eben\nnimm Dein Herz in beide HÃ¤nde\nDu wirst sehen es spricht BÃ¤nde\nDinge kommen, Dinge gehen\nwer soll das nochmal verstehÂ´n\nhab die Kontrolle lÃ¤ngst verloren,\ndoch Vertrauen wird geboren\nI:Der Rhythmus gibt mir Halt, die Stimmen wÃ¤rmen mich,",
         },
         {
           id: 64,
-          titel: "Ich bin schön wenn ich singe",
+          titel: "Ich bin schÃ¶n wenn ich singe",
           capo: "",
           akkorde: "Em Am D7 G B7 I Am Bm C B7",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I:Ich bin schön wenn ich singe\nja dann lacht mein Gesicht\nund mein  Herz fängt an zu glüh´n :I\nIch fühle mich frei\ndie Gedanken kreisen nicht",
+          text: "I:Ich bin schÃ¶n wenn ich singe\nja dann lacht mein Gesicht\nund mein  Herz fÃ¤ngt an zu glÃ¼hÂ´n :I\nIch fÃ¼hle mich frei\ndie Gedanken kreisen nicht",
         },
         {
           id: 65,
@@ -660,7 +660,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "In meinem Herzen wohnen\nviele Träume viele Lieder\nunermüdlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele Träume viele Lieder\nmanchmal ist es fröhlich,\nmanchmal traurig, manchmal still\nlei lei lei lei la\nIn meinem Herzen wohnen\nviele Träume viele Lieder\nunermüdlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele Träume viele Lieder\nmanchmal ist es fröhlich,\nmanchmal traurig, manchmal still",
+          text: "In meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nunermÃ¼dlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nmanchmal ist es frÃ¶hlich,\nmanchmal traurig, manchmal still\nlei lei lei lei la\nIn meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nunermÃ¼dlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nmanchmal ist es frÃ¶hlich,\nmanchmal traurig, manchmal still",
         },
         {
           id: 67,
@@ -670,7 +670,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Salaleo Salale´hidra\nSalaleo Salale´hidra\nSalale´Mama deo Salale´hidra\nSalale´Mama deo Salale´hidra\nSalaleo Salale´hidra\nSalaleo Salale´hidra\nSalale´Mama deo Salale´hidra",
+          text: "Salaleo SalaleÂ´hidra\nSalaleo SalaleÂ´hidra\nSalaleÂ´Mama deo SalaleÂ´hidra\nSalaleÂ´Mama deo SalaleÂ´hidra\nSalaleo SalaleÂ´hidra\nSalaleo SalaleÂ´hidra\nSalaleÂ´Mama deo SalaleÂ´hidra",
         },
         {
           id: 68,
@@ -680,7 +680,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Es darf sein, das was ist\nund was ist das darf sein\nund selbst wenn´s nicht sein darf\ndarf auch das sein\nEs darf sein, das was ist\nund was ist das darf sein\nund selbst wenn´s nicht sein darf\ndarf auch das sein",
+          text: "Es darf sein, das was ist\nund was ist das darf sein\nund selbst wennÂ´s nicht sein darf\ndarf auch das sein\nEs darf sein, das was ist\nund was ist das darf sein\nund selbst wennÂ´s nicht sein darf\ndarf auch das sein",
         },
         {
           id: 69,
@@ -690,7 +690,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Sonne liebe Sonne\nDu strahlst mich fröhlich an\nund ich strahl zu Dir zurück\nweil ich nicht anders kann\npure Lebensfreude, die uns gefällt\nwir strahlen um die Wette\nerhellen diese Welt\nSonne liebe Sonne\nDu strahlst mich fröhlich an\nund ich strahl zu Dir zurück\nweil ich nicht anders kann n\npure Lebensfreude, die uns gefällt\nwir strahlen um die Wette",
+          text: "Sonne liebe Sonne\nDu strahlst mich frÃ¶hlich an\nund ich strahl zu Dir zurÃ¼ck\nweil ich nicht anders kann\npure Lebensfreude, die uns gefÃ¤llt\nwir strahlen um die Wette\nerhellen diese Welt\nSonne liebe Sonne\nDu strahlst mich frÃ¶hlich an\nund ich strahl zu Dir zurÃ¼ck\nweil ich nicht anders kann n\npure Lebensfreude, die uns gefÃ¤llt\nwir strahlen um die Wette",
         },
       ];
       // ============================================================
@@ -861,6 +861,112 @@
         }
       }
 
+      function canSyncSongsNow() {
+        return !!sb && navigator.onLine !== false;
+      }
+
+      function normalizeSongSyncState(song) {
+        if (!song) return song;
+        if (!song.sync_status) {
+          song.sync_status = song.supabase_id ? "synced" : "pending";
+        }
+        if (!song.sync_updated_at) song.sync_updated_at = new Date().toISOString();
+        if (!song.sync_error) song.sync_error = "";
+        return song;
+      }
+
+      function songHasPendingSync(song) {
+        var status = (song && song.sync_status) || "";
+        return status === "local" || status === "pending" || status === "syncing" || status === "error";
+      }
+
+      function markSongSyncStatus(song, status, message) {
+        if (!song) return;
+        song.sync_status = status;
+        song.sync_error = message || "";
+        song.sync_updated_at = new Date().toISOString();
+      }
+
+      function getSongSyncLabel(song) {
+        normalizeSongSyncState(song);
+        if (song.sync_status === "synced") return "Synchronisiert";
+        if (song.sync_status === "syncing") return "Sync laeuft";
+        if (song.sync_status === "error") return "Fehler beim Sync";
+        if (song.sync_status === "local") return "Gespeichert lokal";
+        return "Sync ausstehend";
+      }
+
+      function getSongSyncClass(song) {
+        normalizeSongSyncState(song);
+        if (song.sync_status === "synced") return "ok";
+        if (song.sync_status === "syncing") return "busy";
+        if (song.sync_status === "error") return "error";
+        return "warn";
+      }
+
+      function renderSongSyncBadge(song) {
+        var label = getSongSyncLabel(song);
+        var title = song.sync_error ? label + ": " + song.sync_error : label;
+        return (
+          '<span class="sync-badge ' +
+          getSongSyncClass(song) +
+          '" title="' +
+          escHtml(title) +
+          '">' +
+          escHtml(label) +
+          "</span>"
+        );
+      }
+
+      function syncPendingSongs() {
+        if (!canSyncSongsNow()) return Promise.resolve();
+        var pending = state.songs.filter(function (song) {
+          normalizeSongSyncState(song);
+          return song.sync_status === "pending" || song.sync_status === "local" || song.sync_status === "error";
+        });
+        if (!pending.length) return Promise.resolve();
+        return pending.reduce(function (chain, song) {
+          return chain.then(function () {
+            markSongSyncStatus(song, "syncing", "");
+            saveToStorage();
+            renderSongListIfVisible();
+            return speichereInSupabase(song).then(function (row) {
+              if (row) {
+                song.supabase_id = row.id;
+                markSongSyncStatus(song, "synced", "");
+              } else {
+                markSongSyncStatus(song, "error", "Supabase konnte das Lied nicht speichern.");
+              }
+              saveToStorage();
+              renderSongListIfVisible();
+              if (state.currentSong && state.currentSong.id === song.id) renderDetail();
+            });
+          });
+        }, Promise.resolve());
+      }
+
+      function renderSongListIfVisible() {
+        var listView = document.getElementById("song-list-view");
+        if (!listView || listView.style.display === "none") return;
+        var search = document.getElementById("search-input");
+        var hasSearch = search && search.value;
+        var hasFilter = [
+          "filter-sprache",
+          "filter-land",
+          "filter-kategorie",
+          "filter-stimmung",
+          "filter-favoriten",
+          "filter-mit-noten",
+          "filter-ohne-sprache",
+          "filter-ohne-kategorie",
+        ].some(function (id) {
+          var el = document.getElementById(id);
+          return el && (el.checked || el.value);
+        });
+        if (hasSearch || hasFilter) filterSongs();
+        else renderSongList();
+      }
+
       async function loescheInSupabase(supabaseId) {
         if (!sb || !supabaseId) return;
         try {
@@ -948,6 +1054,11 @@
       var editSetlistId = null;
       var liedSuchModus = "";
       var pendingImportData = null;
+      var SONG_DRAFT_KEY = "singleiter_song_form_draft_v1";
+      var songDraftTimer = null;
+      var pendingSongDraft = null;
+      var setlistDragContext = null;
+      var dialogStack = [];
 
       // ============================================================
       // INIT & STORAGE
@@ -959,10 +1070,17 @@
         renderSetlists();
         renderFavoriten();
         ladeHandbuchVonSupabase();
-        syncVonSupabase();
+        syncVonSupabase().then(function () {
+          syncPendingSongs();
+        });
         ladeListenVonSupabase();
+        setupSongFormAutosave();
+        setupDialogKeyboardHandling();
         updateOfflineStatus();
-        window.addEventListener("online", updateOfflineStatus);
+        window.addEventListener("online", function () {
+          updateOfflineStatus();
+          syncPendingSongs();
+        });
         window.addEventListener("offline", updateOfflineStatus);
       }
       function zuRoemisch(val) {
@@ -988,12 +1106,11 @@
         return s;
       }
       function syncVonSupabase() {
-        ladeVonSupabase().then(function (rows) {
-          if (!rows) return; // offline oder Fehler – localStorage bleibt
+        return ladeVonSupabase().then(function (rows) {
+          if (!rows) return; // offline oder Fehler â€“ localStorage bleibt
           if (rows.length === 0) {
             // Supabase leer: App-Lieder hochladen (einmalige Migration)
-            migriereLiederNachSupabase();
-            return;
+            return migriereLiederNachSupabase();
           }
           // Supabase hat Daten: lokale IDs bewahren, supabase_id zuordnen
           var neueSongs = rows.map(function (row) {
@@ -1002,6 +1119,9 @@
             });
             var appSong = dbSongToApp(row);
             if (vorhandener) {
+              if (songHasPendingSync(vorhandener)) {
+                return vorhandener;
+              }
               appSong.id = vorhandener.id;
              // Supabase-Daten haben beim Sync Vorrang (sind die kanonische Quelle)
               // Lokale Werte werden nur verwendet, wenn Supabase keinen Wert hat
@@ -1014,10 +1134,22 @@
               appSong.land = appSong.land || vorhandener.land;
               appSong.kategorie = appSong.kategorie || vorhandener.kategorie;
               appSong.stimmung = appSong.stimmung || vorhandener.stimmung;
+              appSong.sync_status = "synced";
+              appSong.sync_error = "";
+              appSong.sync_updated_at = vorhandener.sync_updated_at || new Date().toISOString();
           } else {
               appSong.id = Date.now() + Math.floor(Math.random() * 10000);
+              appSong.sync_status = "synced";
+              appSong.sync_error = "";
+              appSong.sync_updated_at = new Date().toISOString();
             }
             return appSong;
+          });
+          state.songs.forEach(function (localSong) {
+            var inRemote = localSong.supabase_id && rows.some(function (row) {
+              return row.id === localSong.supabase_id;
+            });
+            if (!inRemote) neueSongs.push(normalizeSongSyncState(localSong));
           });
           state.songs = neueSongs;
           // Capo normalisieren nach Sync
@@ -1049,7 +1181,7 @@
               return idMap[id] || id;
             });
           });
-          // listen NICHT überschreiben – werden separat via ladeListenVonSupabase geladen
+          // listen NICHT Ã¼berschreiben â€“ werden separat via ladeListenVonSupabase geladen
           var aktListen = state.listen;
           saveToStorage();
           state.listen = aktListen;
@@ -1071,7 +1203,10 @@
           var row = await speichereInSupabase(song);
           if (row) {
             song.supabase_id = row.id;
+            markSongSyncStatus(song, "synced", "");
             total++;
+          } else {
+            markSongSyncStatus(song, canSyncSongsNow() ? "error" : "pending", "Migration nicht synchronisiert.");
           }
         }
         saveToStorage();
@@ -1111,6 +1246,19 @@
         // Capo-Werte normalisieren: arabisch -> roemisch
         state.songs.forEach(function (s) {
           s.capo = zuRoemisch(s.capo);
+          normalizeSongSyncState(s);
+          if (s.sync_status === "syncing") s.sync_status = "pending";
+        });
+        normalizeSetlists();
+      }
+
+      function normalizeSetlists() {
+        state.setlists = (state.setlists || []).map(function (sl) {
+          sl.songs = Array.isArray(sl.songs) ? sl.songs : [];
+          sl.durations = sl.durations || {};
+          sl.used_at = sl.used_at || "";
+          sl.created_at = sl.created_at || "";
+          return sl;
         });
       }
 
@@ -1126,12 +1274,112 @@
           }),
         );
       }
+
+      function setupDialogKeyboardHandling() {
+        document.addEventListener("keydown", function (event) {
+          if (!dialogStack.length) return;
+          var top = dialogStack[dialogStack.length - 1];
+          if (!top || !top.el) return;
+          if (event.key === "Escape") {
+            event.preventDefault();
+            if (top.closeFn && typeof window[top.closeFn] === "function") {
+              window[top.closeFn]();
+            } else {
+              closeDialog(top.id);
+            }
+            return;
+          }
+          if (event.key === "Tab") trapDialogFocus(event, top.el);
+        });
+      }
+
+      function getFocusableInDialog(el) {
+        return Array.prototype.slice
+          .call(
+            el.querySelectorAll(
+              'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            ),
+          )
+          .filter(function (node) {
+            return !!(node.offsetWidth || node.offsetHeight || node.getClientRects().length);
+          });
+      }
+
+      function trapDialogFocus(event, el) {
+        var focusables = getFocusableInDialog(el);
+        if (!focusables.length) {
+          event.preventDefault();
+          el.focus();
+          return;
+        }
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      function openDialog(id, mode, closeFn, initialFocusSelector) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        var opener = document.activeElement && document.activeElement !== document.body
+          ? document.activeElement
+          : null;
+        dialogStack = dialogStack.filter(function (d) {
+          return d.id !== id;
+        });
+        if (mode === "class") el.classList.add("open");
+        else el.style.display = "block";
+        el.setAttribute("aria-hidden", "false");
+        if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+        dialogStack.push({ id: id, el: el, mode: mode, closeFn: closeFn, opener: opener });
+        setTimeout(function () {
+          var initial = initialFocusSelector ? el.querySelector(initialFocusSelector) : null;
+          var target = initial || getFocusableInDialog(el)[0] || el;
+          if (target && target.focus) target.focus();
+        }, 0);
+      }
+
+      function closeDialog(id) {
+        var idx = -1;
+        for (var i = dialogStack.length - 1; i >= 0; i--) {
+          if (dialogStack[i].id === id) {
+            idx = i;
+            break;
+          }
+        }
+        var item = idx >= 0 ? dialogStack.splice(idx, 1)[0] : null;
+        var el = document.getElementById(id);
+        if (el) {
+          var classDialog = id === "spickzettel" || id === "notfall-modal" || id === "handbuch-modal";
+          if ((item && item.mode === "class") || classDialog) el.classList.remove("open");
+          else el.style.display = "none";
+          el.setAttribute("aria-hidden", "true");
+        }
+        if (item && item.opener && document.contains(item.opener) && item.opener.focus) {
+          setTimeout(function () {
+            item.opener.focus();
+          }, 0);
+        }
+      }
       
 
       // ============================================================
       // NAVIGATION
       // ============================================================
       function showView(name) {
+        if (
+          name !== "add" &&
+          document.getElementById("view-add") &&
+          document.getElementById("view-add").classList.contains("active") &&
+          !darfSongFormularVerlassen()
+        ) {
+          return;
+        }
         document.querySelectorAll(".view").forEach(function (v) {
           v.classList.remove("active");
         });
@@ -1153,6 +1401,7 @@
         if (name === "favoriten") renderFavoriten();
         if (name === "einstellungen") {
           renderEinstellungen();
+          renderDatenqualitaet();
           updateOfflineStatus();
         }
       }
@@ -1211,6 +1460,15 @@
           var el = document.getElementById(id);
           if (el) el.value = "";
         });
+        [
+          "filter-favoriten",
+          "filter-mit-noten",
+          "filter-ohne-sprache",
+          "filter-ohne-kategorie",
+        ].forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) el.checked = false;
+        });
         filterSongs();
       }
 
@@ -1225,6 +1483,14 @@
           (document.getElementById("filter-kategorie") || {}).value || "";
         var stimmung =
           (document.getElementById("filter-stimmung") || {}).value || "";
+        var nurFavoriten =
+          !!(document.getElementById("filter-favoriten") || {}).checked;
+        var mitNoten =
+          !!(document.getElementById("filter-mit-noten") || {}).checked;
+        var ohneSprache =
+          !!(document.getElementById("filter-ohne-sprache") || {}).checked;
+        var ohneKategorie =
+          !!(document.getElementById("filter-ohne-kategorie") || {}).checked;
 
         var filtered = state.songs.filter(function (s) {
           if (q) {
@@ -1240,6 +1506,10 @@
           if (land && s.land !== land) return false;
           if (kategorie && s.kategorie !== kategorie) return false;
           if (stimmung && s.stimmung !== stimmung) return false;
+          if (nurFavoriten && !state.favoriten.includes(s.id)) return false;
+          if (mitNoten && !normalisiereListenwert(s.noten_abc)) return false;
+          if (ohneSprache && normalisiereListenwert(s.sprache)) return false;
+          if (ohneKategorie && normalisiereListenwert(s.kategorie)) return false;
           return true;
         });
 
@@ -1255,7 +1525,11 @@
             (sprache ? 1 : 0) +
             (land ? 1 : 0) +
             (kategorie ? 1 : 0) +
-            (stimmung ? 1 : 0);
+            (stimmung ? 1 : 0) +
+            (nurFavoriten ? 1 : 0) +
+            (mitNoten ? 1 : 0) +
+            (ohneSprache ? 1 : 0) +
+            (ohneKategorie ? 1 : 0);
           countEl.textContent =
             filtered.length +
             " von " +
@@ -1297,9 +1571,11 @@
                 '<span class="tag tag-akkorde">' +
                 escHtml(song.kategorie) +
                 "</span>";
+            tags += renderSongSyncBadge(song);
             var title = escHtml(song.titel);
             return (
-              '<div class="song-card" role="button" tabindex="0" aria-label="Lied öffnen: ' +
+              '<div class="song-card">' +
+              '<button class="song-card-main" aria-label="Lied Ã¶ffnen: ' +
               title +
               '" onclick="openSong(' +
               song.id +
@@ -1315,6 +1591,7 @@
               tags +
               "</div>" +
               "</div>" +
+              "</button>" +
               '<div class="song-card-actions">' +
               '<button class="card-btn ' +
               (isFav ? "active" : "") +
@@ -1325,7 +1602,7 @@
               '">&#11088;</button>' +
               '<button class="card-btn" onclick="event.stopPropagation(); addToSpickListe(' +
               song.id +
-              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufügen: ' +
+              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufÃ¼gen: ' +
               title +
               '">&#127908;</button>' +
               "</div>" +
@@ -1478,6 +1755,133 @@
         saveToStorage();
         speichereListenInSupabase();
         renderEinstellungen();
+        renderDatenqualitaet();
+      }
+
+      function cleanupSongActions(song) {
+        return (
+          '<div class="cleanup-actions">' +
+          '<button class="action-btn" onclick="openSongAusAufraeumen(' +
+          song.id +
+          ')">Ã–ffnen</button>' +
+          '<button class="action-btn" onclick="editSongAusAufraeumen(' +
+          song.id +
+          ')">Bearbeiten</button>' +
+          "</div>"
+        );
+      }
+
+      function renderCleanupSection(title, items, renderItem) {
+        var countClass = items.length ? " warn" : "";
+        var html =
+          '<div class="cleanup-section">' +
+          '<div class="cleanup-header"><span>' +
+          escHtml(title) +
+          '</span><span class="cleanup-count' +
+          countClass +
+          '">' +
+          items.length +
+          "</span></div>";
+        if (items.length) {
+          html +=
+            '<div class="cleanup-items">' +
+            items.map(renderItem).join("") +
+            "</div>";
+        }
+        return html + "</div>";
+      }
+
+      function renderDatenqualitaet() {
+        var container = document.getElementById("datenqualitaet");
+        if (!container) return;
+        var songs = state.songs || [];
+        var ohneSprache = songs.filter(function (s) { return !normalisiereListenwert(s.sprache); });
+        var ohneKategorie = songs.filter(function (s) { return !normalisiereListenwert(s.kategorie); });
+        var ohneText = songs.filter(function (s) { return !normalisiereListenwert(s.text); });
+        var titelMap = {};
+        songs.forEach(function (song) {
+          var key = normalisiereListenwert(song.titel).toLowerCase();
+          if (!key) return;
+          if (!titelMap[key]) titelMap[key] = [];
+          titelMap[key].push(song);
+        });
+        var doppelteTitel = [];
+        Object.keys(titelMap).forEach(function (key) {
+          if (titelMap[key].length > 1) doppelteTitel.push(titelMap[key]);
+        });
+        var verwendete = {
+          sprachen: {},
+          laender: {},
+          kategorien: {},
+        };
+        songs.forEach(function (song) {
+          if (song.sprache) verwendete.sprachen[song.sprache] = true;
+          if (song.land) verwendete.laender[song.land] = true;
+          if (song.kategorie) verwendete.kategorien[song.kategorie] = true;
+        });
+        var ungenutzt = [];
+        Object.keys(LISTEN_LABELS).forEach(function (key) {
+          (state.listen[key] || []).forEach(function (wert) {
+            if (!verwendete[key][wert]) {
+              ungenutzt.push(LISTEN_LABELS[key] + ": " + wert);
+            }
+          });
+        });
+        var songIds = {};
+        songs.forEach(function (song) { songIds[song.id] = true; });
+        var setlistFehler = [];
+        (state.setlists || []).forEach(function (sl) {
+          var fehlend = (sl.songs || []).filter(function (id) { return !songIds[id]; });
+          if (fehlend.length) {
+            setlistFehler.push({ setlist: sl, fehlend: fehlend.length });
+          }
+        });
+        var songItem = function (song) {
+          return (
+            '<div class="cleanup-item"><span class="cleanup-title">' +
+            escHtml(song.titel || "(ohne Titel)") +
+            "</span>" +
+            cleanupSongActions(song) +
+            "</div>"
+          );
+        };
+        container.innerHTML =
+          '<div class="cleanup-list">' +
+          renderCleanupSection("Lieder ohne Sprache", ohneSprache, songItem) +
+          renderCleanupSection("Lieder ohne Kategorie", ohneKategorie, songItem) +
+          renderCleanupSection("Lieder ohne Text", ohneText, songItem) +
+          renderCleanupSection("Doppelte Titel", doppelteTitel, function (gruppe) {
+            return (
+              '<div class="cleanup-item"><span class="cleanup-title">' +
+              escHtml(gruppe[0].titel || "(ohne Titel)") +
+              " (" +
+              gruppe.length +
+              "x)</span></div>"
+            );
+          }) +
+          renderCleanupSection("Nicht verwendete Listenwerte", ungenutzt, function (wert) {
+            return '<div class="cleanup-item"><span class="cleanup-title">' + escHtml(wert) + "</span></div>";
+          }) +
+          renderCleanupSection("Setlists mit fehlenden Liedern", setlistFehler, function (item) {
+            return (
+              '<div class="cleanup-item"><span class="cleanup-title">' +
+              escHtml(item.setlist.name) +
+              ": " +
+              item.fehlend +
+              " fehlend</span></div>"
+            );
+          }) +
+          "</div>";
+      }
+
+      function openSongAusAufraeumen(id) {
+        showView("repertoire");
+        openSong(id);
+      }
+
+      function editSongAusAufraeumen(id) {
+        showView("repertoire");
+        editSong(id);
       }
 
       function neuerListenwert(key) {
@@ -1857,7 +2261,7 @@
 
         document.getElementById("song-detail-view").innerHTML =
           '<div class="detail-header">' +
-          '<button class="back-btn" onclick="closeDetail()" aria-label="Zurück zur Liedliste">\u2190</button>' +
+          '<button class="back-btn" onclick="closeDetail()" aria-label="ZurÃ¼ck zur Liedliste">\u2190</button>' +
           "<div>" +
           '<div class="detail-title">' +
           escHtml(song.titel) +
@@ -1865,6 +2269,7 @@
           '<div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">' +
           tonartBadge +
           capoAnzeige +
+          renderSongSyncBadge(song) +
           "</div>" +
           "</div>" +
           "</div>" +
@@ -1880,7 +2285,7 @@
           "</button>" +
           '<button class="action-btn" onclick="addToSpickListe(' +
           song.id +
-          ')" aria-label="Zum Spickzettel hinzufügen: ' +
+          ')" aria-label="Zum Spickzettel hinzufÃ¼gen: ' +
           escHtml(song.titel) +
           '">&#127908; Spickzettel</button>' +
           '<button class="action-btn" onclick="editSong(' +
@@ -1907,7 +2312,7 @@
               '</div>' +
               '<div id="noten-abc-box" style="display:none; margin-top:4px; background:white; border-radius:8px; border:0.5px solid var(--border); padding:12px;">' +
               '<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">' +
-              '<span style="font-size:11px; color:var(--text2); white-space:nowrap;">Größe:</span>' +
+              '<span style="font-size:11px; color:var(--text2); white-space:nowrap;">GrÃ¶ÃŸe:</span>' +
               '<input type="range" id="noten-scale-slider" min="50" max="150" value="100" step="5" style="flex:1;" oninput="notenScaleAendern(this.value)">' +
               '<span id="noten-scale-label" style="font-size:11px; color:var(--text2); min-width:32px; text-align:right;">100%</span>' +
               '</div>' +
@@ -1992,11 +2397,26 @@
           0;
         var neuerCapo = capoBase + transpState.capoSession;
         song.capo = zuRoemisch(String(neuerCapo));
+        markSongSyncStatus(song, canSyncSongsNow() ? "syncing" : "local", "");
         state.songs = state.songs.map(function (s) {
           return s.id === song.id ? song : s;
         });
         saveToStorage();
-        speichereInSupabase(song);
+        speichereInSupabase(song).then(function (row) {
+          if (row) {
+            song.supabase_id = row.id;
+            markSongSyncStatus(song, "synced", "");
+          } else {
+            markSongSyncStatus(
+              song,
+              canSyncSongsNow() ? "error" : "pending",
+              canSyncSongsNow() ? "Supabase konnte das Lied nicht speichern." : "",
+            );
+          }
+          saveToStorage();
+          renderDetail();
+          renderSongList();
+        });
         transpState.capoSession = 0;
         renderDetail();
         renderSongList();
@@ -2007,7 +2427,7 @@
         var pos = state._songListScrollTop || 0;
         document.getElementById("song-list-view").style.display = "block";
         document.getElementById("song-detail-view").classList.remove("open");
-        // Scroll wiederholt setzen - schützt gegen späte async renderSongList-Aufrufe
+        // Scroll wiederholt setzen - schÃ¼tzt gegen spÃ¤te async renderSongList-Aufrufe
         var scrollVersuche = 0;
         function scrollZurueck() {
           setScrollPos(pos);
@@ -2098,7 +2518,8 @@
               : "";
             var title = escHtml(song.titel);
             return (
-              '<div class="song-card" role="button" tabindex="0" aria-label="Lied öffnen: ' +
+              '<div class="song-card">' +
+              '<button class="song-card-main" aria-label="Lied Ã¶ffnen: ' +
               title +
               '" onclick="openSongFromFavorit(' +
               song.id +
@@ -2111,8 +2532,10 @@
               "</div>" +
               '<div class="song-meta">' +
               capoBadge +
+              renderSongSyncBadge(song) +
               "</div>" +
               "</div>" +
+              "</button>" +
               '<div class="song-card-actions">' +
               '<button class="card-btn active" onclick="event.stopPropagation(); toggleFavorit(' +
               song.id +
@@ -2121,7 +2544,7 @@
               '">&#11088;</button>' +
               '<button class="card-btn" onclick="event.stopPropagation(); addToSpickListe(' +
               song.id +
-              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufügen: ' +
+              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufÃ¼gen: ' +
               title +
               '">&#127908;</button>' +
               "</div>" +
@@ -2155,14 +2578,59 @@
           tab === "spick" ? "block" : "none";
         document.getElementById("subtab-sets").style.display =
           tab === "sets" ? "block" : "none";
-        document.getElementById("subtab-spick-btn").style.color =
-          tab === "spick" ? "var(--accent)" : "var(--text3)";
-        document.getElementById("subtab-spick-btn").style.borderBottomColor =
-          tab === "spick" ? "var(--accent)" : "transparent";
-        document.getElementById("subtab-sets-btn").style.color =
-          tab === "sets" ? "var(--accent)" : "var(--text3)";
-        document.getElementById("subtab-sets-btn").style.borderBottomColor =
-          tab === "sets" ? "var(--accent)" : "transparent";
+        document.getElementById("subtab-spick-btn").classList.toggle("active", tab === "spick");
+        document.getElementById("subtab-sets-btn").classList.toggle("active", tab === "sets");
+      }
+
+      function getSongById(id) {
+        return state.songs.find(function (s) {
+          return s.id === id;
+        });
+      }
+
+      function setlistSongIds(sl) {
+        return ((sl && sl.songs) || []).filter(function (id) {
+          return !!getSongById(id);
+        });
+      }
+
+      function getSetlistDuration(sl) {
+        var total = 0;
+        (sl.songs || []).forEach(function (id) {
+          var val = parseInt((sl.durations || {})[id], 10);
+          if (!isNaN(val) && val > 0) total += val;
+        });
+        return total;
+      }
+
+      function formatDurationMinutes(total) {
+        if (!total) return "";
+        return "ca. " + total + " Min.";
+      }
+
+      function markSetlistUsed(sl) {
+        if (!sl) return;
+        sl.used_at = new Date().toISOString();
+        saveToStorage();
+      }
+
+      function getLastUsedSetlists() {
+        return state.setlists
+          .filter(function (sl) {
+            return !!sl.used_at;
+          })
+          .slice()
+          .sort(function (a, b) {
+            return new Date(b.used_at) - new Date(a.used_at);
+          })
+          .slice(0, 3);
+      }
+
+      function getTodayUsedSetlists() {
+        var today = new Date().toISOString().slice(0, 10);
+        return state.setlists.filter(function (sl) {
+          return (sl.used_at || "").slice(0, 10) === today;
+        });
       }
 
       function addToSpickListe(id) {
@@ -2174,6 +2642,67 @@
         saveToStorage();
         showToast("Zum Spickzettel hinzugef\u00fcgt \u2705");
         renderSpickListe();
+      }
+
+      function renderDraggableAttrs(listType, idx) {
+        return (
+          ' draggable="true" ondragstart="setlistDragStart(event, \'' +
+          listType +
+          "', " +
+          idx +
+          ')" ondragover="setlistDragOver(event)" ondrop="setlistDrop(event, \'' +
+          listType +
+          "', " +
+          idx +
+          ')" ondragend="setlistDragEnd(event)"'
+        );
+      }
+
+      function setlistDragStart(event, listType, idx) {
+        setlistDragContext = { listType: listType, idx: idx };
+        event.currentTarget.classList.add("dragging");
+        if (event.dataTransfer) {
+          event.dataTransfer.effectAllowed = "move";
+          event.dataTransfer.setData("text/plain", listType + ":" + idx);
+        }
+      }
+
+      function setlistDragOver(event) {
+        event.preventDefault();
+        if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
+        event.currentTarget.classList.add("drag-over");
+      }
+
+      function setlistDragEnd(event) {
+        event.currentTarget.classList.remove("dragging", "drag-over");
+      }
+
+      function setlistDrop(event, listType, targetIdx) {
+        event.preventDefault();
+        event.currentTarget.classList.remove("drag-over");
+        if (!setlistDragContext || setlistDragContext.listType !== listType) return;
+        reorderSongIdList(listType, setlistDragContext.idx, targetIdx);
+        setlistDragContext = null;
+      }
+
+      function reorderSongIdList(listType, fromIdx, toIdx) {
+        if (fromIdx === toIdx) return;
+        var list = null;
+        var sl = null;
+        if (listType === "spick") {
+          list = state.spickListe;
+        } else if (listType === "setlist-editor") {
+          sl = state.setlists.find(function (s) {
+            return s.id === editSetlistId;
+          });
+          list = sl ? sl.songs : null;
+        }
+        if (!list || fromIdx < 0 || toIdx < 0 || fromIdx >= list.length || toIdx >= list.length) return;
+        var moved = list.splice(fromIdx, 1)[0];
+        list.splice(toIdx, 0, moved);
+        saveToStorage();
+        if (listType === "spick") renderSpickListe();
+        else renderSetlistEditorItems();
       }
 
       function renderSpickListe() {
@@ -2210,7 +2739,9 @@
                 "</span>"
               : "";
             return (
-              '<div class="setlist-item">' +
+              '<div class="setlist-item draggable-item"' +
+              renderDraggableAttrs("spick", i) +
+              ">" +
               '<div class="setlist-num">' +
               (i + 1) +
               "</div>" +
@@ -2287,8 +2818,9 @@
           return;
         }
         state._spickSingle = null;
+        state._spickSourceSetlistId = null;
         state.spickIndex = 0;
-        document.getElementById("spickzettel").classList.add("open");
+        openDialog("spickzettel", "class", "closeSpickzettel", ".spick-close");
         renderSpickzettel();
       }
 
@@ -2303,6 +2835,9 @@
           id: Date.now(),
           name: name.trim(),
           songs: state.spickListe.slice(),
+          durations: {},
+          created_at: new Date().toISOString(),
+          used_at: "",
         };
         state.setlists.push(sl);
         saveToStorage();
@@ -2315,7 +2850,7 @@
         liedSuchModus = "spick";
         document.getElementById("lied-such-input").value = "";
         renderLiedSuchOverlay();
-        document.getElementById("lied-such-overlay").style.display = "block";
+        openDialog("lied-such-overlay", "display", "closeLiedSuchOverlay", "#lied-such-input");
       }
 
       // ============================================================
@@ -2327,7 +2862,14 @@
           showToast("Bitte Namen eingeben");
           return;
         }
-        var sl = { id: Date.now(), name: name, songs: [] };
+        var sl = {
+          id: Date.now(),
+          name: name,
+          songs: [],
+          durations: {},
+          created_at: new Date().toISOString(),
+          used_at: "",
+        };
         state.setlists.push(sl);
         saveToStorage();
         document.getElementById("neue-setlist-name").value = "";
@@ -2352,9 +2894,36 @@
             '<div class="empty-state"><div class="icon">&#128203;</div><p>Noch keine Setlists.<br>Namen eingeben und Neu klicken.</p></div>';
           return;
         }
+        var lastUsed = getLastUsedSetlists();
+        var todayUsed = getTodayUsedSetlists();
+        var summary =
+          lastUsed.length || todayUsed.length
+            ? '<div class="setlist-summary">' +
+              (todayUsed.length
+                ? '<span class="setlist-summary-pill">Heute verwendet: ' +
+                  todayUsed.length +
+                  "</span>"
+                : "") +
+              lastUsed
+                .map(function (sl) {
+                  return (
+                    '<button class="setlist-recent-btn" onclick="startSetlistDirekt(' +
+                    sl.id +
+                    ')">' +
+                    escHtml(sl.name) +
+                    "</button>"
+                  );
+                })
+                .join("") +
+              "</div>"
+            : "";
         container.innerHTML = state.setlists
           .map(function (sl) {
             var name = escHtml(sl.name);
+            var total = getSetlistDuration(sl);
+            var used = sl.used_at
+              ? "Zuletzt: " + new Date(sl.used_at).toLocaleDateString("de-DE")
+              : "Noch nicht verwendet";
             return (
               '<div class="setlist-item" role="button" tabindex="0" aria-label="Setlist bearbeiten: ' +
               name +
@@ -2369,14 +2938,28 @@
               "</div>" +
               '<div style="font-size:0.78rem; color:var(--text3);">' +
               sl.songs.length +
-              " Lieder</div>" +
+              " Lieder" +
+              (total ? " | " + formatDurationMinutes(total) : "") +
+              " | " +
+              escHtml(used) +
+              "</div>" +
               "</div>" +
               '<div style="display:flex; gap:6px;">' +
+              '<button class="card-btn" onclick="event.stopPropagation(); startSetlistDirekt(' +
+              sl.id +
+              ')" title="Setlist starten" aria-label="Setlist starten: ' +
+              name +
+              '">&#9654;</button>' +
               '<button class="card-btn" onclick="event.stopPropagation(); setlistInSpickzettelLadenDirekt(' +
               sl.id +
               ')" title="In Spickzettel laden" aria-label="Setlist in Spickzettel laden: ' +
               name +
               '">&#127908;</button>' +
+              '<button class="card-btn" onclick="event.stopPropagation(); duplicateSetlist(' +
+              sl.id +
+              ')" title="Duplizieren" aria-label="Setlist duplizieren: ' +
+              name +
+              '">&#10697;</button>' +
               '<button class="card-btn" onclick="event.stopPropagation(); openSetlistEditor(' +
               sl.id +
               ')" title="Bearbeiten" aria-label="Setlist bearbeiten: ' +
@@ -2387,6 +2970,7 @@
             );
           })
           .join("");
+        container.innerHTML = summary + container.innerHTML;
         if (state._restoreScroll) {
           var pos = state._restoreScroll;
           state._restoreScroll = 0;
@@ -2405,8 +2989,45 @@
         });
         if (!sl) return;
         document.getElementById("setlist-editor-name").value = sl.name;
+        updateSetlistEditorSummary();
         renderSetlistEditorItems();
-        document.getElementById("setlist-editor").style.display = "block";
+        openDialog("setlist-editor", "display", "closeSetlistEditor", "#setlist-editor-name");
+      }
+
+      function duplicateSetlist(id) {
+        var sl = state.setlists.find(function (s) {
+          return s.id === id;
+        });
+        if (!sl) return;
+        var copy = {
+          id: Date.now(),
+          name: sl.name + " Kopie",
+          songs: sl.songs.slice(),
+          durations: Object.assign({}, sl.durations || {}),
+          created_at: new Date().toISOString(),
+          used_at: "",
+        };
+        state.setlists.push(copy);
+        saveToStorage();
+        renderSetlists();
+        showToast("Setlist dupliziert");
+      }
+
+      function updateSetlistEditorSummary() {
+        var summary = document.getElementById("setlist-editor-summary");
+        if (!summary) return;
+        var sl = state.setlists.find(function (s) {
+          return s.id === editSetlistId;
+        });
+        if (!sl) {
+          summary.textContent = "";
+          return;
+        }
+        var total = getSetlistDuration(sl);
+        summary.textContent =
+          sl.songs.length +
+          " Lieder" +
+          (total ? " | " + formatDurationMinutes(total) : "");
       }
 
       function renderSetlistEditorItems() {
@@ -2436,13 +3057,20 @@
                 "</span>"
               : "";
             return (
-              '<div class="setlist-item">' +
+              '<div class="setlist-item draggable-item"' +
+              renderDraggableAttrs("setlist-editor", i) +
+              ">" +
               '<div class="setlist-num">' +
               (i + 1) +
               "</div>" +
               '<div class="setlist-name">' +
               title +
               capoSpan +
+              '<label class="setlist-duration"><span>Dauer</span><input type="number" min="0" max="99" inputmode="numeric" value="' +
+              escHtml((sl.durations || {})[song.id] || "") +
+              '" onchange="setSetlistSongDuration(' +
+              song.id +
+              ', this.value)" onclick="event.stopPropagation()"> Min.</label>' +
               "</div>" +
               '<div class="setlist-controls">' +
               '<button class="card-btn" onclick="moveSetlistEditorItem(' +
@@ -2490,7 +3118,23 @@
         var tmp = sl.songs[idx];
         sl.songs[idx] = sl.songs[ni];
         sl.songs[ni] = tmp;
+        saveToStorage();
         renderSetlistEditorItems();
+        renderSetlists();
+      }
+
+      function setSetlistSongDuration(songId, value) {
+        var sl = state.setlists.find(function (s) {
+          return s.id === editSetlistId;
+        });
+        if (!sl) return;
+        sl.durations = sl.durations || {};
+        var minutes = parseInt(value, 10);
+        if (isNaN(minutes) || minutes <= 0) delete sl.durations[songId];
+        else sl.durations[songId] = Math.min(99, minutes);
+        saveToStorage();
+        updateSetlistEditorSummary();
+        renderSetlists();
       }
 
       function removeSetlistEditorItem(id) {
@@ -2501,14 +3145,18 @@
         sl.songs = sl.songs.filter(function (i) {
           return i !== id;
         });
+        if (sl.durations) delete sl.durations[id];
+        saveToStorage();
         renderSetlistEditorItems();
+        updateSetlistEditorSummary();
+        renderSetlists();
       }
 
       function setlistEditorAddMode() {
         liedSuchModus = "setlist-editor";
         document.getElementById("lied-such-input").value = "";
         renderLiedSuchOverlay();
-        document.getElementById("lied-such-overlay").style.display = "block";
+        openDialog("lied-such-overlay", "display", "closeLiedSuchOverlay", "#lied-such-input");
       }
 
       function saveSetlistEditor() {
@@ -2525,7 +3173,7 @@
       }
 
       function closeSetlistEditor() {
-        document.getElementById("setlist-editor").style.display = "none";
+        closeDialog("setlist-editor");
         editSetlistId = null;
         renderSetlists();
       }
@@ -2556,7 +3204,8 @@
           !confirm("Aktuellen Spickzettel ersetzen?")
         )
           return;
-        state.spickListe = sl.songs.slice();
+        state.spickListe = setlistSongIds(sl);
+        markSetlistUsed(sl);
         saveToStorage();
         closeSetlistEditor();
         showView("setlist");
@@ -2578,11 +3227,30 @@
           !confirm("Aktuellen Spickzettel ersetzen?")
         )
           return;
-        state.spickListe = sl.songs.slice();
+        state.spickListe = setlistSongIds(sl);
+        markSetlistUsed(sl);
         saveToStorage();
         showSetlistSubtab("spick");
         renderSpickListe();
         showToast(escHtml(sl.name) + " geladen");
+      }
+
+      function startSetlistDirekt(id) {
+        var sl = state.setlists.find(function (s) {
+          return s.id === id;
+        });
+        var ids = setlistSongIds(sl);
+        if (!sl || !ids.length) {
+          showToast("Setlist ist leer");
+          return;
+        }
+        state._spickSingle = ids;
+        state._spickSourceSetlistId = sl.id;
+        state.spickIndex = 0;
+        markSetlistUsed(sl);
+        renderSetlists();
+        openDialog("spickzettel", "class", "closeSpickzettel", ".spick-close");
+        renderSpickzettel();
       }
 
       // ============================================================
@@ -2662,14 +3330,16 @@
             return;
           }
           sl.songs.push(id);
+          saveToStorage();
           renderSetlistEditorItems();
+          updateSetlistEditorSummary();
           renderLiedSuchOverlay();
           showToast("Hinzugef\u00fcgt");
         }
       }
 
       function closeLiedSuchOverlay() {
-        document.getElementById("lied-such-overlay").style.display = "none";
+        closeDialog("lied-such-overlay");
       }
 
       // ============================================================
@@ -2677,8 +3347,9 @@
       // ============================================================
       function startSpickzettelSingle(id) {
         state._spickSingle = [id];
+        state._spickSourceSetlistId = null;
         state.spickIndex = 0;
-        document.getElementById("spickzettel").classList.add("open");
+        openDialog("spickzettel", "class", "closeSpickzettel", ".spick-close");
         renderSpickzettel();
       }
 
@@ -2686,7 +3357,7 @@
         liedSuchModus = "spick";
         document.getElementById("lied-such-input").value = "";
         renderLiedSuchOverlay();
-        document.getElementById("lied-such-overlay").style.display = "block";
+        openDialog("lied-such-overlay", "display", "closeLiedSuchOverlay", "#lied-such-input");
       }
 
       function renderSpickzettel() {
@@ -2696,8 +3367,14 @@
         });
         if (!song) return;
         document.getElementById("spick-title").textContent = song.titel;
-        document.getElementById("spick-counter").textContent =
-          state.spickIndex + 1 + " / " + ids.length;
+        var counterText = state.spickIndex + 1 + " / " + ids.length;
+        var sourceSetlist = state._spickSourceSetlistId
+          ? state.setlists.find(function (sl) {
+              return sl.id === state._spickSourceSetlistId;
+            })
+          : null;
+        if (sourceSetlist) counterText += " | " + sourceSetlist.name;
+        document.getElementById("spick-counter").textContent = counterText;
         updateSpickNavState(ids);
         applySpickFontScale();
 
@@ -2762,7 +3439,7 @@
         var spickNotenRender = document.getElementById("spick-noten-render");
         if (song.noten_abc && spickNotenToggle) {
           spickNotenToggle.style.display = "block";
-          // Noten-Box schließen beim Liedwechsel
+          // Noten-Box schlieÃŸen beim Liedwechsel
           if (spickNotenBox) {
             spickNotenBox.style.display = "none";
             if (spickNotenBox.dataset) spickNotenBox.dataset.rendered = "";
@@ -2828,9 +3505,10 @@
       }
 
       function closeSpickzettel() {
-        document.getElementById("spickzettel").classList.remove("open");
-        state._spickSingle = null;
         closeNotfall();
+        closeDialog("spickzettel");
+        state._spickSingle = null;
+        state._spickSourceSetlistId = null;
       }
 
       function toggleSpickNoten() {
@@ -2877,11 +3555,13 @@
       }
 
       function toggleNotfall() {
-        document.getElementById("notfall-modal").classList.toggle("open");
+        var modal = document.getElementById("notfall-modal");
+        if (modal.classList.contains("open")) closeNotfall();
+        else openDialog("notfall-modal", "class", "closeNotfall", ".notfall-tip");
       }
 
       function closeNotfall() {
-        document.getElementById("notfall-modal").classList.remove("open");
+        closeDialog("notfall-modal");
       }
 
       // ============================================================
@@ -3143,7 +3823,7 @@
         document.getElementById("hb-inhalt").value = "";
         document.getElementById("hb-formulierungen").value = "";
         document.getElementById("hb-del-btn").style.display = "none";
-        document.getElementById("handbuch-modal").classList.add("open");
+        openDialog("handbuch-modal", "class", "handbuchModalClose", "#hb-titel");
       }
 
       function handbuchBearbeiten(i) {
@@ -3158,11 +3838,11 @@
         document.getElementById("hb-del-btn").style.display = handbuchEditId
           ? "block"
           : "none";
-        document.getElementById("handbuch-modal").classList.add("open");
+        openDialog("handbuch-modal", "class", "handbuchModalClose", "#hb-titel");
       }
 
       function handbuchModalClose() {
-        document.getElementById("handbuch-modal").classList.remove("open");
+        closeDialog("handbuch-modal");
       }
 
       function handbuchSpeichern() {
@@ -3277,31 +3957,215 @@
       // LIED HINZUFUEGEN / BEARBEITEN / LOESCHEN
       // ============================================================
       var editSongId = null; // null = neues Lied, sonst ID des zu bearbeitenden Lieds
+      var songFormSnapshot = null;
 
-      function showAddView() {
-        editSongId = null;
-        document.getElementById("add-view-title").textContent =
-          "Lied hinzuf\u00fcgen";
-        document.getElementById("add-delete-btn").style.display = "none";
+      function leseSongFormular() {
+        var grundton = document.getElementById("add-grundton").value;
+        var tonmodus = document.getElementById("add-tonmodus").value;
+        return {
+          titel: document.getElementById("add-titel").value.trim(),
+          komponist: document.getElementById("add-komponist").value.trim(),
+          tonart: grundton ? grundton + "-" + tonmodus : "",
+          capo: zuRoemisch(document.getElementById("add-capo").value.trim()),
+          akkorde: document.getElementById("add-akkorde").value.trim(),
+          text: document.getElementById("add-text").value,
+          notizen: document.getElementById("add-notizen").value,
+          noten_abc: document.getElementById("add-noten-abc").value,
+          sprache: document.getElementById("add-sprache").value,
+          land: document.getElementById("add-land").value,
+          kategorie: document.getElementById("add-kategorie").value,
+          stimmung: document.getElementById("add-stimmung").value,
+        };
+      }
+
+      function schreibeSongFormular(felder) {
+        felder = felder || {};
+        document.getElementById("add-titel").value = felder.titel || "";
+        document.getElementById("add-komponist").value = felder.komponist || "";
+        document.getElementById("add-capo").value = felder.capo || "";
+        document.getElementById("add-akkorde").value = felder.akkorde || "";
+        document.getElementById("add-text").value = felder.text || "";
+        document.getElementById("add-notizen").value = felder.notizen || "";
+        document.getElementById("add-noten-abc").value = felder.noten_abc || "";
+        document.getElementById("add-stimmung").value = felder.stimmung || "";
+        if (felder.tonart) {
+          var parts = felder.tonart.split("-");
+          document.getElementById("add-grundton").value = parts[0] || "";
+          document.getElementById("add-tonmodus").value = parts[1] || "Dur";
+        } else {
+          document.getElementById("add-grundton").value = "";
+          document.getElementById("add-tonmodus").value = "Dur";
+        }
+        document.getElementById("add-sprache").value = felder.sprache || "";
+        document.getElementById("add-land").value = felder.land || "";
+        document.getElementById("add-kategorie").value = felder.kategorie || "";
+      }
+
+      function merkeSongFormularStand() {
+        songFormSnapshot = JSON.stringify(leseSongFormular());
+      }
+
+      function songFormularGeaendert() {
+        return (
+          songFormSnapshot !== null &&
+          JSON.stringify(leseSongFormular()) !== songFormSnapshot
+        );
+      }
+
+      function darfSongFormularVerlassen() {
+        if (!document.getElementById("view-add").classList.contains("active")) return true;
+        if (!songFormularGeaendert()) return true;
+        return confirm("Ã„nderungen verwerfen?");
+      }
+
+      function setSongSaveStatus(text, status) {
+        var el = document.getElementById("add-save-status");
+        if (!el) return;
+        el.textContent = text || "";
+        el.classList.remove("ok", "warn");
+        if (status) el.classList.add(status);
+      }
+
+      function setTitleError(text) {
+        var input = document.getElementById("add-titel");
+        var error = document.getElementById("add-titel-error");
+        if (!input || !error) return;
+        error.textContent = text || "";
+        input.classList.toggle("invalid", !!text);
+        input.setAttribute("aria-invalid", text ? "true" : "false");
+      }
+
+      function setupSongFormAutosave() {
         [
           "add-titel",
           "add-komponist",
+          "add-grundton",
+          "add-tonmodus",
           "add-capo",
           "add-akkorde",
           "add-text",
           "add-notizen",
           "add-noten-abc",
+          "add-sprache",
+          "add-land",
+          "add-kategorie",
+          "add-stimmung",
         ].forEach(function (id) {
-          document.getElementById(id).value = "";
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.addEventListener("input", function () {
+            if (id === "add-titel") setTitleError("");
+            scheduleSongDraftSave();
+          });
+          el.addEventListener("change", scheduleSongDraftSave);
         });
-        document.getElementById("add-grundton").value = "";
-        document.getElementById("add-tonmodus").value = "Dur";
-        document.getElementById("add-stimmung").value = "";
+      }
+
+      function getCurrentSongDraftMeta() {
+        return {
+          editSongId: editSongId || null,
+          mode: editSongId ? "edit" : "new",
+        };
+      }
+
+      function isLongSongDraft(felder) {
+        return ((felder && felder.text) || "").trim().length >= 80;
+      }
+
+      function scheduleSongDraftSave() {
+        if (!document.getElementById("view-add").classList.contains("active")) return;
+        clearTimeout(songDraftTimer);
+        songDraftTimer = setTimeout(saveSongDraft, 700);
+      }
+
+      function saveSongDraft() {
+        var felder = leseSongFormular();
+        if (!isLongSongDraft(felder) || !songFormularGeaendert()) return;
+        var meta = getCurrentSongDraftMeta();
+        localStorage.setItem(
+          SONG_DRAFT_KEY,
+          JSON.stringify({
+            savedAt: new Date().toISOString(),
+            editSongId: meta.editSongId,
+            mode: meta.mode,
+            data: felder,
+          }),
+        );
+        setSongSaveStatus("Entwurf lokal gespeichert", "");
+      }
+
+      function readSongDraft() {
+        try {
+          return JSON.parse(localStorage.getItem(SONG_DRAFT_KEY) || "null");
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function hideSongDraftOffer() {
+        var box = document.getElementById("add-draft-offer");
+        if (box) box.hidden = true;
+      }
+
+      function maybeOfferSongDraft() {
+        hideSongDraftOffer();
+        pendingSongDraft = null;
+        var draft = readSongDraft();
+        if (!draft || !draft.data || !isLongSongDraft(draft.data)) return;
+        var meta = getCurrentSongDraftMeta();
+        if (draft.mode !== meta.mode || (draft.editSongId || null) !== meta.editSongId) return;
+        if (JSON.stringify(draft.data) === JSON.stringify(leseSongFormular())) return;
+        pendingSongDraft = draft;
+        var date = new Date(draft.savedAt);
+        var time = isNaN(date.getTime())
+          ? ""
+          : " von " + date.toLocaleString("de-DE", { dateStyle: "short", timeStyle: "short" });
+        var text = document.getElementById("add-draft-offer-text");
+        if (text) text.textContent = "Gespeicherten Entwurf" + time + " wiederherstellen?";
+        var box = document.getElementById("add-draft-offer");
+        if (box) box.hidden = false;
+      }
+
+      function restoreSongDraft() {
+        if (!pendingSongDraft || !pendingSongDraft.data) return;
+        schreibeSongFormular(pendingSongDraft.data);
+        setTitleError("");
+        hideSongDraftOffer();
+        setSongSaveStatus("Entwurf wiederhergestellt", "");
+        scheduleSongDraftSave();
+      }
+
+      function discardSongDraft() {
+        localStorage.removeItem(SONG_DRAFT_KEY);
+        pendingSongDraft = null;
+        hideSongDraftOffer();
+        setSongSaveStatus("Entwurf verworfen", "warn");
+      }
+
+      function clearSongDraft() {
+        localStorage.removeItem(SONG_DRAFT_KEY);
+        pendingSongDraft = null;
+        hideSongDraftOffer();
+      }
+
+      function showAddView() {
+        if (
+          document.getElementById("view-add").classList.contains("active") &&
+          !darfSongFormularVerlassen()
+        ) {
+          return;
+        }
+        editSongId = null;
+        document.getElementById("add-view-title").textContent =
+          "Lied hinzuf\u00fcgen";
+        document.getElementById("add-delete-btn").style.display = "none";
         befuelleFormularDropdowns();
-        document.getElementById("add-sprache").value = "";
-        document.getElementById("add-land").value = "";
-        document.getElementById("add-kategorie").value = "";
+        schreibeSongFormular({});
+        setTitleError("");
+        setSongSaveStatus("", "");
         showView("add");
+        merkeSongFormularStand();
+        maybeOfferSongDraft();
       }
 
       function editSong(id) {
@@ -3317,22 +4181,6 @@
         document.getElementById("add-view-title").textContent =
           "Lied bearbeiten";
         document.getElementById("add-delete-btn").style.display = "inline-flex";
-        document.getElementById("add-titel").value = song.titel || "";
-        document.getElementById("add-komponist").value = song.komponist || "";
-        document.getElementById("add-capo").value = song.capo || "";
-        document.getElementById("add-akkorde").value = song.akkorde || "";
-        document.getElementById("add-text").value = song.text || "";
-        document.getElementById("add-notizen").value = song.notizen || "";
-        document.getElementById("add-noten-abc").value = song.noten_abc || "";
-        document.getElementById("add-stimmung").value = song.stimmung || "";
-        if (song.tonart) {
-          var parts = song.tonart.split("-");
-          document.getElementById("add-grundton").value = parts[0] || "";
-          document.getElementById("add-tonmodus").value = parts[1] || "Dur";
-        } else {
-          document.getElementById("add-grundton").value = "";
-          document.getElementById("add-tonmodus").value = "Dur";
-        }
         var listenErgaenzt =
           stelleListenwertSicher("sprachen", song.sprache) ||
           stelleListenwertSicher("laender", song.land) ||
@@ -3342,14 +4190,18 @@
           speichereListenInSupabase();
         }
         befuelleFormularDropdowns();
-        document.getElementById("add-sprache").value = song.sprache || "";
-        document.getElementById("add-land").value = song.land || "";
-        document.getElementById("add-kategorie").value = song.kategorie || "";
+        schreibeSongFormular(song);
+        setTitleError("");
+        setSongSaveStatus("", "");
         showView("add");
+        merkeSongFormularStand();
+        maybeOfferSongDraft();
       }
 
       function cancelEdit() {
+        if (!darfSongFormularVerlassen()) return;
         var savedScroll = state._songListScrollTop || 0;
+        songFormSnapshot = null;
         if (editSongId) {
           showView("repertoire");
           openSong(editSongId, true);
@@ -3389,52 +4241,60 @@
       }
 
       function saveSong() {
-        var titel = document.getElementById("add-titel").value.trim();
+        var felder = leseSongFormular();
+        var titel = felder.titel;
         if (!titel) {
+          setTitleError("Bitte Titel eingeben.");
+          document.getElementById("add-titel").focus();
           showToast("Bitte Titel eingeben");
           return;
         }
-        var grundton = document.getElementById("add-grundton").value;
-        var tonmodus = document.getElementById("add-tonmodus").value;
-        var tonart = grundton ? grundton + "-" + tonmodus : "";
-        var capoRaw = zuRoemisch(
-          document.getElementById("add-capo").value.trim(),
-        );
-        var felder = {
-          titel: titel,
-          komponist: document.getElementById("add-komponist").value.trim(),
-          tonart: tonart,
-          capo: capoRaw,
-          akkorde: document.getElementById("add-akkorde").value.trim(),
-          text: document.getElementById("add-text").value,
-          notizen: document.getElementById("add-notizen").value,
-          noten_abc: document.getElementById("add-noten-abc").value,
-          sprache: document.getElementById("add-sprache").value,
-          land: document.getElementById("add-land").value,
-          kategorie: document.getElementById("add-kategorie").value,
-          stimmung: document.getElementById("add-stimmung").value,
-        };
+        setTitleError("");
         stelleListenwertSicher("sprachen", felder.sprache);
         stelleListenwertSicher("laender", felder.land);
         stelleListenwertSicher("kategorien", felder.kategorie);
         if (editSongId) {
           state.songs = state.songs.map(function (s) {
             if (s.id !== editSongId) return s;
-            return Object.assign({}, s, felder);
+            var updated = Object.assign({}, s, felder);
+            markSongSyncStatus(updated, canSyncSongsNow() ? "syncing" : "local", "");
+            return updated;
           });
           saveToStorage();
           var updatedSong = state.songs.find(function (s) {
             return s.id === editSongId;
           });
+          setSongSaveStatus("Lokal gespeichert, Sync lÃ¤uft...", "");
+          showToast("Lokal gespeichert, Sync lÃ¤uft...");
           speichereInSupabase(updatedSong).then(function (row) {
             if (row && !updatedSong.supabase_id) {
               updatedSong.supabase_id = row.id;
               saveToStorage();
             }
+            if (row) {
+              markSongSyncStatus(updatedSong, "synced", "");
+              saveToStorage();
+              renderSongListIfVisible();
+              if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
+              setSongSaveStatus("Synchronisiert", "ok");
+              showToast("Lied synchronisiert");
+            } else {
+              markSongSyncStatus(
+                updatedSong,
+                canSyncSongsNow() ? "error" : "pending",
+                canSyncSongsNow() ? "Supabase konnte das Lied nicht speichern." : "",
+              );
+              saveToStorage();
+              renderSongListIfVisible();
+              if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
+              setSongSaveStatus("Lokal gespeichert, Sync spÃ¤ter", "warn");
+              showToast("Lokal gespeichert, Sync spÃ¤ter");
+            }
           });
-         showToast("Lied gespeichert \u2705");
           var savedId = editSongId;
           var savedScroll = state._songListScrollTop || 0;
+          merkeSongFormularStand();
+          clearSongDraft();
           editSongId = null;
           state._restoreScroll = savedScroll;
           showView("repertoire");
@@ -3446,27 +4306,35 @@
             { id: Date.now(), stimmung: "verbindend" },
             felder,
           );
+          markSongSyncStatus(newSong, canSyncSongsNow() ? "syncing" : "local", "");
           state.songs.push(newSong);
           saveToStorage();
+          setSongSaveStatus("Lokal gespeichert, Sync lÃ¤uft...", "");
+          showToast("Lokal gespeichert, Sync lÃ¤uft...");
           speichereInSupabase(newSong).then(function (row) {
             if (row) {
               newSong.supabase_id = row.id;
+              markSongSyncStatus(newSong, "synced", "");
               saveToStorage();
+              renderSongListIfVisible();
+              setSongSaveStatus("Synchronisiert", "ok");
+              showToast("Lied synchronisiert");
+            } else {
+              markSongSyncStatus(
+                newSong,
+                canSyncSongsNow() ? "error" : "pending",
+                canSyncSongsNow() ? "Supabase konnte das Lied nicht speichern." : "",
+              );
+              saveToStorage();
+              renderSongListIfVisible();
+              setSongSaveStatus("Lokal gespeichert, Sync spÃ¤ter", "warn");
+              showToast("Lokal gespeichert, Sync spÃ¤ter");
             }
           });
-          [
-            "add-titel",
-            "add-komponist",
-            "add-capo",
-            "add-akkorde",
-            "add-text",
-            "add-notizen",
-            "add-noten-abc",
-          ].forEach(function (id) {
-            document.getElementById(id).value = "";
-          });
-          document.getElementById("add-grundton").value = "";
-          showToast("Lied gespeichert \u2705");
+          clearSongDraft();
+          befuelleFormularDropdowns();
+          schreibeSongFormular({});
+          merkeSongFormularStand();
           showView("repertoire");
           renderSongList();
         }
@@ -3504,6 +4372,8 @@
         saveToStorage();
         loescheInSupabase(supId);
         editSongId = null;
+        songFormSnapshot = null;
+        clearSongDraft();
         showToast("Lied gel\u00f6scht");
         showView("repertoire");
         renderSongList();
@@ -3763,9 +4633,9 @@
               var t = document.getElementById("toast");
               var changelogText = data.changelog ? '<br><em style="opacity:0.75;font-size:0.78rem;">' + data.changelog + '</em>' : '';
               t.innerHTML =
-                "🆕 Update " +
+                "ðŸ†• Update " +
                 data.version +
-                " verfügbar" +
+                " verfÃ¼gbar" +
                 changelogText +
                 ' &nbsp;<button onclick="updateDurchfuehren()" style="background:var(--accent);color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.85rem;">Jetzt</button>';
               t.classList.add("show");
