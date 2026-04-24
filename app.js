@@ -889,13 +889,15 @@
           if (res.error || !res.data) return;
           var geladen = res.data.wert;
           if (geladen.sprachen && geladen.sprachen.length > 0)
-            state.listen.sprachen = geladen.sprachen;
+            mergeListenwerte("sprachen", geladen.sprachen);
           if (geladen.laender && geladen.laender.length > 0)
-            state.listen.laender = geladen.laender;
+            mergeListenwerte("laender", geladen.laender);
           if (geladen.kategorien && geladen.kategorien.length > 0)
-            state.listen.kategorien = geladen.kategorien;
+            mergeListenwerte("kategorien", geladen.kategorien);
           saveToStorage();
+          speichereListenInSupabase();
           if (document.getElementById("listenverwaltung")) renderEinstellungen();
+          befuelleFormularDropdowns();
         } catch (e) {}
       }
 
@@ -1367,6 +1369,31 @@
         kategorien: "Kategorien",
       };
 
+      function normalisiereListenwert(val) {
+        return String(val || "").trim();
+      }
+
+      function mergeListenwerte(key, werte) {
+        if (!Array.isArray(state.listen[key])) state.listen[key] = [];
+        werte.forEach(function (wert) {
+          wert = normalisiereListenwert(wert);
+          if (wert && state.listen[key].indexOf(wert) === -1) {
+            state.listen[key].push(wert);
+          }
+        });
+        state.listen[key].sort(function (a, b) {
+          return a.localeCompare(b, "de");
+        });
+      }
+
+      function stelleListenwertSicher(key, wert) {
+        wert = normalisiereListenwert(wert);
+        if (!wert) return false;
+        var vorher = state.listen[key] ? state.listen[key].length : 0;
+        mergeListenwerte(key, [wert]);
+        return state.listen[key].length !== vorher;
+      }
+
       function renderEinstellungen() {
         var container = document.getElementById("listenverwaltung");
         if (!container) return;
@@ -1411,20 +1438,18 @@
 
       function addListenwert(key) {
         var inp = document.getElementById("neuer-" + key);
-        var val = inp.value.trim();
+        var val = normalisiereListenwert(inp.value);
         if (!val) return;
         if (state.listen[key].indexOf(val) !== -1) {
           showToast("Bereits vorhanden");
           return;
         }
-        state.listen[key].push(val);
-        state.listen[key].sort(function (a, b) {
-          return a.localeCompare(b, "de");
-        });
+        mergeListenwerte(key, [val]);
         saveToStorage();
         speichereListenInSupabase();
         inp.value = "";
         renderEinstellungen();
+        befuelleFormularDropdowns();
         showToast(val + " hinzugef\u00fcgt");
       }
 
@@ -1459,16 +1484,14 @@
         var label = LISTEN_LABELS[key] || key;
         var val = prompt("Neuer Wert f\u00fcr " + label + ":");
         if (!val || !val.trim()) return;
-        val = val.trim();
+        val = normalisiereListenwert(val);
         if (state.listen[key].indexOf(val) !== -1) {
           showToast("Bereits vorhanden");
           return;
         }
-        state.listen[key].push(val);
-        state.listen[key].sort(function (a, b) {
-          return a.localeCompare(b, "de");
-        });
+        mergeListenwerte(key, [val]);
         saveToStorage();
+        speichereListenInSupabase();
         befuelleFormularDropdowns();
         // Neuen Wert direkt auswaehlen
         var feldMap = {
@@ -3275,6 +3298,9 @@
         document.getElementById("add-tonmodus").value = "Dur";
         document.getElementById("add-stimmung").value = "";
         befuelleFormularDropdowns();
+        document.getElementById("add-sprache").value = "";
+        document.getElementById("add-land").value = "";
+        document.getElementById("add-kategorie").value = "";
         showView("add");
       }
 
@@ -3306,6 +3332,14 @@
         } else {
           document.getElementById("add-grundton").value = "";
           document.getElementById("add-tonmodus").value = "Dur";
+        }
+        var listenErgaenzt =
+          stelleListenwertSicher("sprachen", song.sprache) ||
+          stelleListenwertSicher("laender", song.land) ||
+          stelleListenwertSicher("kategorien", song.kategorie);
+        if (listenErgaenzt) {
+          saveToStorage();
+          speichereListenInSupabase();
         }
         befuelleFormularDropdowns();
         document.getElementById("add-sprache").value = song.sprache || "";
@@ -3380,6 +3414,9 @@
           kategorie: document.getElementById("add-kategorie").value,
           stimmung: document.getElementById("add-stimmung").value,
         };
+        stelleListenwertSicher("sprachen", felder.sprache);
+        stelleListenwertSicher("laender", felder.land);
+        stelleListenwertSicher("kategorien", felder.kategorie);
         if (editSongId) {
           state.songs = state.songs.map(function (s) {
             if (s.id !== editSongId) return s;
@@ -3592,13 +3629,7 @@
 
       function mergeListenValues(importedListen) {
         Object.keys(LISTEN_LABELS).forEach(function (key) {
-          if (!Array.isArray(state.listen[key])) state.listen[key] = [];
-          importedListen[key].forEach(function (val) {
-            if (state.listen[key].indexOf(val) === -1) state.listen[key].push(val);
-          });
-          state.listen[key].sort(function (a, b) {
-            return a.localeCompare(b, "de");
-          });
+          mergeListenwerte(key, importedListen[key] || []);
         });
       }
 
