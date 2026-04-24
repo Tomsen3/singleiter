@@ -1,4 +1,4 @@
 {
-  "version": "1.5.1",
-  "changelog": "Einstellungen (Sprachen, Länder, Kategorien) werden jetzt über Supabase synchronisiert"
+  "version": "1.5.8",
+  "changelog": "Barrierefreiheit mit Labels, ARIA-Hinweisen und sichtbaren Fokuszuständen verbessert"
 }
