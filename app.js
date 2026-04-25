@@ -1814,6 +1814,9 @@
             );
           })
           .join("");
+        container.querySelectorAll("details").forEach(function (details) {
+          details.open = false;
+        });
       }
 
       function addListenwert(key) {
@@ -1878,9 +1881,7 @@
       function renderCleanupSection(title, items, renderItem) {
         var countClass = items.length ? " warn" : "";
         var html =
-          '<details class="cleanup-section" ' +
-          (items.length ? "open" : "") +
-          ">" +
+          '<details class="cleanup-section">' +
           '<summary class="cleanup-header"><span>' +
           escHtml(title) +
           '</span><span class="cleanup-count' +
