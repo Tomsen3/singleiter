@@ -1406,6 +1406,8 @@
         if (name === "einstellungen") {
           renderEinstellungen();
           renderDatenqualitaet();
+          setTimeout(schliesseEinstellungsDetails, 0);
+          setTimeout(schliesseEinstellungsDetails, 120);
           updateOfflineStatus();
         }
       }
@@ -1819,6 +1821,14 @@
         });
       }
 
+      function schliesseEinstellungsDetails() {
+        document
+          .querySelectorAll("#listenverwaltung details, #datenqualitaet details")
+          .forEach(function (details) {
+            details.open = false;
+          });
+      }
+
       function addListenwert(key) {
         var inp = document.getElementById("neuer-" + key);
         var val = kanonischerListenwert(inp.value);
@@ -1981,6 +1991,7 @@
             );
           }) +
           "</div>";
+        schliesseEinstellungsDetails();
       }
 
       function openSongAusAufraeumen(id) {
