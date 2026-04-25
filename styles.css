@@ -943,7 +943,7 @@
         font-size: 0.88rem;
       }
 
-      // ANFANG EINFÜGEN
+      /* Anfang Einfügen */
   .handbuch-tabs {
         display: flex;
         gap: 8px;
@@ -1127,7 +1127,7 @@
         line-height: 1.6;
         margin: 0;
       }
-      // ENDE EINFÜGEN
+      /* Ende Einfügen */
 
   /* BACKUP */
       .filter-panel {
@@ -1135,7 +1135,7 @@
         background: var(--surface2);
         border: 1.5px solid var(--border);
         border-radius: var(--radius);
-        padding: 12px;
+        padding: 10px;
         margin-bottom: 12px;
       }
       .filter-label {
@@ -1267,6 +1267,180 @@
         letter-spacing: 0.08em;
         margin: 18px 0 8px;
       }
+      .settings-list {
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        overflow: hidden;
+      }
+      .settings-list + .settings-list {
+        margin-top: 8px;
+      }
+      .settings-list summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 11px 12px;
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--text);
+        list-style: none;
+      }
+      .settings-list summary::-webkit-details-marker {
+        display: none;
+      }
+      .settings-list summary::after {
+        content: "▾";
+        color: var(--text3);
+        transition: transform 0.2s;
+      }
+      .settings-list[open] summary::after {
+        transform: rotate(180deg);
+      }
+      .settings-list-count {
+        margin-left: auto;
+        min-width: 26px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: var(--surface2);
+        color: var(--text2);
+        font-size: 0.78rem;
+        text-align: center;
+      }
+      .settings-list-values {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 0 12px 10px;
+      }
+      .settings-value {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        max-width: 100%;
+        min-height: 30px;
+        padding: 3px 8px 3px 10px;
+        border: 1.5px solid var(--border);
+        border-radius: 999px;
+        background: var(--surface2);
+        color: var(--text);
+        font-size: 0.82rem;
+      }
+      .settings-value button {
+        width: 22px;
+        height: 22px;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--text3);
+        cursor: pointer;
+        line-height: 1;
+      }
+      .settings-list-add {
+        display: flex;
+        gap: 6px;
+        padding: 10px 12px 12px;
+        border-top: 1px solid var(--border);
+      }
+      .settings-list-add .form-input {
+        flex: 1;
+        min-height: 38px;
+        margin: 0;
+        padding: 7px 10px;
+        font-size: 0.9rem;
+      }
+      .settings-list-add .action-btn {
+        flex-shrink: 0;
+      }
+      .noten-section {
+        margin-top: 12px;
+      }
+      .noten-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        background: var(--surface2);
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .noten-toggle-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        text-transform: uppercase;
+      }
+      .noten-toggle-label {
+        padding: 3px 10px;
+        border: 0.5px solid var(--border);
+        border-radius: 6px;
+        background: var(--surface);
+        color: var(--text2);
+        font-size: 12px;
+      }
+      .noten-box {
+        display: none;
+        margin-top: 4px;
+        padding: 10px;
+        border: 0.5px solid var(--border);
+        border-radius: 8px;
+        background: #fff;
+      }
+      .noten-box.open {
+        display: block;
+      }
+      .noten-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        color: var(--text2);
+        font-size: 11px;
+      }
+      .noten-controls label {
+        white-space: nowrap;
+      }
+      .noten-controls input {
+        flex: 1;
+        min-width: 0;
+      }
+      .noten-controls span {
+        min-width: 34px;
+        text-align: right;
+      }
+      .noten-scroll {
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .noten-scroll svg {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      .noten-code-toggle-wrap {
+        margin-top: 6px;
+        text-align: right;
+      }
+      .noten-code-toggle {
+        color: var(--text2);
+        cursor: pointer;
+        font-size: 11px;
+        text-decoration: underline;
+      }
+      .noten-code {
+        display: none;
+        margin-top: 8px;
+        padding: 10px;
+        border-radius: 6px;
+        background: var(--surface2);
+        color: var(--text2);
+        font-family: monospace;
+        font-size: 11px;
+        white-space: pre-wrap;
+      }
       .backup-actions {
         display: flex;
         gap: 8px;
@@ -1392,6 +1566,45 @@
         min-height: 34px;
         padding: 6px 10px;
         font-size: 0.78rem;
+      }
+      .praxis-add-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .praxis-add-row .form-input {
+        flex: 1;
+        margin: 0;
+      }
+      .praxis-mini-btn {
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        color: var(--text3);
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .praxis-edit-card {
+        display: grid;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .praxis-card-title {
+        font-family: var(--font-display);
+        font-size: 1.05rem;
+      }
+      .praxis-editable-item p {
+        color: var(--text2);
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
+      .praxis-item-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 10px;
       }
       .file-input-label {
         display: inline-block;
@@ -1692,13 +1905,15 @@
           padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
         }
         .backup-actions,
-        .import-actions {
+        .import-actions,
+        .praxis-add-row {
           flex-direction: column;
           align-items: stretch;
         }
         .backup-actions .action-btn,
         .backup-actions .file-input-label,
-        .import-actions .action-btn {
+        .import-actions .action-btn,
+        .praxis-add-row .action-btn {
           justify-content: center;
           width: 100%;
           min-height: 44px;
@@ -1723,11 +1938,31 @@
           padding-right: 14px;
         }
         .filter-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
         }
         .quick-filter {
           flex: 1 1 calc(50% - 6px);
           justify-content: center;
+        }
+        .filter-label {
+          font-size: 0.72rem;
+        }
+        .filter-select {
+          min-height: 40px;
+          padding-top: 7px;
+          padding-bottom: 7px;
+        }
+        .settings-list-add {
+          flex-direction: column;
+        }
+        .settings-list-add .action-btn {
+          justify-content: center;
+        }
+        .noten-box {
+          padding: 8px 6px;
+          margin-left: -6px;
+          margin-right: -6px;
         }
         .filter-footer {
           align-items: stretch;

@@ -708,9 +708,9 @@
           ],
         },
         {
-          titel: "\uD83D\uDE34 Umgang mit Muedigkeit",
+          titel: "\uD83D\uDE34 Umgang mit Müdigkeit",
           inhalt:
-            "Muedigkeit ist ein Signal \u2013 sie zu uebergehen kostet Vertrauen.\n\nWas hilft:\n- Tempo reduzieren, Stille zulassen\n- Ruhiges, bekanntes Lied einwerfen\n- Atempause explizit anbieten",
+            "Müdigkeit ist ein Signal \u2013 sie zu übergehen kostet Vertrauen.\n\nWas hilft:\n- Tempo reduzieren, Stille zulassen\n- Ruhiges, bekanntes Lied einwerfen\n- Atempause explizit anbieten",
           formulierungen: [
             "\u201eMerke ich, dass die Energie gerade nicht so da ist \u2013 dann machen wir's etwas ruhiger.\u201c",
             "\u201eEin Lied noch, dann darf auch die Stimme Pause machen.\u201c",
@@ -722,15 +722,15 @@
           inhalt:
             "Unruhe braucht zuerst Struktur, dann Beruhigung \u2013 nicht sofort Leise.\n\nWas hilft:\n- Rhythmisches Element einwerfen (Klatschen, Stampfen)\n- Klare, ruhige Stimme \u2013 nicht lauter werden\n- Koerperliche Orientierung anbieten",
           formulierungen: [
-            "\u201eAlle mal kurz auf die Fuesse schauen \u2013 spuert ihr den Boden?\u201c",
-            "\u201eIch klatsch einmal \u2013 und ihr macht mit, wenn ihr moeget.\u201c",
+            "\u201eAlle mal kurz auf die Füße schauen \u2013 spürt ihr den Boden?\u201c",
+            "\u201eIch klatsch einmal \u2013 und ihr macht mit, wenn ihr mögt.\u201c",
             "\u201eWir fangen alle zusammen an \u2013 bereit?\u201c",
           ],
         },
         {
-          titel: "\uD83C\uDFB5 Uebergaenge gestalten",
+          titel: "\uD83C\uDFB5 Übergänge gestalten",
           inhalt:
-            "Der Uebergang zwischen Liedern ist entscheidend fuer den Fluss der Stunde.\n\nPrinzip: Verbinden, nicht springen.",
+            "Der Übergang zwischen Liedern ist entscheidend für den Fluss der Stunde.\n\nPrinzip: Verbinden, nicht springen.",
           formulierungen: [
             "\u201eDas hat gut geklungen \u2013 und das naechste Lied passt da wunderbar dazu.\u201c",
             "\u201eJetzt wechseln wir die Stimmung ein bisschen...\u201c",
@@ -740,7 +740,7 @@
         {
           titel: "\uD83D\uDE80 Einstiegssaetze",
           inhalt:
-            "Die ersten 60 Sekunden entscheiden ueber die Gruppenstimmung.",
+            "Die ersten 60 Sekunden entscheiden über die Gruppenstimmung.",
           formulierungen: [
             "\u201eSchoen, dass Sie alle da sind \u2013 fangen wir einfach an.\u201c",
             "\u201eKeine Angst vor falschen Toenen \u2013 die gibt es hier nicht.\u201c",
@@ -890,7 +890,7 @@
       function getSongSyncLabel(song) {
         normalizeSongSyncState(song);
         if (song.sync_status === "synced") return "Synchronisiert";
-        if (song.sync_status === "syncing") return "Sync laeuft";
+        if (song.sync_status === "syncing") return "Sync läuft";
         if (song.sync_status === "error") return "Fehler beim Sync";
         if (song.sync_status === "local") return "Gespeichert lokal";
         return "Sync ausstehend";
@@ -1000,9 +1000,11 @@
             mergeListenwerte("laender", geladen.laender);
           if (geladen.kategorien && geladen.kategorien.length > 0)
             mergeListenwerte("kategorien", geladen.kategorien);
+          normalisiereListenUndSongMetadaten();
           saveToStorage();
           speichereListenInSupabase();
           if (document.getElementById("listenverwaltung")) renderEinstellungen();
+          befuelleFilterDropdowns();
           befuelleFormularDropdowns();
         } catch (e) {}
       }
@@ -1156,6 +1158,7 @@
           state.songs.forEach(function (s) {
             s.capo = zuRoemisch(s.capo);
           });
+          normalisiereListenUndSongMetadaten();
           // spickListe und setlists IDs anpassen
           var idMap = {};
           rows.forEach(function (row) {
@@ -1249,6 +1252,7 @@
           normalizeSongSyncState(s);
           if (s.sync_status === "syncing") s.sync_status = "pending";
         });
+        normalisiereListenUndSongMetadaten();
         normalizeSetlists();
       }
 
@@ -1433,13 +1437,13 @@
           var cur = sel.value;
           sel.innerHTML =
             '<option value="">Alle</option>' +
-            state.listen[key]
+            optionenFuerListenfeld(key)
               .map(function (v) {
                 return (
                   '<option value="' +
                   escHtml(v) +
                   '"' +
-                  (v === cur ? " selected" : "") +
+                  (listenwerteGleich(v, cur) ? " selected" : "") +
                   ">" +
                   escHtml(v) +
                   "</option>"
@@ -1502,9 +1506,9 @@
             if (!inTitle && !inText && !inAkk && !inKomp && !inNotiz)
               return false;
           }
-          if (sprache && s.sprache !== sprache) return false;
-          if (land && s.land !== land) return false;
-          if (kategorie && s.kategorie !== kategorie) return false;
+          if (sprache && !listenwerteGleich(s.sprache, sprache)) return false;
+          if (land && !listenwerteGleich(s.land, land)) return false;
+          if (kategorie && !listenwerteGleich(s.kategorie, kategorie)) return false;
           if (stimmung && s.stimmung !== stimmung) return false;
           if (nurFavoriten && !state.favoriten.includes(s.id)) return false;
           if (mitNoten && !normalisiereListenwert(s.noten_abc)) return false;
@@ -1575,7 +1579,7 @@
             var title = escHtml(song.titel);
             return (
               '<div class="song-card">' +
-              '<button class="song-card-main" aria-label="Lied Ã¶ffnen: ' +
+              '<button class="song-card-main" aria-label="Lied öffnen: ' +
               title +
               '" onclick="openSong(' +
               song.id +
@@ -1602,7 +1606,7 @@
               '">&#11088;</button>' +
               '<button class="card-btn" onclick="event.stopPropagation(); addToSpickListe(' +
               song.id +
-              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufÃ¼gen: ' +
+              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufügen: ' +
               title +
               '">&#127908;</button>' +
               "</div>" +
@@ -1623,11 +1627,33 @@
 
       function escHtml(str) {
         if (!str) return "";
-        return String(str)
+        return repariereTextAnzeige(String(str))
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;")
           .replace(/"/g, "&quot;");
+      }
+
+      function repariereTextAnzeige(str) {
+        return String(str || "")
+          .replace(/Ã„/g, "Ä")
+          .replace(/Ã–/g, "Ö")
+          .replace(/Ãœ/g, "Ü")
+          .replace(/Ã¤/g, "ä")
+          .replace(/Ã¶/g, "ö")
+          .replace(/Ã¼/g, "ü")
+          .replace(/ÃŸ/g, "ß")
+          .replace(/Ã©/g, "é")
+          .replace(/Â´/g, "´")
+          .replace(/Â/g, "")
+          .replace(/â€“/g, "–")
+          .replace(/â€”/g, "—")
+          .replace(/â€ž/g, "„")
+          .replace(/â€œ/g, "“")
+          .replace(/â€/g, "”")
+          .replace(/â€˜/g, "‘")
+          .replace(/â€™/g, "’")
+          .replace(/ðŸ†•/g, "Update");
       }
 
       function songCardKey(event, id) {
@@ -1645,16 +1671,52 @@
         laender: "L\u00e4nder/Herkunft",
         kategorien: "Kategorien",
       };
+      var LISTEN_FELDER = {
+        sprachen: "sprache",
+        laender: "land",
+        kategorien: "kategorie",
+      };
+      var LISTEN_KANONISCH = {
+        franzoesisch: "Französisch",
+        französisch: "Französisch",
+        oesterreich: "Österreich",
+        österreich: "Österreich",
+        suedafrika: "Südafrika",
+        südafrika: "Südafrika",
+        warmup: "Aufwärmen",
+      };
 
       function normalisiereListenwert(val) {
-        return String(val || "").trim();
+        return String(val || "").trim().replace(/\s+/g, " ");
+      }
+
+      function listenwertSchluessel(val) {
+        return normalisiereListenwert(val)
+          .toLowerCase()
+          .replace(/ä/g, "ae")
+          .replace(/ö/g, "oe")
+          .replace(/ü/g, "ue")
+          .replace(/ß/g, "ss");
+      }
+
+      function kanonischerListenwert(val) {
+        val = normalisiereListenwert(val);
+        if (!val) return "";
+        return LISTEN_KANONISCH[listenwertSchluessel(val)] || val;
+      }
+
+      function listenwerteGleich(a, b) {
+        return listenwertSchluessel(a) === listenwertSchluessel(b);
       }
 
       function mergeListenwerte(key, werte) {
         if (!Array.isArray(state.listen[key])) state.listen[key] = [];
         werte.forEach(function (wert) {
-          wert = normalisiereListenwert(wert);
-          if (wert && state.listen[key].indexOf(wert) === -1) {
+          wert = kanonischerListenwert(wert);
+          if (
+            wert &&
+            !state.listen[key].some(function (v) { return listenwerteGleich(v, wert); })
+          ) {
             state.listen[key].push(wert);
           }
         });
@@ -1664,60 +1726,103 @@
       }
 
       function stelleListenwertSicher(key, wert) {
-        wert = normalisiereListenwert(wert);
+        wert = kanonischerListenwert(wert);
         if (!wert) return false;
         var vorher = state.listen[key] ? state.listen[key].length : 0;
         mergeListenwerte(key, [wert]);
         return state.listen[key].length !== vorher;
       }
 
+      function normalisiereListenUndSongMetadaten() {
+        Object.keys(LISTEN_LABELS).forEach(function (key) {
+          var werte = [];
+          (state.listen[key] || []).forEach(function (wert) {
+            werte.push(kanonischerListenwert(wert));
+          });
+          state.listen[key] = [];
+          mergeListenwerte(key, werte);
+        });
+        (state.songs || []).forEach(function (song) {
+          Object.keys(LISTEN_FELDER).forEach(function (key) {
+            var feld = LISTEN_FELDER[key];
+            song[feld] = kanonischerListenwert(song[feld]);
+            if (song[feld]) mergeListenwerte(key, [song[feld]]);
+          });
+        });
+      }
+
+      function optionenFuerListenfeld(key) {
+        var werte = (state.listen[key] || []).slice();
+        var feld = LISTEN_FELDER[key];
+        (state.songs || []).forEach(function (song) {
+          if (song && song[feld]) werte.push(song[feld]);
+        });
+        var result = [];
+        werte.forEach(function (wert) {
+          wert = kanonischerListenwert(wert);
+          if (
+            wert &&
+            !result.some(function (v) { return listenwerteGleich(v, wert); })
+          ) {
+            result.push(wert);
+          }
+        });
+        return result.sort(function (a, b) { return a.localeCompare(b, "de"); });
+      }
+
       function renderEinstellungen() {
         var container = document.getElementById("listenverwaltung");
         if (!container) return;
+        normalisiereListenUndSongMetadaten();
         container.innerHTML = Object.keys(LISTEN_LABELS)
           .map(function (key) {
+            var werte = optionenFuerListenfeld(key);
             return (
-              '<div style="margin-bottom:14px;">' +
-              '<div style="font-size:0.82rem; font-weight:600; color:var(--text2); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:6px;">' +
+              '<details class="settings-list" ' +
+              (key === "sprachen" ? "open" : "") +
+              ">" +
+              '<summary><span>' +
               escHtml(LISTEN_LABELS[key]) +
-              "</div>" +
-              '<div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px;">' +
-              state.listen[key]
+              '</span><span class="settings-list-count">' +
+              werte.length +
+              "</span></summary>" +
+              '<div class="settings-list-values">' +
+              werte
                 .map(function (val) {
                   return (
-                    '<span style="display:inline-flex; align-items:center; gap:4px; background:var(--surface2); border:1.5px solid var(--border); border-radius:20px; padding:3px 10px; font-size:0.82rem;">' +
+                    '<span class="settings-value">' +
                     escHtml(val) +
                     "<button onclick=\"loescheListenwert('" +
                     key +
                     "','" +
                     val.replace(/'/g, "\\'") +
-                    '\')" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:0.9rem;padding:0 2px;">&#10005;</button>' +
+                    '\')" aria-label="Listenwert entfernen: ' +
+                    escHtml(val) +
+                    '">&#10005;</button>' +
                     "</span>"
                   );
                 })
                 .join("") +
               "</div>" +
-              '<div style="display:flex; gap:6px;">' +
+              '<div class="settings-list-add">' +
               '<input class="form-input" id="neuer-' +
               key +
-              '" type="text" placeholder="Neuer Wert..." style="flex:1; padding:6px 10px; font-size:0.85rem;">' +
+              '" type="text" placeholder="Neuer Wert...">' +
               '<button class="action-btn" onclick="addListenwert(\'' +
               key +
-              '\')" style="flex-shrink:0;">+ Hinzuf\u00fcgen</button>' +
+              "')\">+ Hinzufügen</button>" +
               "</div>" +
-              "</div>"
+              "</details>"
             );
           })
-          .join(
-            '<hr style="border:none; border-top:1px solid var(--border); margin:10px 0;">',
-          );
+          .join("");
       }
 
       function addListenwert(key) {
         var inp = document.getElementById("neuer-" + key);
-        var val = normalisiereListenwert(inp.value);
+        var val = kanonischerListenwert(inp.value);
         if (!val) return;
-        if (state.listen[key].indexOf(val) !== -1) {
+        if (optionenFuerListenfeld(key).some(function (v) { return listenwerteGleich(v, val); })) {
           showToast("Bereits vorhanden");
           return;
         }
@@ -1749,8 +1854,9 @@
           )
         )
           return;
+        val = kanonischerListenwert(val);
         state.listen[key] = state.listen[key].filter(function (v) {
-          return v !== val;
+          return !listenwerteGleich(v, val);
         });
         saveToStorage();
         speichereListenInSupabase();
@@ -1763,7 +1869,7 @@
           '<div class="cleanup-actions">' +
           '<button class="action-btn" onclick="openSongAusAufraeumen(' +
           song.id +
-          ')">Ã–ffnen</button>' +
+          ')">Öffnen</button>' +
           '<button class="action-btn" onclick="editSongAusAufraeumen(' +
           song.id +
           ')">Bearbeiten</button>' +
@@ -1886,10 +1992,10 @@
 
       function neuerListenwert(key) {
         var label = LISTEN_LABELS[key] || key;
-        var val = prompt("Neuer Wert f\u00fcr " + label + ":");
+        var val = prompt("Neuer Wert für " + label + ":");
         if (!val || !val.trim()) return;
-        val = normalisiereListenwert(val);
-        if (state.listen[key].indexOf(val) !== -1) {
+        val = kanonischerListenwert(val);
+        if (optionenFuerListenfeld(key).some(function (v) { return listenwerteGleich(v, val); })) {
           showToast("Bereits vorhanden");
           return;
         }
@@ -1920,7 +2026,7 @@
           var cur = sel.value;
           sel.innerHTML =
             '<option value="">-- keine --</option>' +
-            state.listen[key]
+            optionenFuerListenfeld(key)
               .map(function (v) {
                 return (
                   '<option value="' +
@@ -2227,7 +2333,7 @@
             ? '<span class=\"capo-badge\">Bund ' + gesamtCapo + "</span>"
             : "") +
           (transpState.capoSession !== 0
-            ? '<button class=\"transpose-reset\" onclick=\"changeCapoSession(-transpState.capoSession)\">zur\\u00fcck</button>'
+            ? '<button class=\"transpose-reset\" onclick=\"changeCapoSession(-transpState.capoSession)\">zurück</button>'
             : "") +
           '<button class=\"transpose-reset\" style=\"color:var(--accent2); margin-left:4px;\" onclick=\"capoSpeichern()\">&#128190; speichern</button>' +
           "</div>" +
@@ -2261,7 +2367,7 @@
 
         document.getElementById("song-detail-view").innerHTML =
           '<div class="detail-header">' +
-          '<button class="back-btn" onclick="closeDetail()" aria-label="ZurÃ¼ck zur Liedliste">\u2190</button>' +
+          '<button class="back-btn" onclick="closeDetail()" aria-label="Zurück zur Liedliste">\u2190</button>' +
           "<div>" +
           '<div class="detail-title">' +
           escHtml(song.titel) +
@@ -2285,7 +2391,7 @@
           "</button>" +
           '<button class="action-btn" onclick="addToSpickListe(' +
           song.id +
-          ')" aria-label="Zum Spickzettel hinzufÃ¼gen: ' +
+          ')" aria-label="Zum Spickzettel hinzufügen: ' +
           escHtml(song.titel) +
           '">&#127908; Spickzettel</button>' +
           '<button class="action-btn" onclick="editSong(' +
@@ -2305,22 +2411,22 @@
           "</div>" +
           akkordSection +
           (song.noten_abc
-            ? '<div style="margin-top:12px;">' +
-              '<div style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--surface2); border-radius:8px; cursor:pointer;" onclick="toggleNotenAnzeige()">' +
-              '<span style="font-size:11px; font-weight:500; letter-spacing:0.08em; color:var(--accent); text-transform:uppercase;">&#9834; Noten</span>' +
-              '<span id="noten-toggle-label" style="font-size:12px; color:var(--text2); background:var(--surface); border-radius:6px; padding:3px 10px; border:0.5px solid var(--border);">einblenden</span>' +
+            ? '<div class="noten-section">' +
+              '<div class="noten-toggle" onclick="toggleNotenAnzeige()">' +
+              '<span class="noten-toggle-title">&#9834; Noten</span>' +
+              '<span id="noten-toggle-label" class="noten-toggle-label">einblenden</span>' +
               '</div>' +
-              '<div id="noten-abc-box" style="display:none; margin-top:4px; background:white; border-radius:8px; border:0.5px solid var(--border); padding:12px;">' +
-              '<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">' +
-              '<span style="font-size:11px; color:var(--text2); white-space:nowrap;">GrÃ¶ÃŸe:</span>' +
-              '<input type="range" id="noten-scale-slider" min="50" max="150" value="100" step="5" style="flex:1;" oninput="notenScaleAendern(this.value)">' +
-              '<span id="noten-scale-label" style="font-size:11px; color:var(--text2); min-width:32px; text-align:right;">100%</span>' +
+              '<div id="noten-abc-box" class="noten-box">' +
+              '<div class="noten-controls">' +
+              '<label for="noten-scale-slider">Größe:</label>' +
+              '<input type="range" id="noten-scale-slider" min="60" max="130" value="90" step="5" oninput="notenScaleAendern(this.value)">' +
+              '<span id="noten-scale-label">90%</span>' +
               '</div>' +
-              '<div id="noten-abc-render"></div>' +
-              '<div style="margin-top:6px; text-align:right;">' +
-              '<span onclick="toggleAbcCode()" style="font-size:11px; color:var(--text2); cursor:pointer; text-decoration:underline;">ABC-Code anzeigen</span>' +
+              '<div class="noten-scroll"><div id="noten-abc-render"></div></div>' +
+              '<div class="noten-code-toggle-wrap">' +
+              '<span onclick="toggleAbcCode()" class="noten-code-toggle">ABC-Code anzeigen</span>' +
               '</div>' +
-              '<pre id="noten-abc-code" style="display:none; margin-top:8px; font-size:11px; color:var(--text2); background:var(--surface2); padding:10px; border-radius:6px; white-space:pre-wrap; font-family:monospace;">' +
+              '<pre id="noten-abc-code" class="noten-code">' +
               escHtml(song.noten_abc) +
               '</pre>' +
               '</div>' +
@@ -2445,10 +2551,13 @@
         var container = document.getElementById("noten-abc-render");
         if (!container) return;
         setTimeout(function() {
-          var breite = container.offsetWidth || 320;
+          var scroll = container.closest ? container.closest(".noten-scroll") : null;
+          var breite = (scroll && scroll.clientWidth) || container.offsetWidth || 320;
+          container.innerHTML = "";
           ABCJS.renderAbc("noten-abc-render", song.noten_abc, {
-            staffwidth: Math.floor(breite * 0.95),
-            scale: scale || 1
+            responsive: "resize",
+            staffwidth: Math.max(260, Math.floor(breite - 8)),
+            scale: scale || 0.9
           });
         }, 50);
       }
@@ -2457,12 +2566,12 @@
         var box = document.getElementById("noten-abc-box");
         var label = document.getElementById("noten-toggle-label");
         if (!box) return;
-        var offen = box.style.display === "none";
-        box.style.display = offen ? "block" : "none";
+        var offen = !box.classList.contains("open");
+        box.classList.toggle("open", offen);
         label.textContent = offen ? "ausblenden" : "einblenden";
         if (offen && window.ABCJS && !box.dataset.rendered) {
           var slider = document.getElementById("noten-scale-slider");
-          var scale = parseFloat((slider || {}).value || 100) / 100;
+          var scale = parseFloat((slider || {}).value || 90) / 100;
           renderNoten(scale);
           box.dataset.rendered = "1";
         }
@@ -2519,7 +2628,7 @@
             var title = escHtml(song.titel);
             return (
               '<div class="song-card">' +
-              '<button class="song-card-main" aria-label="Lied Ã¶ffnen: ' +
+              '<button class="song-card-main" aria-label="Lied öffnen: ' +
               title +
               '" onclick="openSongFromFavorit(' +
               song.id +
@@ -2544,7 +2653,7 @@
               '">&#11088;</button>' +
               '<button class="card-btn" onclick="event.stopPropagation(); addToSpickListe(' +
               song.id +
-              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufÃ¼gen: ' +
+              ')" title="Zum Spickzettel" aria-label="Zum Spickzettel hinzufügen: ' +
               title +
               '">&#127908;</button>' +
               "</div>" +
@@ -3431,7 +3540,7 @@
         }
 
         document.getElementById("spick-text").textContent =
-          song.text || "(kein Text)";
+          repariereTextAnzeige(song.text || "(kein Text)");
 
         // Noten-Toggle anzeigen wenn ABC vorhanden
         var spickNotenToggle = document.getElementById("spick-noten-toggle");
@@ -3583,9 +3692,9 @@
           ],
         },
         {
-          titel: "&#128564; Umgang mit Muedigkeit",
+          titel: "&#128564; Umgang mit Müdigkeit",
           inhalt:
-            "Muedigkeit ist ein Signal \u2013 sie zu uebergehen kostet Vertrauen.\n\nWas hilft:\n- Tempo reduzieren, Stille zulassen\n- Ruhiges, bekanntes Lied einwerfen\n- Atempause explizit anbieten\n- Lautstaerke reduzieren statt erhoehen",
+            "Müdigkeit ist ein Signal \u2013 sie zu übergehen kostet Vertrauen.\n\nWas hilft:\n- Tempo reduzieren, Stille zulassen\n- Ruhiges, bekanntes Lied einwerfen\n- Atempause explizit anbieten\n- Lautstärke reduzieren statt erhöhen",
           formulierungen: [
             "Merke ich, dass die Energie gerade nicht so da ist \u2013 dann machen wir\u2019s etwas ruhiger.",
             "Ein Lied noch, dann darf auch die Stimme Pause machen.",
@@ -3598,17 +3707,17 @@
           inhalt:
             "Unruhe braucht zuerst Struktur, dann Beruhigung \u2013 nicht sofort Leise.\n\nWas hilft:\n- Rhythmisches Element einwerfen (Klatschen, Stampfen)\n- Klare, ruhige Stimme \u2013 nicht lauter werden\n- Koerperliche Orientierung anbieten\n- Kurze klare Ansage, dann direkt starten",
           formulierungen: [
-            "Alle mal kurz auf die Fuesse schauen \u2013 spuert ihr den Boden?",
-            "Ich klatsch einmal \u2013 und ihr macht mit, wenn ihr moeget.",
+            "Alle mal kurz auf die Füße schauen \u2013 spürt ihr den Boden?",
+            "Ich klatsch einmal \u2013 und ihr macht mit, wenn ihr mögt.",
             "Wir fangen alle zusammen an \u2013 bereit?",
             "Kurze Pause \u2013 dann starten wir nochmal von vorne.",
             "Ich brauche kurz eure Aufmerksamkeit \u2013 danke.",
           ],
         },
         {
-          titel: "&#127925; Uebergaenge gestalten",
+          titel: "&#127925; Übergänge gestalten",
           inhalt:
-            "Der Uebergang zwischen Liedern entscheidet ueber den Fluss der Stunde.\n\nPrinzip: Verbinden, nicht springen.\n\n- Kurze verbale Bruecke bauen\n- Stimmung ankuendigen wenn sie wechselt\n- Tempo des Endes ins naechste Lied ueberleiten",
+            "Der Übergang zwischen Liedern entscheidet über den Fluss der Stunde.\n\nPrinzip: Verbinden, nicht springen.\n\n- Kurze verbale Brücke bauen\n- Stimmung ankündigen wenn sie wechselt\n- Tempo des Endes ins nächste Lied überleiten",
           formulierungen: [
             "Das hat gut geklungen \u2013 und das naechste Lied passt da wunderbar dazu.",
             "Jetzt wechseln wir die Stimmung ein bisschen...",
@@ -3619,7 +3728,7 @@
         {
           titel: "&#128640; Einstiegssaetze",
           inhalt:
-            "Die ersten 60 Sekunden entscheiden ueber die Gruppenstimmung.\n\n- Persoenlich begruessen\n- Niedrigschwellig einladen\n- Sofort loslegen \u2013 nicht zu viel erklaeren",
+            "Die ersten 60 Sekunden entscheiden über die Gruppenstimmung.\n\n- Persönlich begrüßen\n- Niedrigschwellig einladen\n- Sofort loslegen \u2013 nicht zu viel erklären",
           formulierungen: [
             "Schoen, dass Sie alle da sind \u2013 fangen wir einfach an.",
             "Keine Angst vor falschen Toenen \u2013 die gibt es hier nicht.",
@@ -3631,7 +3740,7 @@
         {
           titel: "&#129302; Umgang mit Demenz",
           inhalt:
-            "Das Langzeitgedaechtnis fuer Musik bleibt oft erhalten, wenn vieles andere schon weg ist.\n\nWas hilft:\n- Lieder aus der Jugendzeit (1940\u201360)\n- Klare, einfache Melodien mit viel Wiederholung\n- Langsames Tempo, deutliche Aussprache\n- Koerperliche Begleitung (Haende halten, wiegen)",
+            "Das Langzeitgedächtnis für Musik bleibt oft erhalten, wenn vieles andere schon weg ist.\n\nWas hilft:\n- Lieder aus der Jugendzeit (1940\u201360)\n- Klare, einfache Melodien mit viel Wiederholung\n- Langsames Tempo, deutliche Aussprache\n- Körperliche Begleitung (Hände halten, wiegen)",
           formulierungen: [
             "Das kennen Sie sicher noch \u2013 fangen wir einfach an.",
             "Kein Druck \u2013 einfach hoeren ist auch wunderschoen.",
@@ -3647,7 +3756,7 @@
           formulierungen: [
             "Es darf auch still sein. Das ist auch Musik.",
             "Wenn Traenen kommen \u2013 die duerfen da sein.",
-            "Wir singen heute fuer alle, die nicht mehr da sind.",
+            "Wir singen heute für alle, die nicht mehr da sind.",
             "Schweigen ist manchmal das Ehrlichste.",
           ],
         },
@@ -3659,7 +3768,7 @@
             "Ich komme gleich zu Ihnen \u2013 einen Moment noch.",
             "Das hoere ich \u2013 duerfen wir zuerst das Lied fertig singen?",
             "Moechten Sie lieber einfach zuhoeren?",
-            "Ich freue mich ueber jeden, der da ist \u2013 egal wie.",
+            "Ich freue mich über jeden, der da ist \u2013 egal wie.",
           ],
         },
         {
@@ -3687,14 +3796,36 @@
       ];
 
       var CHECKLISTE_DEFAULT = [
-        "Raum vorbereitet (Stuehle, Licht, Temperatur)",
+        "Raum vorbereitet (Stühle, Licht, Temperatur)",
         "Liedzettel oder Spickzettel bereit",
         "Gitarre gestimmt / Technik gecheckt",
         "Notfallrepertoire im Kopf (3 Lieder a cappella)",
         "Eigene Stimmung gecheckt \u2013 wie bin ich gerade?",
         "Zeit gepuffert (kein Stress beim Anfang)",
-        "Namen der Teilnehmenden bekannt (wenn moeglich)",
+        "Namen der Teilnehmenden bekannt (wenn möglich)",
         "Abschlusslied entschieden",
+      ];
+      var AUFBAU_DEFAULT = [
+        {
+          titel: "🎶 Ankommen & Aufwärmen (5–10 Min.)",
+          text: "Begrüßung, persönliche Ansprache. Atemwahrnehmung, Summen auf „mmh“. Ein bekanntes, einfaches Lied ohne Text: Stimme wecken, nicht fordern.\n\nFormulierung: „Wir fangen ganz sanft an – einfach zuhören und mitmachen, wenn möglich.“",
+        },
+        {
+          titel: "🎸 Hauptteil (20–30 Min.)",
+          text: "2–4 Lieder, Kontraste setzen (ruhig/bewegt, bekannt/neu). Klatschen, Bewegung, Rhythmus einbauen. Auf Gruppenenergie achten – Plan flexibel halten.\n\nTipp: Bekanntes Lied als Anker, neues Lied einbetten.",
+        },
+        {
+          titel: "🔔 Übergangslied (2–5 Min.)",
+          text: "Tempo reduzieren, Energie sanft herunterregulieren. Ruhigere Melodie, weniger Stimme. Raum für das Ausklingen des Hauptteils.",
+        },
+        {
+          titel: "✨ Abschluss (5–10 Min.)",
+          text: "Ein klar bekanntes Abschlusslied. Kurzer Moment der Stille danach. Persönliche Verabschiedung – jeden anschauen.",
+        },
+        {
+          titel: "🎤 Aufwärmen",
+          text: "Summen auf „mmh“: Lippen locker, Resonanz spüren – 1 Minute reicht.\nKiefer lockern: „Wiwiwiwi“ oder Kaumimik.\nAtemanlasser: 4 Sek. ein, 4 halten, 8 aus.\nHalbton-Glissando: von tief nach hoch und zurück auf „ah“.",
+        },
       ];
 
       function ladeHandbuchVonSupabase() {
@@ -3812,6 +3943,7 @@
         });
         btn.classList.add("active");
         if (tab === "checkliste") renderCheckliste();
+        if (tab === "aufbau") renderAufbau();
       }
 
       // ---- MODAL ----
@@ -3896,7 +4028,7 @@
 
       function handbuchLoeschen() {
         if (!handbuchEditId) return;
-        if (!confirm("Situation wirklich loeschen?")) return;
+        if (!confirm("Situation wirklich löschen?")) return;
         sb.from("singleiter_handbuch")
           .delete()
           .eq("id", handbuchEditId)
@@ -3911,8 +4043,9 @@
         var saved = JSON.parse(
           localStorage.getItem("singleiter_checkliste") || "{}",
         );
+        var items = getChecklisteItems();
         var container = document.getElementById("checkliste-items");
-        container.innerHTML = CHECKLISTE_DEFAULT.map(function (item, i) {
+        container.innerHTML = items.map(function (item, i) {
           var checked = saved[i] || false;
           return (
             '<div class="checkliste-item' +
@@ -3932,9 +4065,44 @@
             '">' +
             escHtml(item) +
             "</label>" +
+            '<button class="praxis-mini-btn" onclick="checklisteDelete(' +
+            i +
+            ')" aria-label="Checklistenpunkt löschen">&#10005;</button>' +
             "</div>"
           );
         }).join("");
+      }
+
+      function getChecklisteItems() {
+        try {
+          var items = JSON.parse(localStorage.getItem("singleiter_checkliste_items") || "null");
+          return Array.isArray(items) && items.length ? items : CHECKLISTE_DEFAULT.slice();
+        } catch (e) {
+          return CHECKLISTE_DEFAULT.slice();
+        }
+      }
+
+      function saveChecklisteItems(items) {
+        localStorage.setItem("singleiter_checkliste_items", JSON.stringify(items));
+      }
+
+      function checklisteAdd() {
+        var inp = document.getElementById("checkliste-neu");
+        var val = normalisiereListenwert(inp && inp.value);
+        if (!val) return;
+        var items = getChecklisteItems();
+        items.push(val);
+        saveChecklisteItems(items);
+        if (inp) inp.value = "";
+        renderCheckliste();
+      }
+
+      function checklisteDelete(i) {
+        var items = getChecklisteItems();
+        items.splice(i, 1);
+        saveChecklisteItems(items.length ? items : CHECKLISTE_DEFAULT.slice());
+        localStorage.removeItem("singleiter_checkliste");
+        renderCheckliste();
       }
 
       function checklisteToggle(i) {
@@ -3951,6 +4119,76 @@
       function checklisteReset() {
         localStorage.removeItem("singleiter_checkliste");
         renderCheckliste();
+      }
+
+      function getAufbauItems() {
+        try {
+          var items = JSON.parse(localStorage.getItem("singleiter_aufbau_items") || "null");
+          return Array.isArray(items) && items.length ? items : AUFBAU_DEFAULT.slice();
+        } catch (e) {
+          return AUFBAU_DEFAULT.slice();
+        }
+      }
+
+      function saveAufbauItems(items) {
+        localStorage.setItem("singleiter_aufbau_items", JSON.stringify(items));
+      }
+
+      function renderAufbau() {
+        var container = document.getElementById("aufbau-items");
+        if (!container) return;
+        var legacy = document.querySelector(".legacy-aufbau");
+        if (legacy) legacy.style.display = "none";
+        container.innerHTML = getAufbauItems().map(function (item, i) {
+          return (
+            '<div class="stundenaufbau-phase praxis-editable-item">' +
+            "<h4>" + escHtml(item.titel) + "</h4>" +
+            "<p>" + escHtml(item.text).replace(/\n/g, "<br>") + "</p>" +
+            '<div class="praxis-item-actions">' +
+            '<button class="action-btn compact-btn" onclick="aufbauEdit(' + i + ')">Bearbeiten</button>' +
+            '<button class="transpose-reset" onclick="aufbauDelete(' + i + ')">Löschen</button>' +
+            "</div>" +
+            "</div>"
+          );
+        }).join("");
+      }
+
+      function aufbauAdd() {
+        var titelEl = document.getElementById("aufbau-neu-titel");
+        var textEl = document.getElementById("aufbau-neu-text");
+        var titel = normalisiereListenwert(titelEl && titelEl.value);
+        var text = normalisiereListenwert(textEl && textEl.value);
+        if (!titel || !text) {
+          showToast("Bitte Titel und Text ausfüllen");
+          return;
+        }
+        var items = getAufbauItems();
+        items.push({ titel: titel, text: text });
+        saveAufbauItems(items);
+        titelEl.value = "";
+        textEl.value = "";
+        renderAufbau();
+      }
+
+      function aufbauEdit(i) {
+        var items = getAufbauItems();
+        var item = items[i];
+        if (!item) return;
+        var titel = prompt("Titel", item.titel);
+        if (!titel || !titel.trim()) return;
+        var text = prompt("Text", item.text);
+        if (!text || !text.trim()) return;
+        items[i] = { titel: titel.trim(), text: text.trim() };
+        saveAufbauItems(items);
+        renderAufbau();
+      }
+
+      function aufbauDelete(i) {
+        var items = getAufbauItems();
+        if (!confirm("Baustein wirklich löschen?")) return;
+        items.splice(i, 1);
+        saveAufbauItems(items.length ? items : AUFBAU_DEFAULT.slice());
+        renderAufbau();
       }
 
       // ============================================================
@@ -4015,7 +4253,7 @@
       function darfSongFormularVerlassen() {
         if (!document.getElementById("view-add").classList.contains("active")) return true;
         if (!songFormularGeaendert()) return true;
-        return confirm("Ã„nderungen verwerfen?");
+        return confirm("Änderungen verwerfen?");
       }
 
       function setSongSaveStatus(text, status) {
@@ -4264,8 +4502,8 @@
           var updatedSong = state.songs.find(function (s) {
             return s.id === editSongId;
           });
-          setSongSaveStatus("Lokal gespeichert, Sync lÃ¤uft...", "");
-          showToast("Lokal gespeichert, Sync lÃ¤uft...");
+          setSongSaveStatus("Lokal gespeichert, Sync läuft...", "");
+          showToast("Lokal gespeichert, Sync läuft...");
           speichereInSupabase(updatedSong).then(function (row) {
             if (row && !updatedSong.supabase_id) {
               updatedSong.supabase_id = row.id;
@@ -4287,8 +4525,8 @@
               saveToStorage();
               renderSongListIfVisible();
               if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
-              setSongSaveStatus("Lokal gespeichert, Sync spÃ¤ter", "warn");
-              showToast("Lokal gespeichert, Sync spÃ¤ter");
+              setSongSaveStatus("Lokal gespeichert, Sync später", "warn");
+              showToast("Lokal gespeichert, Sync später");
             }
           });
           var savedId = editSongId;
@@ -4309,8 +4547,8 @@
           markSongSyncStatus(newSong, canSyncSongsNow() ? "syncing" : "local", "");
           state.songs.push(newSong);
           saveToStorage();
-          setSongSaveStatus("Lokal gespeichert, Sync lÃ¤uft...", "");
-          showToast("Lokal gespeichert, Sync lÃ¤uft...");
+          setSongSaveStatus("Lokal gespeichert, Sync läuft...", "");
+          showToast("Lokal gespeichert, Sync läuft...");
           speichereInSupabase(newSong).then(function (row) {
             if (row) {
               newSong.supabase_id = row.id;
@@ -4327,8 +4565,8 @@
               );
               saveToStorage();
               renderSongListIfVisible();
-              setSongSaveStatus("Lokal gespeichert, Sync spÃ¤ter", "warn");
-              showToast("Lokal gespeichert, Sync spÃ¤ter");
+              setSongSaveStatus("Lokal gespeichert, Sync später", "warn");
+              showToast("Lokal gespeichert, Sync später");
             }
           });
           clearSongDraft();
@@ -4603,8 +4841,8 @@
         box.classList.toggle("offline", !online);
         box.classList.toggle("online", online);
         text.textContent = online
-          ? "Online: Sync und externe Bibliotheken koennen geladen werden."
-          : "Offline verfuegbar: lokale Daten bleiben nutzbar, Sync folgt spaeter.";
+          ? "Online: Sync und externe Bibliotheken können geladen werden."
+          : "Offline verfügbar: lokale Daten bleiben nutzbar, Sync folgt später.";
       }
 
       // ============================================================
@@ -4612,7 +4850,7 @@
       // ============================================================
       function showToast(msg) {
         var t = document.getElementById("toast");
-        t.textContent = msg;
+        t.textContent = repariereTextAnzeige(msg);
         t.classList.add("show");
         setTimeout(function () {
           t.classList.remove("show");
@@ -4635,7 +4873,7 @@
               t.innerHTML =
                 "ðŸ†• Update " +
                 data.version +
-                " verfÃ¼gbar" +
+                " verfügbar" +
                 changelogText +
                 ' &nbsp;<button onclick="updateDurchfuehren()" style="background:var(--accent);color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.85rem;">Jetzt</button>';
               t.classList.add("show");

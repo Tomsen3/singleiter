@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.5.19";
+      var APP_VERSION = "1.5.20";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -43,7 +43,7 @@
           class="icon-btn"
           onclick="showView('einstellungen')"
           title="Einstellungen"
-          aria-label="Einstellungen Ã¶ffnen"
+          aria-label="Einstellungen öffnen"
         >
           &#9881;&#65039;
         </button>
@@ -51,7 +51,7 @@
           class="icon-btn"
           onclick="showAddView()"
           title="Lied hinzuf&uuml;gen"
-          aria-label="Lied hinzufÃ¼gen"
+          aria-label="Lied hinzufügen"
         >
           &#10133;
         </button>
@@ -185,7 +185,7 @@
           <div class="filter-footer">
             <span id="filter-count" class="filter-count"></span>
             <button class="transpose-reset" onclick="resetFilter()">
-              Filter zur\u00fccksetzen
+              Filter zurücksetzen
             </button>
           </div>
         </div>
@@ -284,7 +284,7 @@
       class="overlay-panel setlist-editor-panel"
     >
       <div class="toolbar-row form-row">
-        <button class="back-btn" onclick="closeSetlistEditor()" aria-label="Setlist-Editor schlieÃŸen">&#8592;</button>
+        <button class="back-btn" onclick="closeSetlistEditor()" aria-label="Setlist-Editor schließen">&#8592;</button>
         <label class="sr-only" for="setlist-editor-name">Setlist-Name</label>
         <input
           class="form-input editor-title-input"
@@ -323,7 +323,7 @@
         <button
           class="action-btn danger icon"
           onclick="deleteSetlist()"
-          aria-label="Setlist lÃ¶schen"
+          aria-label="Setlist löschen"
         >
           &#128465;
         </button>
@@ -340,7 +340,7 @@
       class="overlay-panel search-overlay-panel"
     >
       <div class="toolbar-row form-row">
-        <button class="back-btn" onclick="closeLiedSuchOverlay()" aria-label="Liedsuche schlieÃŸen">
+        <button class="back-btn" onclick="closeLiedSuchOverlay()" aria-label="Liedsuche schließen">
           &#8592;
         </button>
         <label class="sr-only" for="lied-such-input">Lied suchen</label>
@@ -403,6 +403,10 @@
             &#9989; Vor der Stunde
           </h3>
           <div id="checkliste-items"></div>
+          <div class="praxis-add-row">
+            <input class="form-input" id="checkliste-neu" type="text" placeholder="Punkt ergänzen..." />
+            <button class="action-btn" onclick="checklisteAdd()">+ Hinzufügen</button>
+          </div>
           <button class="checkliste-reset" onclick="checklisteReset()">
             &#8635; Alle zur&uuml;cksetzen
           </button>
@@ -411,6 +415,14 @@
 
       <!-- STUNDENAUFBAU -->
       <div id="handbuch-aufbau" style="display: none">
+        <div id="aufbau-items"></div>
+        <div class="section-card praxis-edit-card">
+          <h3 class="praxis-card-title">Baustein ergänzen</h3>
+          <input class="form-input" id="aufbau-neu-titel" type="text" placeholder="Titel, z.B. Aufwärmen" />
+          <textarea class="form-textarea form-textarea-small" id="aufbau-neu-text" placeholder="Beschreibung, Ablauf oder Formulierung..."></textarea>
+          <button class="action-btn" onclick="aufbauAdd()">+ Hinzufügen</button>
+        </div>
+        <div class="legacy-aufbau">
         <div class="stundenaufbau-phase">
           <h4>&#127926; Ankommen &amp; Warmup (5&ndash;10 Min.)</h4>
           <p>
@@ -489,7 +501,7 @@
               margin-bottom: 12px;
             "
           >
-            &#127908; Stimmeinst&auml;ndel
+            &#127908; Aufwärmen
           </h3>
           <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.7">
             <strong>Summen auf &bdquo;mmh&ldquo;:</strong> Lippen locker,
@@ -503,6 +515,7 @@
             <strong>Halbton-Glissando:</strong> Von tief nach hoch und
             zur&uuml;ck auf &bdquo;ah&ldquo; &ndash; Stimmumfang &ouml;ffnen.
           </p>
+        </div>
         </div>
       </div>
     </div>
@@ -640,7 +653,7 @@
           id="add-back-btn"
           onclick="cancelEdit()"
           
-          aria-label="Formular schlieÃŸen"
+          aria-label="Formular schließen"
         >
           &#8592;
         </button>
@@ -732,7 +745,7 @@
               placeholder="z.B. II oder 2"
             />
             <div class="form-hint">
-              Leer = kein Capo. Zahl oder rÃ¶m. Ziffer.
+              Leer = kein Capo. Zahl oder röm. Ziffer.
             </div>
           </div>
           <div class="form-group">
@@ -763,7 +776,7 @@
           <textarea
             class="form-textarea form-textarea-small"
             id="add-notizen"
-            placeholder="Hinweise zur AuffÃ¼hrung..."
+            placeholder="Hinweise zur Aufführung..."
           ></textarea>
         </div>
         </section>
@@ -777,7 +790,7 @@
             id="add-noten-abc"
             placeholder="X:1&#10;T:Titel&#10;M:4/4&#10;L:1/4&#10;K:C&#10;C D E F | G A B c |"
           ></textarea>
-          <div style="font-size: 11px; color: var(--text2); margin-top: 4px;">ABC-Notation â€“ Hilfe: <a href="https://editor.drawthedots.com" target="_blank" style="color: var(--accent);">editor.drawthedots.com</a></div>
+          <div class="form-hint">ABC-Notation – Hilfe: <a href="https://editor.drawthedots.com" target="_blank">editor.drawthedots.com</a></div>
         </div>
         </section>
 
@@ -879,17 +892,17 @@
             &#9664;
           </button>
           <span id="spick-counter">1 / 1</span>
-          <button id="spick-next-btn" onclick="spickNext()" aria-label="NÃ¤chstes Lied">
+          <button id="spick-next-btn" onclick="spickNext()" aria-label="Nächstes Lied">
             &#9654;
           </button>
         </div>
         <div class="spick-actions">
-          <div class="spick-font-controls" aria-label="SchriftgrÃ¶ÃŸe">
+          <div class="spick-font-controls" aria-label="Schriftgröße">
             <button onclick="changeSpickFontScale(-0.1)" aria-label="Schrift kleiner">
               A-
             </button>
             <span id="spick-font-label">100%</span>
-            <button onclick="changeSpickFontScale(0.1)" aria-label="Schrift grÃ¶ÃŸer">
+            <button onclick="changeSpickFontScale(0.1)" aria-label="Schrift größer">
               A+
             </button>
           </div>
@@ -897,7 +910,7 @@
             class="spick-close"
             onclick="spickzettelAddMode()"
             style="background: rgba(255, 255, 255, 0.15)"
-            aria-label="Lied hinzufÃ¼gen"
+            aria-label="Lied hinzufügen"
           >
             &#10133;
           </button>
@@ -926,13 +939,13 @@
       </div>
       <div id="spick-noten-box" style="display:none; margin:8px 0 12px;">
         <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-          <label for="spick-noten-slider" style="font-size:11px; color:rgba(255,255,255,0.78); white-space:nowrap;">GrÃ¶ÃŸe:</label>
+          <label for="spick-noten-slider" style="font-size:11px; color:rgba(255,255,255,0.78); white-space:nowrap;">Größe:</label>
           <input type="range" id="spick-noten-slider" min="50" max="150" value="100" step="5" style="flex:1;" oninput="spickNotenScaleAendern(this.value)" aria-describedby="spick-noten-label">
           <span id="spick-noten-label" style="font-size:11px; color:rgba(255,255,255,0.78); min-width:32px; text-align:right;">100%</span>
         </div>
         <div id="spick-noten-render" style="background:white; border-radius:8px; padding:8px;"></div>
       </div>
-        <button class="spick-notfall" onclick="toggleNotfall()" aria-label="Notfall-Hinweise Ã¶ffnen">
+        <button class="spick-notfall" onclick="toggleNotfall()" aria-label="Notfall-Hinweise öffnen">
         &#9888;&#65039; Notfall
       </button>
       <div class="notfall-modal" id="notfall-modal" role="dialog" aria-modal="true" aria-labelledby="notfall-modal-title" aria-hidden="true">
