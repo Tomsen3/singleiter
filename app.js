@@ -27,7 +27,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "So wie ein Baum\neinzeln und frei\nso wie ein Wald\nbrÃ¼derlich sei\nHoch in den Himmel\nfrei zur Sonne hin\ntief in der Erde",
+          text: "So wie ein Baum\neinzeln und frei\nso wie ein Wald\nbrüderlich sei\nHoch in den Himmel\nfrei zur Sonne hin\ntief in der Erde",
         },
         {
           id: 4,
@@ -47,7 +47,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Wo immer im Streit\nbleibe bereit,\nlerne verzeihen\nWÃ¤rme allein\nlÃ¤ÃŸt den Samen der Hoffnung",
+          text: "Wo immer im Streit\nbleibe bereit,\nlerne verzeihen\nWärme allein\nläßt den Samen der Hoffnung",
         },
         {
           id: 6,
@@ -57,7 +57,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Epo i tai tai Ã©\noh epo i tai tai Ã©\nepo i tai tai\nepo i tuki tki",
+          text: "Epo i tai tai é\noh epo i tai tai é\nepo i tai tai\nepo i tuki tki",
         },
         {
           id: 7,
@@ -77,7 +77,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Alle macht die Sonne warm\nlasst uns tanzen Reich und Arm\nkomm lass uns singen\nob GroÃŸ oder Klein",
+          text: "Alle macht die Sonne warm\nlasst uns tanzen Reich und Arm\nkomm lass uns singen\nob Groß oder Klein",
         },
         {
           id: 9,
@@ -107,7 +107,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Fest verwurzelt in der Erde\noffen fÃ¼r die SchÃ¤tze des Himmels   2X\nWie ein Baum im Gleichgewicht",
+          text: "Fest verwurzelt in der Erde\noffen für die Schätze des Himmels   2X\nWie ein Baum im Gleichgewicht",
         },
         {
           id: 12,
@@ -198,7 +198,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Stille komm hernieder bring mein Herz zur Ruh\nDeine Schwingen decken alle meine WÃ¼nsche zu\nNur der Ei-ne allein\nSoll der Wunsch",
+          text: "Stille komm hernieder bring mein Herz zur Ruh\nDeine Schwingen decken alle meine Wünsche zu\nNur der Ei-ne allein\nSoll der Wunsch",
         },
         {
           id: 21,
@@ -273,13 +273,13 @@
         },
         {
           id: 28,
-          titel: "Ja ich fÃ¼hle Sinn",
+          titel: "Ja ich fühle Sinn",
           capo: "II",
           akkorde: "G D/F# Em Em7 C Am D I Em Em7 C Am D",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Ja ich fÃ¼hle Sinn,\ngeb das Klagen hin\nUnd was vorher schwer,\nwandelt sich ins Mehr\nLiebe soll allein,\nZiel und Weg mir sein\nWunden werden dann",
+          text: "Ja ich fühle Sinn,\ngeb das Klagen hin\nUnd was vorher schwer,\nwandelt sich ins Mehr\nLiebe soll allein,\nZiel und Weg mir sein\nWunden werden dann",
         },
         {
           id: 29,
@@ -310,7 +310,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Like a wave in the ocean\nLike a stream to the sea\nI am in you you are in me\nWeÂ´ve been together forever it seems\nNow we awaken from all our dreams\nMother mother ocean heart\nshine your love on all the world",
+          text: "Like a wave in the ocean\nLike a stream to the sea\nI am in you you are in me\nWe´ve been together forever it seems\nNow we awaken from all our dreams\nMother mother ocean heart\nshine your love on all the world",
         },
         {
           id: 32,
@@ -340,17 +340,17 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "II:  the universe is singing a song\nthe universe is dancing along\nthe universe is singing\non a day like this  :II\nItÂ´s a high time to dance  3X",
+          text: "II:  the universe is singing a song\nthe universe is dancing along\nthe universe is singing\non a day like this  :II\nIt´s a high time to dance  3X",
         },
         {
           id: 35,
-          titel: "IÂ´m gonna rise up singing",
+          titel: "I´m gonna rise up singing",
           capo: "",
           akkorde: "E E B7 A7 E",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "every time I stumble and I fall\nIÂ´m gonna rise up singing",
+          text: "every time I stumble and I fall\nI´m gonna rise up singing",
         },
         {
           id: 36,
@@ -370,7 +370,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Nun Freunde lasst es, uns einmal sagen,\ngut wieder hier zu sein, gut uns zu seh`n.\nMit unsren WÃ¼nschen, mit unsren Fragen,\nfÃ¼hlÂ´n wir uns nicht allein,",
+          text: "Nun Freunde lasst es, uns einmal sagen,\ngut wieder hier zu sein, gut uns zu seh`n.\nMit unsren Wünschen, mit unsren Fragen,\nfühl´n wir uns nicht allein,",
         },
         {
           id: 38,
@@ -390,7 +390,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Tio tio rÃ¼ dÃ¼\nTio tio rÃ¼ dÃ¼\nTio tio rÃ¼ dÃ¼",
+          text: "Tio tio rü dü\nTio tio rü dü\nTio tio rü dü",
         },
         {
           id: 40,
@@ -410,7 +410,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "FlieÃŸen FlieÃŸen,\nFrieden schlieÃŸen\nund den Wandel stets begrÃ¼ÃŸen\nWill ins Neue mich ergieÃŸen",
+          text: "Fließen Fließen,\nFrieden schließen\nund den Wandel stets begrüßen\nWill ins Neue mich ergießen",
         },
         {
           id: 42,
@@ -424,13 +424,13 @@
         },
         {
           id: 43,
-          titel: "IÂ´m calling you",
+          titel: "I´m calling you",
           capo: "II",
           akkorde: "4X C G:I Dm7 C/E G F C G",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I: IÂ´m calling you :I\nI: come back to me :I",
+          text: "I: I´m calling you :I\nI: come back to me :I",
         },
         {
           id: 44,
@@ -460,7 +460,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Lache in die Welt hinein\nund sie lacht zurÃ¼ck,\nlache in die Welt hinein\nund spÃ¼r das GlÃ¼ck!\nLache in die Welt hinein\nund du wirst sehn:\nDinge, die unmÃ¶glich waren",
+          text: "Lache in die Welt hinein\nund sie lacht zurück,\nlache in die Welt hinein\nund spür das Glück!\nLache in die Welt hinein\nund du wirst sehn:\nDinge, die unmöglich waren",
         },
         {
           id: 47,
@@ -484,13 +484,13 @@
         },
         {
           id: 49,
-          titel: "ein StÃ¼ck Himmel",
+          titel: "ein Stück Himmel",
           capo: "III",
           akkorde: "G C9 G C9 Em Bm C9 D I G C9 G C9 G C9 D",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I:Ein StÃ¼ck Himmel Ã¼berm Land\nmit der Sonne durchgebrannt\nein StÃ¼ck Himmel fÃ¼r die Seele\nmeine TrÃ¤ume an der Hand :I\nI:Ja so will ich leben\nso will ich leben",
+          text: "I:Ein Stück Himmel überm Land\nmit der Sonne durchgebrannt\nein Stück Himmel für die Seele\nmeine Träume an der Hand :I\nI:Ja so will ich leben\nso will ich leben",
         },
         {
           id: 50,
@@ -510,7 +510,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Meine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nDeine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nUnsre Stimme wachse.",
+          text: "Meine Stimme wachse.\ntöne mit Herz und Mut.\nDeine Stimme wachse.\ntöne mit Herz und Mut.\nUnsre Stimme wachse.",
         },
         {
           id: 52,
@@ -520,7 +520,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Meine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nDeine Stimme wachse.\ntÃ¶ne mit Herz und Mut.\nUnsre Stimme wachse.",
+          text: "Meine Stimme wachse.\ntöne mit Herz und Mut.\nDeine Stimme wachse.\ntöne mit Herz und Mut.\nUnsre Stimme wachse.",
         },
         {
           id: 53,
@@ -530,7 +530,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Kommense rein\nkÃ¶nnen se rausgucken\nKommense rein\nkÃ¶nnen se rausgucken\nKommense rein\nkÃ¶nnen se rausgucken",
+          text: "Kommense rein\nkönnen se rausgucken\nKommense rein\nkönnen se rausgucken\nKommense rein\nkönnen se rausgucken",
         },
         {
           id: 54,
@@ -540,17 +540,17 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "ein kleines Lied, ein klitzekleines Lied\nein kleines Lied jeden Tag  2X\nÃ¤ndert Dein Leben\nund es bleibt nichts wie es war\nÃ¤ndert Dein Leben",
+          text: "ein kleines Lied, ein klitzekleines Lied\nein kleines Lied jeden Tag  2X\nändert Dein Leben\nund es bleibt nichts wie es war\nändert Dein Leben",
         },
         {
           id: 55,
-          titel: "der Atem des FrÃ¼hlings",
+          titel: "der Atem des Frühlings",
           capo: "III",
           akkorde: "G9 Am7 C9 D9 G:I: Am7 G/D Am7 G/D :I",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Im Wind kommt und geht\nder Atem des FrÃ¼hlings.\nWachsen der Seele FlÃ¼gel dann\nFÃ¤ngt auch mein eigner FrÃ¼hling an.\nIm Wind kommt und geht\nder Atem des FrÃ¼hlings.\nWachsen der Seele FlÃ¼gel dann\nFÃ¤ngt auch mein eigner FrÃ¼hling an.",
+          text: "Im Wind kommt und geht\nder Atem des Frühlings.\nWachsen der Seele Flügel dann\nFängt auch mein eigner Frühling an.\nIm Wind kommt und geht\nder Atem des Frühlings.\nWachsen der Seele Flügel dann\nFängt auch mein eigner Frühling an.",
         },
         {
           id: 56,
@@ -560,7 +560,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Ich atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben flieÃŸt in mich hinein\nI:ein und aus, ein und aus, ein und aus:I\nIch atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben flieÃŸt in mich hinein",
+          text: "Ich atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben fließt in mich hinein\nI:ein und aus, ein und aus, ein und aus:I\nIch atme tief tief tief\natme das Leben in mich hinein\nIch atme tief tief tief\nLeben fließt in mich hinein",
         },
         {
           id: 57,
@@ -570,7 +570,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Lass die Sonne\nLass die Sonne in Dein Herz\nDie Sonne in Dein Herz\nvertrau Dich ihr an\nweil sie Dich wÃ¤rmen kann\nstell Dich in ihr Licht\ndenn sie vergiÃŸt Dich nicht\nDenn sie liebt uns alle gleich\nsie liebt uns alle gleich",
+          text: "Lass die Sonne\nLass die Sonne in Dein Herz\nDie Sonne in Dein Herz\nvertrau Dich ihr an\nweil sie Dich wärmen kann\nstell Dich in ihr Licht\ndenn sie vergißt Dich nicht\nDenn sie liebt uns alle gleich\nsie liebt uns alle gleich",
         },
         {
           id: 58,
@@ -580,7 +580,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schÃ¶n:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren\nAlles das findest Du in einem Body-Song\nI:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schÃ¶n:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren",
+          text: "I:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schön:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren\nAlles das findest Du in einem Body-Song\nI:Nur Mut Singen tut gut\nNur Mut singen Singen macht Freude\nNur Mut Singen tut gut\nund bewegst Du Dich dazu ist es noch einmal so schön:I\nStimulieren, erden und zentrieren\nKopf verlieren, dudl dudl dong\nfokussieren, spielen neu kreieren",
         },
         {
           id: 59,
@@ -600,7 +600,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Ich nehme mir die Zeit und bin einfach da\ngenieÃŸ die Langsamkeit und ich sage ja\nin diesem Augenblick\nbin ich Eins mit dem Leben\nmit jedem neuen Schritt\nkommt es mir entgegen",
+          text: "Ich nehme mir die Zeit und bin einfach da\ngenieß die Langsamkeit und ich sage ja\nin diesem Augenblick\nbin ich Eins mit dem Leben\nmit jedem neuen Schritt\nkommt es mir entgegen",
         },
         {
           id: 61,
@@ -620,7 +620,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Mach das Jetzt zum roten Faden\nder zu Dir nach Hause fÃ¼hrt\nund Deine ungelÃ¶sten Fragen\nzu einem Lied das Dich berÃ¼hrt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan\nfang nochmal von vorne an:I\nMach das Jetzt zum roten Faden\nder zu Dir nach Hause fÃ¼hrt\nund Deine ungelÃ¶sten Fragen\nzu einem Lied das Dich berÃ¼hrt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan",
+          text: "Mach das Jetzt zum roten Faden\nder zu Dir nach Hause führt\nund Deine ungelösten Fragen\nzu einem Lied das Dich berührt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan\nfang nochmal von vorne an:I\nMach das Jetzt zum roten Faden\nder zu Dir nach Hause führt\nund Deine ungelösten Fragen\nzu einem Lied das Dich berührt\nDeine Sehsucht ist Dein Wecker\nund Dein Stolpern wird zum Tanz\nI:Hast Du wieder keinen Plan",
         },
         {
           id: 63,
@@ -630,17 +630,17 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Du machst nichts falsch in Deinem Leben\nso wie es ist, so ist es eben\nnimm Dein Herz in beide HÃ¤nde\nDu wirst sehen es spricht BÃ¤nde\nDinge kommen, Dinge gehen\nwer soll das nochmal verstehÂ´n\nhab die Kontrolle lÃ¤ngst verloren,\ndoch Vertrauen wird geboren\nI:Der Rhythmus gibt mir Halt, die Stimmen wÃ¤rmen mich,",
+          text: "Du machst nichts falsch in Deinem Leben\nso wie es ist, so ist es eben\nnimm Dein Herz in beide Hände\nDu wirst sehen es spricht Bände\nDinge kommen, Dinge gehen\nwer soll das nochmal versteh´n\nhab die Kontrolle längst verloren,\ndoch Vertrauen wird geboren\nI:Der Rhythmus gibt mir Halt, die Stimmen wärmen mich,",
         },
         {
           id: 64,
-          titel: "Ich bin schÃ¶n wenn ich singe",
+          titel: "Ich bin schön wenn ich singe",
           capo: "",
           akkorde: "Em Am D7 G B7 I Am Bm C B7",
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "I:Ich bin schÃ¶n wenn ich singe\nja dann lacht mein Gesicht\nund mein  Herz fÃ¤ngt an zu glÃ¼hÂ´n :I\nIch fÃ¼hle mich frei\ndie Gedanken kreisen nicht",
+          text: "I:Ich bin schön wenn ich singe\nja dann lacht mein Gesicht\nund mein  Herz fängt an zu glüh´n :I\nIch fühle mich frei\ndie Gedanken kreisen nicht",
         },
         {
           id: 65,
@@ -660,7 +660,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "In meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nunermÃ¼dlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nmanchmal ist es frÃ¶hlich,\nmanchmal traurig, manchmal still\nlei lei lei lei la\nIn meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nunermÃ¼dlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele TrÃ¤ume viele Lieder\nmanchmal ist es frÃ¶hlich,\nmanchmal traurig, manchmal still",
+          text: "In meinem Herzen wohnen\nviele Träume viele Lieder\nunermüdlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele Träume viele Lieder\nmanchmal ist es fröhlich,\nmanchmal traurig, manchmal still\nlei lei lei lei la\nIn meinem Herzen wohnen\nviele Träume viele Lieder\nunermüdlich klopft es\nund ich lausche was es will\nIn meinem Herzen wohnen\nviele Träume viele Lieder\nmanchmal ist es fröhlich,\nmanchmal traurig, manchmal still",
         },
         {
           id: 67,
@@ -670,7 +670,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Salaleo SalaleÂ´hidra\nSalaleo SalaleÂ´hidra\nSalaleÂ´Mama deo SalaleÂ´hidra\nSalaleÂ´Mama deo SalaleÂ´hidra\nSalaleo SalaleÂ´hidra\nSalaleo SalaleÂ´hidra\nSalaleÂ´Mama deo SalaleÂ´hidra",
+          text: "Salaleo Salale´hidra\nSalaleo Salale´hidra\nSalale´Mama deo Salale´hidra\nSalale´Mama deo Salale´hidra\nSalaleo Salale´hidra\nSalaleo Salale´hidra\nSalale´Mama deo Salale´hidra",
         },
         {
           id: 68,
@@ -680,7 +680,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Es darf sein, das was ist\nund was ist das darf sein\nund selbst wennÂ´s nicht sein darf\ndarf auch das sein\nEs darf sein, das was ist\nund was ist das darf sein\nund selbst wennÂ´s nicht sein darf\ndarf auch das sein",
+          text: "Es darf sein, das was ist\nund was ist das darf sein\nund selbst wenn´s nicht sein darf\ndarf auch das sein\nEs darf sein, das was ist\nund was ist das darf sein\nund selbst wenn´s nicht sein darf\ndarf auch das sein",
         },
         {
           id: 69,
@@ -690,7 +690,7 @@
           stimmung: "verbindend",
           zielgruppe: "alle",
           schwierigkeit: "einfach",
-          text: "Sonne liebe Sonne\nDu strahlst mich frÃ¶hlich an\nund ich strahl zu Dir zurÃ¼ck\nweil ich nicht anders kann\npure Lebensfreude, die uns gefÃ¤llt\nwir strahlen um die Wette\nerhellen diese Welt\nSonne liebe Sonne\nDu strahlst mich frÃ¶hlich an\nund ich strahl zu Dir zurÃ¼ck\nweil ich nicht anders kann n\npure Lebensfreude, die uns gefÃ¤llt\nwir strahlen um die Wette",
+          text: "Sonne liebe Sonne\nDu strahlst mich fröhlich an\nund ich strahl zu Dir zurück\nweil ich nicht anders kann\npure Lebensfreude, die uns gefällt\nwir strahlen um die Wette\nerhellen diese Welt\nSonne liebe Sonne\nDu strahlst mich fröhlich an\nund ich strahl zu Dir zurück\nweil ich nicht anders kann n\npure Lebensfreude, die uns gefällt\nwir strahlen um die Wette",
         },
       ];
       // ============================================================
@@ -1880,21 +1880,23 @@
       function renderCleanupSection(title, items, renderItem) {
         var countClass = items.length ? " warn" : "";
         var html =
-          '<div class="cleanup-section">' +
-          '<div class="cleanup-header"><span>' +
+          '<details class="cleanup-section" ' +
+          (items.length ? "open" : "") +
+          ">" +
+          '<summary class="cleanup-header"><span>' +
           escHtml(title) +
           '</span><span class="cleanup-count' +
           countClass +
           '">' +
           items.length +
-          "</span></div>";
+          "</span></summary>";
         if (items.length) {
           html +=
             '<div class="cleanup-items">' +
             items.map(renderItem).join("") +
             "</div>";
         }
-        return html + "</div>";
+        return html + "</details>";
       }
 
       function renderDatenqualitaet() {
@@ -1904,6 +1906,7 @@
         var ohneSprache = songs.filter(function (s) { return !normalisiereListenwert(s.sprache); });
         var ohneKategorie = songs.filter(function (s) { return !normalisiereListenwert(s.kategorie); });
         var ohneText = songs.filter(function (s) { return !normalisiereListenwert(s.text); });
+        var ohneNoten = songs.filter(function (s) { return !normalisiereListenwert(s.noten_abc); });
         var titelMap = {};
         songs.forEach(function (song) {
           var key = normalisiereListenwert(song.titel).toLowerCase();
@@ -1956,6 +1959,7 @@
           renderCleanupSection("Lieder ohne Sprache", ohneSprache, songItem) +
           renderCleanupSection("Lieder ohne Kategorie", ohneKategorie, songItem) +
           renderCleanupSection("Lieder ohne Text", ohneText, songItem) +
+          renderCleanupSection("Lieder ohne Noten", ohneNoten, songItem) +
           renderCleanupSection("Doppelte Titel", doppelteTitel, function (gruppe) {
             return (
               '<div class="cleanup-item"><span class="cleanup-title">' +
