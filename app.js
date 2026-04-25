@@ -1778,9 +1778,7 @@
           .map(function (key) {
             var werte = optionenFuerListenfeld(key);
             return (
-              '<details class="settings-list" ' +
-              (key === "sprachen" ? "open" : "") +
-              ">" +
+              '<details class="settings-list">' +
               '<summary><span>' +
               escHtml(LISTEN_LABELS[key]) +
               '</span><span class="settings-list-count">' +
