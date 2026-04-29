@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.5.25";
+      var APP_VERSION = "1.5.26";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -86,13 +86,6 @@
       >
         &#128214; Praxis
       </button>
-      <button
-        class="nav-tab"
-        data-view="einstellungen"
-        onclick="showView('einstellungen')"
-      >
-        &#9881;&#65039; Einstellungen
-      </button>
     </div>
 
     <!-- REPERTOIRE VIEW -->
@@ -104,7 +97,7 @@
             class="search-input"
             type="text"
             id="search-input"
-            placeholder="&#128269; Lied suchen..."
+            placeholder="&#128269; Titel, Komponist, Text, Akkorde..."
             oninput="filterSongs()"
           />
           <button
@@ -117,25 +110,25 @@
             &#9881; Filter
           </button>
         </div>
-        <div class="quick-filter-row" aria-label="Schnellfilter">
-          <label class="quick-filter">
-            <input type="checkbox" id="filter-favoriten" onchange="filterSongs()" />
-            <span>Favoriten</span>
-          </label>
-          <label class="quick-filter">
-            <input type="checkbox" id="filter-mit-noten" onchange="filterSongs()" />
-            <span>mit Noten</span>
-          </label>
-          <label class="quick-filter">
-            <input type="checkbox" id="filter-ohne-sprache" onchange="filterSongs()" />
-            <span>ohne Sprache</span>
-          </label>
-          <label class="quick-filter">
-            <input type="checkbox" id="filter-ohne-kategorie" onchange="filterSongs()" />
-            <span>ohne Kategorie</span>
-          </label>
-        </div>
         <div id="filter-panel" class="filter-panel">
+          <div class="quick-filter-row" aria-label="Schnellfilter">
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-favoriten" onchange="filterSongs()" />
+              <span>Favoriten</span>
+            </label>
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-mit-noten" onchange="filterSongs()" />
+              <span>mit Noten</span>
+            </label>
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-ohne-sprache" onchange="filterSongs()" />
+              <span>ohne Sprache</span>
+            </label>
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-ohne-kategorie" onchange="filterSongs()" />
+              <span>ohne Kategorie</span>
+            </label>
+          </div>
           <div class="filter-grid">
             <div>
               <label class="form-label filter-label" for="filter-sprache">Sprache</label>
