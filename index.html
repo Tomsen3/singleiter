@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.5.23";
+      var APP_VERSION = "1.5.24";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -37,7 +37,10 @@
   </head>
   <body>
     <div class="app-header">
-      <h1>Sing<span>Leiter</span></h1>
+      <h1 class="brand-logo">
+        <span class="brand-text">Sing<span>Leiter</span></span>
+        <span class="brand-ladder" aria-hidden="true"></span>
+      </h1>
       <div class="header-actions">
         <button
           class="icon-btn"
