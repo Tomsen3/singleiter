@@ -1,4 +1,4 @@
 {
-  "version": "1.5.22",
-  "changelog": "Einstellungen auf Mobile robust geschlossen anzeigen"
+  "version": "1.5.23",
+  "changelog": "Doppelte Lieder werden beim Laden, Speichern und Importieren automatisch zusammengefuehrt"
 }

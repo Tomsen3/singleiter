@@ -829,6 +829,57 @@
         };
       }
 
+      function songDedupeKey(song) {
+        return String((song && song.titel) || "")
+          .trim()
+          .replace(/\s+/g, " ")
+          .toLowerCase();
+      }
+
+      function mergeSongData(primary, secondary) {
+        [
+          "komponist",
+          "tonart",
+          "capo",
+          "akkorde",
+          "text",
+          "notizen",
+          "noten_abc",
+          "sprache",
+          "land",
+          "kategorie",
+          "stimmung",
+        ].forEach(function (field) {
+          if (!primary[field] && secondary[field]) primary[field] = secondary[field];
+        });
+        if (!primary.supabase_id && secondary.supabase_id) primary.supabase_id = secondary.supabase_id;
+        if (songHasPendingSync(secondary) && !songHasPendingSync(primary)) {
+          primary.sync_status = secondary.sync_status;
+          primary.sync_error = secondary.sync_error || "";
+          primary.sync_updated_at = secondary.sync_updated_at || primary.sync_updated_at;
+        }
+        return primary;
+      }
+
+      function dedupeSongsByTitle(songs) {
+        var seen = {};
+        var result = [];
+        (songs || []).forEach(function (song) {
+          var key = songDedupeKey(song);
+          if (!key) {
+            result.push(song);
+            return;
+          }
+          if (seen[key]) {
+            mergeSongData(seen[key], song);
+          } else {
+            seen[key] = song;
+            result.push(song);
+          }
+        });
+        return result;
+      }
+
       async function ladeVonSupabase() {
         if (!sb) return null;
         try {
@@ -852,6 +903,17 @@
             var res = await sb.from("lieder").upsert(dbSong).select();
             return res.error ? null : res.data[0];
           } else {
+            var vorhandene = await sb
+              .from("lieder")
+              .select("id")
+              .eq("titel", song.titel || "")
+              .limit(1);
+            if (!vorhandene.error && vorhandene.data && vorhandene.data[0]) {
+              song.supabase_id = vorhandene.data[0].id;
+              dbSong.id = song.supabase_id;
+              var res = await sb.from("lieder").upsert(dbSong).select();
+              return res.error ? null : res.data[0];
+            }
             delete dbSong.id;
             var res = await sb.from("lieder").insert(dbSong).select();
             return res.error ? null : res.data[0];
@@ -1117,7 +1179,10 @@
           // Supabase hat Daten: lokale IDs bewahren, supabase_id zuordnen
           var neueSongs = rows.map(function (row) {
             var vorhandener = state.songs.find(function (s) {
-              return s.supabase_id === row.id;
+              return (
+                s.supabase_id === row.id ||
+                songDedupeKey(s) === songDedupeKey({ titel: row.titel })
+              );
             });
             var appSong = dbSongToApp(row);
             if (vorhandener) {
@@ -1148,11 +1213,19 @@
             return appSong;
           });
           state.songs.forEach(function (localSong) {
-            var inRemote = localSong.supabase_id && rows.some(function (row) {
-              return row.id === localSong.supabase_id;
-            });
+            var inRemote =
+              localSong.supabase_id &&
+              rows.some(function (row) {
+                return row.id === localSong.supabase_id;
+              });
+            if (!inRemote) {
+              inRemote = rows.some(function (row) {
+                return songDedupeKey(localSong) === songDedupeKey({ titel: row.titel });
+              });
+            }
             if (!inRemote) neueSongs.push(normalizeSongSyncState(localSong));
           });
+          neueSongs = dedupeSongsByTitle(neueSongs);
           state.songs = neueSongs;
           // Capo normalisieren nach Sync
           state.songs.forEach(function (s) {
@@ -1163,7 +1236,10 @@
           var idMap = {};
           rows.forEach(function (row) {
             var appSong = neueSongs.find(function (s) {
-              return s.supabase_id === row.id;
+              return (
+                s.supabase_id === row.id ||
+                songDedupeKey(s) === songDedupeKey({ titel: row.titel })
+              );
             });
             if (appSong) idMap[row.id] = appSong.id;
           });
@@ -1246,6 +1322,7 @@
         } else {
           state.songs = JSON.parse(JSON.stringify(DEFAULT_SONGS));
         }
+        state.songs = dedupeSongsByTitle(state.songs);
         // Capo-Werte normalisieren: arabisch -> roemisch
         state.songs.forEach(function (s) {
           s.capo = zuRoemisch(s.capo);
@@ -4731,6 +4808,8 @@
       }
 
       function songImportKey(song) {
+        var titleKey = songDedupeKey(song);
+        if (titleKey) return "titel:" + titleKey;
         if (song && song.supabase_id) return "supabase:" + song.supabase_id;
         if (song && song.id !== undefined && song.id !== null) return "id:" + song.id;
         return "";
@@ -4816,7 +4895,7 @@
         var result;
         if (mode === "replace") {
           if (!confirm("Lokale Daten wirklich durch dieses Backup ersetzen?")) return;
-          state.songs = cloneJson(pendingImportData.songs);
+          state.songs = dedupeSongsByTitle(cloneJson(pendingImportData.songs));
           state.favoriten = cloneJson(pendingImportData.favoriten);
           state.spickListe = cloneJson(pendingImportData.spickListe);
           state.setlists = cloneJson(pendingImportData.setlists);
