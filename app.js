@@ -1582,45 +1582,94 @@
         var startX = 0;
         var startY = 0;
         var startTime = 0;
+        var trackingSwipe = false;
+        var horizontalSwipe = false;
+        function swipeStart(x, y, target) {
+          if (
+            target &&
+            target.closest &&
+            target.closest("input, textarea, select, [contenteditable], .noten-scroll")
+          ) {
+            trackingSwipe = false;
+            return;
+          }
+          startX = x;
+          startY = y;
+          startTime = Date.now();
+          trackingSwipe = true;
+          horizontalSwipe = false;
+        }
+        function swipeMove(x, y, event) {
+          if (!trackingSwipe) return;
+          var dx = x - startX;
+          var dy = y - startY;
+          if (!horizontalSwipe && Math.abs(dx) > 18 && Math.abs(dx) > Math.abs(dy) * 1.25) {
+            horizontalSwipe = true;
+          }
+          if (horizontalSwipe && event && event.cancelable) event.preventDefault();
+        }
+        function swipeEnd(x, y) {
+          if (!trackingSwipe) return;
+          var dx = x - startX;
+          var dy = y - startY;
+          var elapsed = Date.now() - startTime;
+          trackingSwipe = false;
+          horizontalSwipe = false;
+          if (elapsed > 1200 || Math.abs(dx) < 46 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
+          var spick = document.getElementById("spickzettel");
+          if (spick && spick.classList.contains("open")) {
+            if (dx < 0) spickNext();
+            else spickPrev();
+            return;
+          }
+          if (dx > 0 && isSongDetailOpen()) {
+            closeDetail();
+          }
+        }
         document.addEventListener(
           "touchstart",
           function (event) {
             if (!event.touches || event.touches.length !== 1) return;
-            var target = event.target;
-            if (
-              target &&
-              target.closest &&
-              target.closest("input, textarea, select, button, .noten-scroll")
-            ) {
-              return;
-            }
-            startX = event.touches[0].clientX;
-            startY = event.touches[0].clientY;
-            startTime = Date.now();
+            swipeStart(event.touches[0].clientX, event.touches[0].clientY, event.target);
           },
           { passive: true },
         );
         document.addEventListener(
+          "touchmove",
+          function (event) {
+            if (!event.touches || event.touches.length !== 1) return;
+            swipeMove(event.touches[0].clientX, event.touches[0].clientY, event);
+          },
+          { passive: false },
+        );
+        document.addEventListener(
           "touchend",
           function (event) {
-            if (!startTime || !event.changedTouches || event.changedTouches.length !== 1) return;
-            var dx = event.changedTouches[0].clientX - startX;
-            var dy = event.changedTouches[0].clientY - startY;
-            var elapsed = Date.now() - startTime;
-            startTime = 0;
-            if (elapsed > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
-            var spick = document.getElementById("spickzettel");
-            if (spick && spick.classList.contains("open")) {
-              if (dx < 0) spickNext();
-              else spickPrev();
-              return;
-            }
-            if (dx > 0 && isSongDetailOpen()) {
-              navigateBack();
-            }
+            if (!event.changedTouches || event.changedTouches.length !== 1) return;
+            swipeEnd(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
           },
           { passive: true },
         );
+        document.addEventListener("touchcancel", function () {
+          trackingSwipe = false;
+          horizontalSwipe = false;
+        });
+        document.addEventListener("pointerdown", function (event) {
+          if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
+          swipeStart(event.clientX, event.clientY, event.target);
+        });
+        document.addEventListener("pointermove", function (event) {
+          if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
+          swipeMove(event.clientX, event.clientY, event);
+        });
+        document.addEventListener("pointerup", function (event) {
+          if (event.pointerType !== "touch" && event.pointerType !== "pen") return;
+          swipeEnd(event.clientX, event.clientY);
+        });
+        document.addEventListener("pointercancel", function () {
+          trackingSwipe = false;
+          horizontalSwipe = false;
+        });
       }
       
 
