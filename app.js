@@ -884,6 +884,9 @@
           if (localLines > remoteLines) return true;
           return localValue.trim().length > remoteValue.trim().length + 20;
         }
+        if (["komponist", "tonart", "capo", "akkorde"].indexOf(field) !== -1) {
+          return localValue.trim() !== remoteValue.trim();
+        }
         return false;
       }
 
@@ -1928,7 +1931,6 @@
                 '<span class="tag tag-akkorde">' +
                 escHtml(song.kategorie) +
                 "</span>";
-            tags += renderSongSyncBadge(song);
             var title = escHtml(song.titel);
             return (
               '<div class="song-card">' +
@@ -2406,6 +2408,34 @@
               .join("");
           if (cur) sel.value = cur;
         });
+        befuelleKomponistenVorschlaege();
+      }
+
+      function getKomponistenVorschlaege() {
+        var seen = {};
+        return state.songs
+          .map(function (song) {
+            return kanonischerListenwert(song.komponist || "");
+          })
+          .filter(function (name) {
+            var key = name.toLowerCase();
+            if (!name || seen[key]) return false;
+            seen[key] = true;
+            return true;
+          })
+          .sort(function (a, b) {
+            return a.localeCompare(b, "de");
+          });
+      }
+
+      function befuelleKomponistenVorschlaege() {
+        var list = document.getElementById("komponist-vorschlaege");
+        if (!list) return;
+        list.innerHTML = getKomponistenVorschlaege()
+          .map(function (name) {
+            return '<option value="' + escHtml(name) + '"></option>';
+          })
+          .join("");
       }
 
       // ============================================================
@@ -2742,7 +2772,6 @@
           '<div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">' +
           tonartBadge +
           capoAnzeige +
-          renderSongSyncBadge(song) +
           "</div>" +
           "</div>" +
           "</div>" +
@@ -3010,7 +3039,6 @@
               "</div>" +
               '<div class="song-meta">' +
               capoBadge +
-              renderSongSyncBadge(song) +
               "</div>" +
               "</div>" +
               "</button>" +
