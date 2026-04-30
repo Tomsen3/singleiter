@@ -5211,24 +5211,35 @@
       }
 
       function updateDurchfuehren() {
-        if (
-          "serviceWorker" in navigator &&
-          navigator.serviceWorker.controller
-        ) {
-          navigator.serviceWorker.controller.postMessage("skipWaiting");
+        var serviceWorkerUpdate = Promise.resolve();
+        if ("serviceWorker" in navigator) {
+          if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage("skipWaiting");
+          }
+          serviceWorkerUpdate = navigator.serviceWorker
+            .getRegistrations()
+            .then(function (registrations) {
+              return Promise.all(
+                registrations.map(function (registration) {
+                  return registration.unregister();
+                }),
+              );
+            })
+            .catch(function () {});
         }
-        caches
-          .keys()
-          .then(function (keys) {
-            return Promise.all(
-              keys.map(function (k) {
-                return caches.delete(k);
-              }),
-            );
-          })
-          .then(function () {
-            window.location.reload(true);
-          });
+        var cacheUpdate = "caches" in window
+          ? caches.keys().then(function (keys) {
+              return Promise.all(
+                keys.map(function (k) {
+                  return caches.delete(k);
+                }),
+              );
+            })
+          : Promise.resolve();
+        Promise.all([serviceWorkerUpdate, cacheUpdate]).then(function () {
+          var base = window.location.href.split("#")[0].split("?")[0];
+          window.location.replace(base + "?v=" + Date.now());
+        });
       }
 
       init();
