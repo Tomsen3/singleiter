@@ -756,6 +756,8 @@
       var SUPABASE_KEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubGdwdml1cmdweGNyanRmeHFpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NjExMjQsImV4cCI6MjA4ODMzNzEyNH0.FQ842Ete0xJ1MgCM0aBejDVkBL15-OaCGuN_0Cu80Og";
       var sb = null;
+      var ADMIN_WRITE_STORAGE_KEY = "singleiter_admin_write_mode";
+      var ADMIN_PASSWORD_HASH = "5c4ccdc0bdf317293b1aeaec117e2977d4efc0b2a3ded4b8b39c0da6145507ac";
 
       function initSupabase() {
         try {
@@ -764,6 +766,94 @@
           sb = null;
         }
       }
+
+      function isAdminWriteMode() {
+        try {
+          return (
+            localStorage.getItem(ADMIN_WRITE_STORAGE_KEY) === "1" ||
+            /(?:\?|&)admin=1(?:&|$)/.test(window.location.search)
+          );
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function canWriteOfficialData() {
+        return canSyncSongsNow() && isAdminWriteMode();
+      }
+
+      function setAdminWriteMode(enabled) {
+        localStorage.setItem(ADMIN_WRITE_STORAGE_KEY, enabled ? "1" : "0");
+        updateAdminModeUi();
+        showToast(enabled ? "Admin-Schreibmodus aktiv" : "Admin-Schreibmodus aus");
+      }
+
+      window.singleiterSetAdminWriteMode = function (enabled) {
+        setAdminWriteMode(enabled);
+      };
+
+      function hashAdminPassword(value) {
+        if (!window.crypto || !window.crypto.subtle || !window.TextEncoder) {
+          return Promise.reject(new Error("crypto unavailable"));
+        }
+        return window.crypto.subtle
+          .digest("SHA-256", new TextEncoder().encode(value || ""))
+          .then(function (buffer) {
+            return Array.prototype.map
+              .call(new Uint8Array(buffer), function (byte) {
+                return byte.toString(16).padStart(2, "0");
+              })
+              .join("");
+          });
+      }
+
+      function adminLogin() {
+        var input = document.getElementById("admin-password");
+        var message = document.getElementById("admin-status-message");
+        var password = input ? input.value : "";
+        if (!password) {
+          if (message) message.textContent = "Bitte Passwort eingeben.";
+          return;
+        }
+        hashAdminPassword(password)
+          .then(function (hash) {
+            if (hash !== ADMIN_PASSWORD_HASH) {
+              if (message) message.textContent = "Passwort stimmt nicht.";
+              return;
+            }
+            if (input) input.value = "";
+            setAdminWriteMode(true);
+          })
+          .catch(function () {
+            if (message) message.textContent = "Passwortprüfung ist in diesem Browser nicht verfügbar.";
+          });
+      }
+
+      function adminLogout() {
+        setAdminWriteMode(false);
+      }
+
+      function updateAdminModeUi() {
+        var active = isAdminWriteMode();
+        var badge = document.getElementById("admin-mode-badge");
+        var message = document.getElementById("admin-status-message");
+        var loginBtn = document.getElementById("admin-login-btn");
+        var logoutBtn = document.getElementById("admin-logout-btn");
+        if (badge) {
+          badge.textContent = active ? "Admin aktiv" : "Normalmodus";
+          badge.className = "admin-mode-badge " + (active ? "active" : "");
+        }
+        if (message) {
+          message.textContent = active
+            ? "Änderungen werden in die offizielle Supabase-Liste geschrieben."
+            : "Änderungen bleiben lokal auf diesem Gerät.";
+        }
+        if (loginBtn) loginBtn.disabled = active;
+        if (logoutBtn) logoutBtn.disabled = !active;
+      }
+
+      window.adminLogin = adminLogin;
+      window.adminLogout = adminLogout;
 
       function getScrollEl() {
         // Findet das tatsaechlich scrollende Element
@@ -830,6 +920,9 @@
       }
 
       function songDedupeKey(song) {
+        if (song && song.local_only) {
+          return "local:" + (song.id || song.titel || "");
+        }
         return String((song && song.titel) || "")
           .trim()
           .replace(/\s+/g, " ")
@@ -1049,10 +1142,10 @@
       }
 
       function syncPendingSongs() {
-        if (!canSyncSongsNow()) return Promise.resolve();
+        if (!canWriteOfficialData()) return Promise.resolve();
         var pending = state.songs.filter(function (song) {
           normalizeSongSyncState(song);
-          return song.sync_status === "pending" || song.sync_status === "local" || song.sync_status === "error";
+          return !song.local_only && (song.sync_status === "pending" || song.sync_status === "local" || song.sync_status === "error");
         });
         if (!pending.length) return Promise.resolve();
         return pending.reduce(function (chain, song) {
@@ -1098,13 +1191,13 @@
       }
 
       async function loescheInSupabase(supabaseId) {
-        if (!sb || !supabaseId) return;
+        if (!canWriteOfficialData() || !supabaseId) return;
         try {
           await sb.from("lieder").delete().eq("id", supabaseId);
         } catch (e) {}
       }
       async function speichereListenInSupabase() {
-        if (!sb) return;
+        if (!canWriteOfficialData()) return;
         try {
           await sb.from("einstellungen").upsert({
             id: "singleiter_listen",
@@ -1213,6 +1306,7 @@
         setupBrowserNavigation();
         setupSwipeNavigation();
         setupMouseBackButton();
+        updateAdminModeUi();
         updateOfflineStatus();
         window.addEventListener("online", function () {
           updateOfflineStatus();
@@ -1247,6 +1341,7 @@
           if (!rows) return; // offline oder Fehler – localStorage bleibt
           if (rows.length === 0) {
             // Supabase leer: App-Lieder hochladen (einmalige Migration)
+            if (!canWriteOfficialData()) return;
             return migriereLiederNachSupabase();
           }
           // Supabase hat Daten: lokale IDs bewahren, supabase_id zuordnen
@@ -1334,6 +1429,7 @@
       }
 
       async function migriereLiederNachSupabase() {
+        if (!canWriteOfficialData()) return;
         var total = 0;
         for (var i = 0; i < state.songs.length; i++) {
           var song = state.songs[i];
@@ -2181,6 +2277,7 @@
         container.querySelectorAll("details").forEach(function (details) {
           details.open = false;
         });
+        updateAdminModeUi();
       }
 
       function schliesseEinstellungsDetails() {
@@ -2683,7 +2780,7 @@
         var tonartBadge = "";
         if (song.tonart) {
           tonartBadge =
-            '<span style="font-size:0.78rem; background:#fef3c7; color:#92400e; padding:2px 8px; border-radius:6px; font-weight:600;">' +
+            '<span class="detail-info-badge detail-info-badge-tonart">' +
             escHtml(song.tonart) +
             "</span>";
         }
@@ -2692,7 +2789,7 @@
         var capoAnzeige = "";
         if (capoNum > 0) {
           capoAnzeige =
-            '<span class="capo-badge">\uD83C\uDFB8 Capo ' +
+            '<span class="detail-info-badge detail-info-badge-capo">\uD83C\uDFB8 Capo ' +
             capoNum +
             ". Bund</span>";
         }
@@ -2781,7 +2878,7 @@
           (song.komponist
             ? '<div class="detail-komponist">' + escHtml(song.komponist) + "</div>"
             : '<div class="detail-komponist detail-komponist-empty">Komponist fehlt</div>') +
-          '<div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">' +
+          '<div class="detail-info-badges">' +
           tonartBadge +
           capoAnzeige +
           "</div>" +
@@ -2911,11 +3008,18 @@
           0;
         var neuerCapo = capoBase + transpState.capoSession;
         song.capo = zuRoemisch(String(neuerCapo));
-        markSongSyncStatus(song, canSyncSongsNow() ? "syncing" : "local", "");
+        markSongSyncStatus(song, canWriteOfficialData() ? "syncing" : "local", "");
         state.songs = state.songs.map(function (s) {
           return s.id === song.id ? song : s;
         });
         saveToStorage();
+        if (!canWriteOfficialData()) {
+          transpState.capoSession = 0;
+          renderDetail();
+          renderSongList();
+          showToast("Capo lokal gespeichert");
+          return;
+        }
         speichereInSupabase(song).then(function (row) {
           if (row) {
             song.supabase_id = row.id;
@@ -4904,40 +5008,47 @@
           state.songs = state.songs.map(function (s) {
             if (s.id !== editSongId) return s;
             var updated = Object.assign({}, s, felder);
-            markSongSyncStatus(updated, canSyncSongsNow() ? "syncing" : "local", "");
+            markSongSyncStatus(updated, canWriteOfficialData() ? "syncing" : "local", "");
             return updated;
           });
           saveToStorage();
           var updatedSong = state.songs.find(function (s) {
             return s.id === editSongId;
           });
-          setSongSaveStatus("Lokal gespeichert, Sync läuft...", "");
-          showToast("Lokal gespeichert, Sync läuft...");
-          speichereInSupabase(updatedSong).then(function (row) {
-            if (row && !updatedSong.supabase_id) {
-              updatedSong.supabase_id = row.id;
-              saveToStorage();
-            }
-            if (row) {
-              markSongSyncStatus(updatedSong, "synced", "");
-              saveToStorage();
-              renderSongListIfVisible();
-              if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
-              setSongSaveStatus("Synchronisiert", "ok");
-              showToast("Lied synchronisiert");
-            } else {
-              markSongSyncStatus(
-                updatedSong,
-                canSyncSongsNow() ? "error" : "pending",
-                canSyncSongsNow() ? "Supabase konnte das Lied nicht speichern." : "",
-              );
-              saveToStorage();
-              renderSongListIfVisible();
-              if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
-              setSongSaveStatus("Lokal gespeichert, Sync später", "warn");
-              showToast("Lokal gespeichert, Sync später");
-            }
-          });
+          if (!canWriteOfficialData()) {
+            setSongSaveStatus("Lokal gespeichert", "ok");
+            showToast("Lokal gespeichert");
+            renderSongListIfVisible();
+            if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
+          } else {
+            setSongSaveStatus("Lokal gespeichert, Sync läuft...", "");
+            showToast("Lokal gespeichert, Sync läuft...");
+            speichereInSupabase(updatedSong).then(function (row) {
+              if (row && !updatedSong.supabase_id) {
+                updatedSong.supabase_id = row.id;
+                saveToStorage();
+              }
+              if (row) {
+                markSongSyncStatus(updatedSong, "synced", "");
+                saveToStorage();
+                renderSongListIfVisible();
+                if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
+                setSongSaveStatus("Synchronisiert", "ok");
+                showToast("Lied synchronisiert");
+              } else {
+                markSongSyncStatus(
+                  updatedSong,
+                  canSyncSongsNow() ? "error" : "pending",
+                  canSyncSongsNow() ? "Supabase konnte das Lied nicht speichern." : "",
+                );
+                saveToStorage();
+                renderSongListIfVisible();
+                if (state.currentSong && state.currentSong.id === updatedSong.id) renderDetail();
+                setSongSaveStatus("Lokal gespeichert, Sync später", "warn");
+                showToast("Lokal gespeichert, Sync später");
+              }
+            });
+          }
           var savedId = editSongId;
           var savedScroll = state._songListScrollTop || 0;
           merkeSongFormularStand();
@@ -4950,34 +5061,40 @@
           state._songListScrollTop = savedScroll;
         } else {
           var newSong = Object.assign(
-            { id: Date.now(), stimmung: "verbindend" },
+            { id: Date.now(), stimmung: "verbindend", local_only: !isAdminWriteMode() },
             felder,
           );
-          markSongSyncStatus(newSong, canSyncSongsNow() ? "syncing" : "local", "");
+          markSongSyncStatus(newSong, canWriteOfficialData() ? "syncing" : "local", "");
           state.songs.push(newSong);
           saveToStorage();
-          setSongSaveStatus("Lokal gespeichert, Sync läuft...", "");
-          showToast("Lokal gespeichert, Sync läuft...");
-          speichereInSupabase(newSong).then(function (row) {
-            if (row) {
-              newSong.supabase_id = row.id;
-              markSongSyncStatus(newSong, "synced", "");
-              saveToStorage();
-              renderSongListIfVisible();
-              setSongSaveStatus("Synchronisiert", "ok");
-              showToast("Lied synchronisiert");
-            } else {
-              markSongSyncStatus(
-                newSong,
-                canSyncSongsNow() ? "error" : "pending",
-                canSyncSongsNow() ? "Supabase konnte das Lied nicht speichern." : "",
-              );
-              saveToStorage();
-              renderSongListIfVisible();
-              setSongSaveStatus("Lokal gespeichert, Sync später", "warn");
-              showToast("Lokal gespeichert, Sync später");
-            }
-          });
+          if (!canWriteOfficialData()) {
+            setSongSaveStatus("Lokal gespeichert", "ok");
+            showToast("Lokal gespeichert");
+          } else {
+            setSongSaveStatus("Lokal gespeichert, Sync läuft...", "");
+            showToast("Lokal gespeichert, Sync läuft...");
+            speichereInSupabase(newSong).then(function (row) {
+              if (row) {
+                newSong.supabase_id = row.id;
+                newSong.local_only = false;
+                markSongSyncStatus(newSong, "synced", "");
+                saveToStorage();
+                renderSongListIfVisible();
+                setSongSaveStatus("Synchronisiert", "ok");
+                showToast("Lied synchronisiert");
+              } else {
+                markSongSyncStatus(
+                  newSong,
+                  canSyncSongsNow() ? "error" : "pending",
+                  canSyncSongsNow() ? "Supabase konnte das Lied nicht speichern." : "",
+                );
+                saveToStorage();
+                renderSongListIfVisible();
+                setSongSaveStatus("Lokal gespeichert, Sync später", "warn");
+                showToast("Lokal gespeichert, Sync später");
+              }
+            });
+          }
           clearSongDraft();
           befuelleFormularDropdowns();
           schreibeSongFormular({});

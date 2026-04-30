@@ -432,6 +432,34 @@
         color: var(--danger);
         font-style: italic;
       }
+      .detail-info-badges {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin-top: 8px;
+      }
+      .detail-info-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
+        padding: 4px 12px;
+        border-radius: 8px;
+        font-family: var(--font-body);
+        font-size: 0.8rem;
+        font-weight: 700;
+        line-height: 1;
+        white-space: nowrap;
+      }
+      .detail-info-badge-tonart {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .detail-info-badge-capo {
+        background: var(--accent-soft-2);
+        color: #7a431c;
+      }
       .detail-actions {
         display: flex;
         gap: 8px;
@@ -541,13 +569,18 @@
         text-align: center;
       }
       .transpose-result {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
         font-size: 0.82rem;
         color: var(--accent2);
         font-weight: 600;
-        padding: 3px 8px;
+        padding: 4px 10px;
         background: var(--accent-soft);
         border-radius: 6px;
         font-family: monospace;
+        line-height: 1;
       }
       .transpose-reset {
         font-size: 0.75rem;
@@ -559,12 +592,17 @@
         padding: 0;
       }
       .capo-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 30px;
         background: var(--accent-soft-2);
         color: #7a431c;
         border-radius: 8px;
         padding: 4px 10px;
         font-size: 0.8rem;
         font-weight: 600;
+        line-height: 1;
         white-space: nowrap;
       }
       .klingend-info {
@@ -977,7 +1015,7 @@
         font-size: 0.88rem;
       }
 
-      /* Anfang EinfÃ¼gen */
+      /* Anfang Einfügen */
   .handbuch-tabs {
         display: flex;
         gap: 8px;
@@ -1161,7 +1199,7 @@
         line-height: 1.6;
         margin: 0;
       }
-      /* Ende EinfÃ¼gen */
+      /* Ende Einfügen */
 
   /* BACKUP */
       .filter-panel {
@@ -1329,7 +1367,7 @@
         display: none;
       }
       .settings-list summary::after {
-        content: "â–¾";
+        content: "▾";
         color: var(--text3);
         transition: transform 0.2s;
       }
@@ -1544,6 +1582,46 @@
       .offline-status.offline .offline-dot {
         background: var(--accent);
       }
+      .admin-mode-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 10px 0;
+      }
+      .admin-mode-badge {
+        display: inline-flex;
+        align-items: center;
+        min-height: 28px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background: var(--surface2);
+        color: var(--text2);
+        border: 1.5px solid var(--border);
+        font-size: 0.78rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .admin-mode-badge.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+      }
+      .admin-status-message {
+        color: var(--text2);
+        font-size: 0.82rem;
+      }
+      .admin-login-row {
+        display: grid;
+        grid-template-columns: minmax(180px, 1fr) auto auto;
+        gap: 8px;
+        align-items: center;
+      }
+      @media (max-width: 640px) {
+        .admin-login-row {
+          grid-template-columns: 1fr;
+        }
+      }
       .cleanup-list {
         display: flex;
         flex-direction: column;
@@ -1569,7 +1647,7 @@
         display: none;
       }
       .cleanup-header::after {
-        content: "â–¾";
+        content: "▾";
         color: var(--text3);
         transition: transform 0.2s;
       }

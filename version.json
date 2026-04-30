@@ -1,4 +1,4 @@
 {
-  "version": "1.5.36",
-  "changelog": "Maustaste Zurück am PC entprellt und sicherer abgefangen."
+  "version": "1.5.39",
+  "changelog": "Admin-Modus in den Einstellungen ergänzt: Passwortfreigabe, Statusanzeige und Sperren-Schalter."
 }
