@@ -861,6 +861,65 @@
         return primary;
       }
 
+      function hasSongFieldValue(song, field) {
+        return String((song && song[field]) || "").trim().length > 0;
+      }
+
+      function countTextLines(value) {
+        var text = String(value || "").trim();
+        if (!text) return 0;
+        return text.split(/\r?\n/).filter(function (line) {
+          return line.trim().length > 0;
+        }).length;
+      }
+
+      function localFieldLooksMoreComplete(localSong, remoteSong, field) {
+        var localValue = String((localSong && localSong[field]) || "");
+        var remoteValue = String((remoteSong && remoteSong[field]) || "");
+        if (!localValue.trim()) return false;
+        if (!remoteValue.trim()) return true;
+        if (field === "text" || field === "notizen" || field === "noten_abc") {
+          var localLines = countTextLines(localValue);
+          var remoteLines = countTextLines(remoteValue);
+          if (localLines > remoteLines) return true;
+          return localValue.trim().length > remoteValue.trim().length + 20;
+        }
+        return false;
+      }
+
+      function mergeRemoteSongWithLocal(remoteSong, localSong) {
+        var merged = Object.assign({}, remoteSong);
+        var localWon = false;
+        [
+          "komponist",
+          "tonart",
+          "capo",
+          "akkorde",
+          "text",
+          "notizen",
+          "noten_abc",
+          "sprache",
+          "land",
+          "kategorie",
+          "stimmung",
+        ].forEach(function (field) {
+          if (localFieldLooksMoreComplete(localSong, remoteSong, field)) {
+            merged[field] = localSong[field];
+            localWon = true;
+          }
+        });
+        merged.id = localSong.id;
+        merged.supabase_id = remoteSong.supabase_id || localSong.supabase_id;
+        if (localWon) {
+          markSongSyncStatus(merged, canSyncSongsNow() ? "pending" : "local", "");
+        } else {
+          merged.sync_status = "synced";
+          merged.sync_error = "";
+          merged.sync_updated_at = localSong.sync_updated_at || new Date().toISOString();
+        }
+        return merged;
+      }
+
       function dedupeSongsByTitle(songs) {
         var seen = {};
         var result = [];
@@ -905,11 +964,17 @@
           } else {
             var vorhandene = await sb
               .from("lieder")
-              .select("id")
+              .select("*")
               .eq("titel", song.titel || "")
               .limit(1);
             if (!vorhandene.error && vorhandene.data && vorhandene.data[0]) {
+              var remoteSong = dbSongToApp(vorhandene.data[0]);
+              var mergedSong = mergeRemoteSongWithLocal(remoteSong, song);
               song.supabase_id = vorhandene.data[0].id;
+              Object.keys(mergedSong).forEach(function (key) {
+                if (key !== "id") song[key] = mergedSong[key];
+              });
+              dbSong = appSongToDb(song);
               dbSong.id = song.supabase_id;
               var res = await sb.from("lieder").upsert(dbSong).select();
               return res.error ? null : res.data[0];
@@ -1194,21 +1259,7 @@
               if (songHasPendingSync(vorhandener)) {
                 return vorhandener;
               }
-              appSong.id = vorhandener.id;
-             // Supabase-Daten haben beim Sync Vorrang (sind die kanonische Quelle)
-              // Lokale Werte werden nur verwendet, wenn Supabase keinen Wert hat
-              appSong.capo = appSong.capo || vorhandener.capo;
-              appSong.akkorde = appSong.akkorde || vorhandener.akkorde;
-              appSong.text = appSong.text || vorhandener.text;
-              appSong.notizen = appSong.notizen || vorhandener.notizen;
-              appSong.noten_abc = appSong.noten_abc || vorhandener.noten_abc;
-              appSong.sprache = appSong.sprache || vorhandener.sprache;
-              appSong.land = appSong.land || vorhandener.land;
-              appSong.kategorie = appSong.kategorie || vorhandener.kategorie;
-              appSong.stimmung = appSong.stimmung || vorhandener.stimmung;
-              appSong.sync_status = "synced";
-              appSong.sync_error = "";
-              appSong.sync_updated_at = vorhandener.sync_updated_at || new Date().toISOString();
+              appSong = mergeRemoteSongWithLocal(appSong, vorhandener);
           } else {
               appSong.id = Date.now() + Math.floor(Math.random() * 10000);
               appSong.sync_status = "synced";
