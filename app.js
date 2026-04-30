@@ -1123,6 +1123,8 @@
       var pendingSongDraft = null;
       var setlistDragContext = null;
       var dialogStack = [];
+      var restoringNavigation = false;
+      var lastMouseBackAt = 0;
 
       // ============================================================
       // INIT & STORAGE
@@ -1140,6 +1142,9 @@
         ladeListenVonSupabase();
         setupSongFormAutosave();
         setupDialogKeyboardHandling();
+        setupBrowserNavigation();
+        setupSwipeNavigation();
+        setupMouseBackButton();
         updateOfflineStatus();
         window.addEventListener("online", function () {
           updateOfflineStatus();
@@ -1447,6 +1452,176 @@
           }, 0);
         }
       }
+
+      function getActiveViewName() {
+        var active = document.querySelector(".view.active");
+        if (!active || !active.id || active.id.indexOf("view-") !== 0) return "repertoire";
+        return active.id.replace("view-", "");
+      }
+
+      function isSongDetailOpen() {
+        var detail = document.getElementById("song-detail-view");
+        return !!(
+          getActiveViewName() === "repertoire" &&
+          detail &&
+          detail.classList.contains("open") &&
+          state.currentSong
+        );
+      }
+
+      function clearSongDetailState() {
+        var list = document.getElementById("song-list-view");
+        var detail = document.getElementById("song-detail-view");
+        if (list) list.style.display = "block";
+        if (detail) detail.classList.remove("open");
+        state.currentSong = null;
+      }
+
+      function getNavigationState() {
+        return {
+          singleiter: true,
+          view: getActiveViewName(),
+          songId: isSongDetailOpen() ? state.currentSong.id : null,
+        };
+      }
+
+      function writeNavigationState(replace) {
+        if (restoringNavigation || !window.history || !window.history.pushState) return;
+        var navState = getNavigationState();
+        var current = window.history.state || {};
+        if (
+          current.singleiter &&
+          current.view === navState.view &&
+          current.songId === navState.songId
+        ) {
+          return;
+        }
+        if (replace) window.history.replaceState(navState, "", window.location.href);
+        else window.history.pushState(navState, "", window.location.href);
+      }
+
+      function setupBrowserNavigation() {
+        if (!window.history || !window.history.replaceState) return;
+        writeNavigationState(true);
+        window.addEventListener("popstate", function (event) {
+          restoreNavigationState(event.state);
+        });
+      }
+
+      function restoreNavigationState(navState) {
+        if (!navState || !navState.singleiter) {
+          handleAppBackFallback();
+          return;
+        }
+        restoringNavigation = true;
+        var targetView = navState.view || "repertoire";
+        if (dialogStack.length) {
+          dialogStack.slice().reverse().forEach(function (dialog) {
+            if (dialog.closeFn && typeof window[dialog.closeFn] === "function") {
+              window[dialog.closeFn]();
+            } else {
+              closeDialog(dialog.id);
+            }
+          });
+        }
+        showView(targetView);
+        if (targetView === "repertoire" && navState.songId) {
+          openSong(navState.songId, true);
+        } else if (targetView === "repertoire") {
+          closeDetail();
+        }
+        restoringNavigation = false;
+      }
+
+      function handleAppBackFallback() {
+        if (dialogStack.length) {
+          var top = dialogStack[dialogStack.length - 1];
+          if (top.closeFn && typeof window[top.closeFn] === "function") {
+            window[top.closeFn]();
+          } else {
+            closeDialog(top.id);
+          }
+          writeNavigationState(true);
+          return true;
+        }
+        if (isSongDetailOpen()) {
+          closeDetail();
+          writeNavigationState(true);
+          return true;
+        }
+        if (getActiveViewName() !== "repertoire") {
+          showView("repertoire");
+          return true;
+        }
+        return false;
+      }
+
+      function navigateBack() {
+        if (window.history && window.history.length > 1) {
+          window.history.back();
+        } else {
+          handleAppBackFallback();
+        }
+      }
+
+      function setupMouseBackButton() {
+        function handleMouseBack(event) {
+          if (event.button !== 3) return;
+          var now = Date.now();
+          if (now - lastMouseBackAt < 250) return;
+          lastMouseBackAt = now;
+          event.preventDefault();
+          navigateBack();
+        }
+        document.addEventListener("mousedown", handleMouseBack, true);
+        document.addEventListener("mouseup", handleMouseBack, true);
+        document.addEventListener("auxclick", handleMouseBack, true);
+      }
+
+      function setupSwipeNavigation() {
+        var startX = 0;
+        var startY = 0;
+        var startTime = 0;
+        document.addEventListener(
+          "touchstart",
+          function (event) {
+            if (!event.touches || event.touches.length !== 1) return;
+            var target = event.target;
+            if (
+              target &&
+              target.closest &&
+              target.closest("input, textarea, select, button, .noten-scroll")
+            ) {
+              return;
+            }
+            startX = event.touches[0].clientX;
+            startY = event.touches[0].clientY;
+            startTime = Date.now();
+          },
+          { passive: true },
+        );
+        document.addEventListener(
+          "touchend",
+          function (event) {
+            if (!startTime || !event.changedTouches || event.changedTouches.length !== 1) return;
+            var dx = event.changedTouches[0].clientX - startX;
+            var dy = event.changedTouches[0].clientY - startY;
+            var elapsed = Date.now() - startTime;
+            startTime = 0;
+            if (elapsed > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.4) return;
+            var spick = document.getElementById("spickzettel");
+            if (spick && spick.classList.contains("open")) {
+              if (dx < 0) spickNext();
+              else spickPrev();
+              return;
+            }
+            if (dx > 0 && isSongDetailOpen()) {
+              navigateBack();
+            }
+          },
+          { passive: true },
+        );
+      }
       
 
       // ============================================================
@@ -1454,6 +1629,7 @@
       // ============================================================
       function showView(name) {
         if (
+          !restoringNavigation &&
           name !== "add" &&
           document.getElementById("view-add") &&
           document.getElementById("view-add").classList.contains("active") &&
@@ -1471,10 +1647,7 @@
         document.querySelectorAll(".nav-tab").forEach(function (t) {
           if (t.getAttribute("data-view") === name) t.classList.add("active");
         });
-        if (name === "repertoire") {
-          document.getElementById("song-list-view").style.display = "block";
-          document.getElementById("song-detail-view").classList.remove("open");
-        }
+        clearSongDetailState();
         if (name === "setlist") {
           renderSpickListe();
           renderSetlists();
@@ -1487,6 +1660,7 @@
           setTimeout(schliesseEinstellungsDetails, 120);
           updateOfflineStatus();
         }
+        writeNavigationState(false);
       }
 
       // ============================================================
@@ -2287,6 +2461,7 @@
         state.currentSong = state.songs.find(function (s) {
           return s.id === id;
         });
+        if (!state.currentSong) return;
         transpState.capoSession = 0;
         transpState.transpSession = 0;
         if (!_skipScrollSave) {
@@ -2296,6 +2471,7 @@
         var detail = document.getElementById("song-detail-view");
         detail.classList.add("open");
         renderDetail();
+        writeNavigationState(false);
       }
 
       function renderDetail() {
@@ -2634,6 +2810,8 @@
           }
         }
         scrollZurueck();
+        state.currentSong = null;
+        writeNavigationState(true);
       }
 
       function renderNoten(scale) {

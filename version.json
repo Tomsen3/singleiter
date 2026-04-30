@@ -1,4 +1,4 @@
 {
-  "version": "1.5.26",
-  "changelog": "Mobile Header, Reiter und Suche kompakter gestaltet; Einstellungen nur noch ueber Zahnrad"
+  "version": "1.5.27",
+  "changelog": "Zurueck-Navigation per Maus/Browser-History und Wischen am Handy repariert"
 }
