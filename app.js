@@ -1347,6 +1347,7 @@
           // Supabase hat Daten: lokale IDs bewahren, supabase_id zuordnen
           var neueSongs = rows.map(function (row) {
             var vorhandener = state.songs.find(function (s) {
+              if (s.local_only) return false;
               return (
                 s.supabase_id === row.id ||
                 songDedupeKey(s) === songDedupeKey({ titel: row.titel })
@@ -1367,6 +1368,10 @@
             return appSong;
           });
           state.songs.forEach(function (localSong) {
+            if (localSong.local_only) {
+              neueSongs.push(normalizeSongSyncState(localSong));
+              return;
+            }
             var inRemote =
               localSong.supabase_id &&
               rows.some(function (row) {
@@ -4191,6 +4196,8 @@
       // ============================================================
       var handbuchDaten = []; // wird aus Supabase + HANDBUCH_DATA_DEFAULT befuellt
       var handbuchEditId = null; // null = neu, sonst supabase id
+      var handbuchEditIndex = null;
+      var HANDBUCH_LOCAL_STORAGE_KEY = "singleiter_handbuch_local";
 
       var HANDBUCH_DATA_DEFAULT = [
         {
@@ -4320,23 +4327,23 @@
       ];
       var AUFBAU_DEFAULT = [
         {
-          titel: "ðŸŽ¶ Ankommen & Aufwärmen (5–10 Min.)",
+          titel: "Ankommen & Aufwärmen (5–10 Min.)",
           text: "Begrüßung, persönliche Ansprache. Atemwahrnehmung, Summen auf „mmh“. Ein bekanntes, einfaches Lied ohne Text: Stimme wecken, nicht fordern.\n\nFormulierung: „Wir fangen ganz sanft an – einfach zuhören und mitmachen, wenn möglich.“",
         },
         {
-          titel: "ðŸŽ¸ Hauptteil (20–30 Min.)",
+          titel: "Hauptteil (20–30 Min.)",
           text: "2–4 Lieder, Kontraste setzen (ruhig/bewegt, bekannt/neu). Klatschen, Bewegung, Rhythmus einbauen. Auf Gruppenenergie achten – Plan flexibel halten.\n\nTipp: Bekanntes Lied als Anker, neues Lied einbetten.",
         },
         {
-          titel: "ðŸ”” Übergangslied (2–5 Min.)",
+          titel: "Übergangslied (2–5 Min.)",
           text: "Tempo reduzieren, Energie sanft herunterregulieren. Ruhigere Melodie, weniger Stimme. Raum für das Ausklingen des Hauptteils.",
         },
         {
-          titel: "✨ Abschluss (5–10 Min.)",
+          titel: "Abschluss (5–10 Min.)",
           text: "Ein klar bekanntes Abschlusslied. Kurzer Moment der Stille danach. Persönliche Verabschiedung – jeden anschauen.",
         },
         {
-          titel: "ðŸŽ¤ Aufwärmen",
+          titel: "Aufwärmen",
           text: "Summen auf „mmh“: Lippen locker, Resonanz spüren – 1 Minute reicht.\nKiefer lockern: „Wiwiwiwi“ oder Kaumimik.\nAtemanlasser: 4 Sek. ein, 4 halten, 8 aus.\nHalbton-Glissando: von tief nach hoch und zurück auf „ah“.",
         },
       ];
@@ -4344,6 +4351,7 @@
       function ladeHandbuchVonSupabase() {
         if (!sb) {
           handbuchDaten = HANDBUCH_DATA_DEFAULT.slice();
+          ladeLokalesHandbuchWennVorhanden();
           renderHandbuch();
           return;
         }
@@ -4353,7 +4361,8 @@
           .then(function (res) {
             if (res.error || !res.data || res.data.length === 0) {
               handbuchDaten = HANDBUCH_DATA_DEFAULT.slice();
-              // Defaults in Supabase speichern
+              // Defaults nur im Admin-Schreibmodus in Supabase speichern.
+              if (canWriteOfficialData()) {
               HANDBUCH_DATA_DEFAULT.forEach(function (d, i) {
                 sb.from("singleiter_handbuch")
                   .insert({
@@ -4365,6 +4374,7 @@
                   })
                   .then(function () {});
               });
+              }
             } else {
               handbuchDaten = res.data.map(function (r) {
                 return {
@@ -4377,8 +4387,34 @@
                 };
               });
             }
+            ladeLokalesHandbuchWennVorhanden();
             renderHandbuch();
           });
+      }
+
+      function ladeLokalesHandbuchWennVorhanden() {
+        try {
+          var local = JSON.parse(localStorage.getItem(HANDBUCH_LOCAL_STORAGE_KEY) || "null");
+          if (!Array.isArray(local) || !local.length) return;
+          var merged = handbuchDaten.slice();
+          local.forEach(function (item) {
+            if (!item) return;
+            var id = String(item.id || "");
+            var idx = -1;
+            if (id && id.indexOf("local-") !== 0) {
+              idx = merged.findIndex(function (entry) {
+                return String(entry.id || "") === id;
+              });
+            }
+            if (idx >= 0) merged[idx] = item;
+            else merged.push(item);
+          });
+          handbuchDaten = merged;
+        } catch (e) {}
+      }
+
+      function speichereLokalesHandbuch() {
+        localStorage.setItem(HANDBUCH_LOCAL_STORAGE_KEY, JSON.stringify(handbuchDaten));
       }
 
       function renderHandbuch() {
@@ -4462,6 +4498,7 @@
       // ---- MODAL ----
       function handbuchNeu() {
         handbuchEditId = null;
+        handbuchEditIndex = null;
         document.getElementById("handbuch-modal-titel").textContent =
           "Neue Situation";
         document.getElementById("hb-titel").value = "";
@@ -4474,15 +4511,14 @@
       function handbuchBearbeiten(i) {
         var s = handbuchDaten[i];
         handbuchEditId = s.id || null;
+        handbuchEditIndex = i;
         document.getElementById("handbuch-modal-titel").textContent =
           "Situation bearbeiten";
         document.getElementById("hb-titel").value = s.titel;
         document.getElementById("hb-inhalt").value = s.inhalt;
         document.getElementById("hb-formulierungen").value =
           s.formulierungen.join("\n");
-        document.getElementById("hb-del-btn").style.display = handbuchEditId
-          ? "block"
-          : "none";
+        document.getElementById("hb-del-btn").style.display = "block";
         openDialog("handbuch-modal", "class", "handbuchModalClose", "#hb-titel");
       }
 
@@ -4506,8 +4542,24 @@
           alert("Bitte einen Titel eingeben.");
           return;
         }
-        if (!sb) {
-          alert("Keine Supabase-Verbindung.");
+        if (!canWriteOfficialData()) {
+          var localEntry = {
+            id: handbuchEditId && String(handbuchEditId).indexOf("local-") === 0
+              ? handbuchEditId
+              : "local-" + Date.now(),
+            titel: titel,
+            inhalt: inhalt,
+            formulierungen: formulierungen,
+          };
+          if (handbuchEditIndex !== null && handbuchEditIndex >= 0) {
+            handbuchDaten[handbuchEditIndex] = localEntry;
+          } else {
+            handbuchDaten.push(localEntry);
+          }
+          speichereLokalesHandbuch();
+          handbuchModalClose();
+          renderHandbuch();
+          showToast("Praxiswissen lokal gespeichert");
           return;
         }
         if (handbuchEditId) {
@@ -4540,8 +4592,19 @@
       }
 
       function handbuchLoeschen() {
-        if (!handbuchEditId) return;
+        if (handbuchEditIndex === null && !handbuchEditId) return;
         if (!confirm("Situation wirklich löschen?")) return;
+        if (!canWriteOfficialData()) {
+          if (handbuchEditIndex !== null && handbuchEditIndex >= 0) {
+            handbuchDaten.splice(handbuchEditIndex, 1);
+            speichereLokalesHandbuch();
+            handbuchModalClose();
+            renderHandbuch();
+            showToast("Praxiswissen lokal gelöscht");
+          }
+          return;
+        }
+        if (!handbuchEditId) return;
         sb.from("singleiter_handbuch")
           .delete()
           .eq("id", handbuchEditId)
@@ -4637,14 +4700,36 @@
       function getAufbauItems() {
         try {
           var items = JSON.parse(localStorage.getItem("singleiter_aufbau_items") || "null");
-          return Array.isArray(items) && items.length ? items : AUFBAU_DEFAULT.slice();
+          items = Array.isArray(items) && items.length ? items : AUFBAU_DEFAULT.slice();
+          items = items.map(cleanAufbauItem);
+          saveAufbauItems(items);
+          return items;
         } catch (e) {
           return AUFBAU_DEFAULT.slice();
         }
       }
 
+      function cleanAufbauTitle(value) {
+        return String(value || "")
+          .replace(/^Ã°Å¸Å½Â¶\s*/, "")
+          .replace(/^Ã°Å¸Å½Â¸\s*/, "")
+          .replace(/^Ã°Å¸â€â€\s*/, "")
+          .replace(/^âœ¨\s*/, "")
+          .replace(/^Ã°Å¸Å½Â¤\s*/, "")
+          .replace(/^[^\wÄÖÜäöüß]+/u, "")
+          .trim();
+      }
+
+      function cleanAufbauItem(item) {
+        item = item || {};
+        return {
+          titel: cleanAufbauTitle(item.titel),
+          text: item.text || "",
+        };
+      }
+
       function saveAufbauItems(items) {
-        localStorage.setItem("singleiter_aufbau_items", JSON.stringify(items));
+        localStorage.setItem("singleiter_aufbau_items", JSON.stringify((items || []).map(cleanAufbauItem)));
       }
 
       function renderAufbau() {
