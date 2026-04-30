@@ -422,6 +422,16 @@
         font-weight: 700;
         line-height: 1.2;
       }
+      .detail-komponist {
+        margin-top: 3px;
+        color: var(--text2);
+        font-size: 0.92rem;
+        line-height: 1.25;
+      }
+      .detail-komponist-empty {
+        color: var(--danger);
+        font-style: italic;
+      }
       .detail-actions {
         display: flex;
         gap: 8px;
@@ -967,7 +977,7 @@
         font-size: 0.88rem;
       }
 
-      /* Anfang Einfügen */
+      /* Anfang EinfÃ¼gen */
   .handbuch-tabs {
         display: flex;
         gap: 8px;
@@ -1151,7 +1161,7 @@
         line-height: 1.6;
         margin: 0;
       }
-      /* Ende Einfügen */
+      /* Ende EinfÃ¼gen */
 
   /* BACKUP */
       .filter-panel {
@@ -1319,7 +1329,7 @@
         display: none;
       }
       .settings-list summary::after {
-        content: "▾";
+        content: "â–¾";
         color: var(--text3);
         transition: transform 0.2s;
       }
@@ -1559,7 +1569,7 @@
         display: none;
       }
       .cleanup-header::after {
-        content: "▾";
+        content: "â–¾";
         color: var(--text3);
         transition: transform 0.2s;
       }

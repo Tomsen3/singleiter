@@ -1,4 +1,4 @@
-﻿      var DEFAULT_SONGS = [
+      var DEFAULT_SONGS = [
         {
           id: 1,
           titel: "Namaohm",
@@ -1244,7 +1244,7 @@
       }
       function syncVonSupabase() {
         return ladeVonSupabase().then(function (rows) {
-          if (!rows) return; // offline oder Fehler â€“ localStorage bleibt
+          if (!rows) return; // offline oder Fehler – localStorage bleibt
           if (rows.length === 0) {
             // Supabase leer: App-Lieder hochladen (einmalige Migration)
             return migriereLiederNachSupabase();
@@ -1319,7 +1319,7 @@
               return idMap[id] || id;
             });
           });
-          // listen NICHT Ã¼berschreiben â€“ werden separat via ladeListenVonSupabase geladen
+          // listen NICHT überschreiben – werden separat via ladeListenVonSupabase geladen
           var aktListen = state.listen;
           saveToStorage();
           state.listen = aktListen;
@@ -1618,18 +1618,27 @@
         }
       }
 
+
       function setupMouseBackButton() {
-        function handleMouseBack(event) {
-          if (event.button !== 3) return;
-          var now = Date.now();
-          if (now - lastMouseBackAt < 250) return;
-          lastMouseBackAt = now;
+        function blockMouseBack(event) {
+          if (event.button !== 3) return false;
           event.preventDefault();
+          event.stopPropagation();
+          if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+          return true;
+        }
+        function handleMouseBack(event) {
+          if (!blockMouseBack(event)) return;
+          if (event.type !== "mouseup") return;
+          var now = Date.now();
+          if (now - lastMouseBackAt < 700) return;
+          lastMouseBackAt = now;
           navigateBack();
         }
         document.addEventListener("mousedown", handleMouseBack, true);
         document.addEventListener("mouseup", handleMouseBack, true);
         document.addEventListener("auxclick", handleMouseBack, true);
+        document.addEventListener("contextmenu", handleMouseBack, true);
       }
 
       function setupSwipeNavigation() {
@@ -1921,15 +1930,16 @@
                 "</span>"
               : "";
             var tags = "";
+            if (song.tonart)
+              tags +=
+                '<span class="tag tag-akkorde">' +
+                escHtml(song.tonart) +
+                "</span>";
+            tags += capoBadge;
             if (song.sprache)
               tags +=
                 '<span class="tag tag-akkorde">' +
                 escHtml(song.sprache) +
-                "</span>";
-            if (song.kategorie)
-              tags +=
-                '<span class="tag tag-akkorde">' +
-                escHtml(song.kategorie) +
                 "</span>";
             var title = escHtml(song.titel);
             return (
@@ -1946,7 +1956,6 @@
               title +
               "</div>" +
               '<div class="song-meta">' +
-              capoBadge +
               tags +
               "</div>" +
               "</div>" +
@@ -1991,23 +2000,23 @@
 
       function repariereTextAnzeige(str) {
         return String(str || "")
-          .replace(/Ã„/g, "Ä")
-          .replace(/Ã–/g, "Ö")
-          .replace(/Ãœ/g, "Ü")
-          .replace(/Ã¤/g, "ä")
-          .replace(/Ã¶/g, "ö")
-          .replace(/Ã¼/g, "ü")
-          .replace(/ÃŸ/g, "ß")
-          .replace(/Ã©/g, "é")
-          .replace(/Â´/g, "´")
+          .replace(/Ä/g, "Ä")
+          .replace(/Ö/g, "Ö")
+          .replace(/Ü/g, "Ü")
+          .replace(/ä/g, "ä")
+          .replace(/ö/g, "ö")
+          .replace(/ü/g, "ü")
+          .replace(/ß/g, "ß")
+          .replace(/é/g, "é")
+          .replace(/´/g, "´")
           .replace(/Â/g, "")
-          .replace(/â€“/g, "–")
-          .replace(/â€”/g, "—")
-          .replace(/â€ž/g, "„")
-          .replace(/â€œ/g, "“")
-          .replace(/â€/g, "”")
-          .replace(/â€˜/g, "‘")
-          .replace(/â€™/g, "’")
+          .replace(/–/g, "–")
+          .replace(/—/g, "—")
+          .replace(/„/g, "„")
+          .replace(/“/g, "“")
+          .replace(/”/g, "”")
+          .replace(/‘/g, "‘")
+          .replace(/’/g, "’")
           .replace(/\u00f0\u0178\u2020\u2022/g, "Update");
       }
 
@@ -2769,6 +2778,9 @@
           '<div class="detail-title">' +
           escHtml(song.titel) +
           "</div>" +
+          (song.komponist
+            ? '<div class="detail-komponist">' + escHtml(song.komponist) + "</div>"
+            : '<div class="detail-komponist detail-komponist-empty">Komponist fehlt</div>') +
           '<div style="display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;">' +
           tonartBadge +
           capoAnzeige +
@@ -2929,7 +2941,7 @@
         var pos = state._songListScrollTop || 0;
         document.getElementById("song-list-view").style.display = "block";
         document.getElementById("song-detail-view").classList.remove("open");
-        // Scroll wiederholt setzen - schÃ¼tzt gegen spÃ¤te async renderSongList-Aufrufe
+        // Scroll wiederholt setzen - schützt gegen späte async renderSongList-Aufrufe
         var scrollVersuche = 0;
         function scrollZurueck() {
           setScrollPos(pos);
@@ -3945,7 +3957,7 @@
         var spickNotenRender = document.getElementById("spick-noten-render");
         if (song.noten_abc && spickNotenToggle) {
           spickNotenToggle.style.display = "block";
-          // Noten-Box schlieÃŸen beim Liedwechsel
+          // Noten-Box schließen beim Liedwechsel
           if (spickNotenBox) {
             spickNotenBox.style.display = "none";
             if (spickNotenBox.dataset) spickNotenBox.dataset.rendered = "";
@@ -4204,15 +4216,15 @@
       ];
       var AUFBAU_DEFAULT = [
         {
-          titel: "🎶 Ankommen & Aufwärmen (5–10 Min.)",
+          titel: "ðŸŽ¶ Ankommen & Aufwärmen (5–10 Min.)",
           text: "Begrüßung, persönliche Ansprache. Atemwahrnehmung, Summen auf „mmh“. Ein bekanntes, einfaches Lied ohne Text: Stimme wecken, nicht fordern.\n\nFormulierung: „Wir fangen ganz sanft an – einfach zuhören und mitmachen, wenn möglich.“",
         },
         {
-          titel: "🎸 Hauptteil (20–30 Min.)",
+          titel: "ðŸŽ¸ Hauptteil (20–30 Min.)",
           text: "2–4 Lieder, Kontraste setzen (ruhig/bewegt, bekannt/neu). Klatschen, Bewegung, Rhythmus einbauen. Auf Gruppenenergie achten – Plan flexibel halten.\n\nTipp: Bekanntes Lied als Anker, neues Lied einbetten.",
         },
         {
-          titel: "🔔 Übergangslied (2–5 Min.)",
+          titel: "ðŸ”” Übergangslied (2–5 Min.)",
           text: "Tempo reduzieren, Energie sanft herunterregulieren. Ruhigere Melodie, weniger Stimme. Raum für das Ausklingen des Hauptteils.",
         },
         {
@@ -4220,7 +4232,7 @@
           text: "Ein klar bekanntes Abschlusslied. Kurzer Moment der Stille danach. Persönliche Verabschiedung – jeden anschauen.",
         },
         {
-          titel: "🎤 Aufwärmen",
+          titel: "ðŸŽ¤ Aufwärmen",
           text: "Summen auf „mmh“: Lippen locker, Resonanz spüren – 1 Minute reicht.\nKiefer lockern: „Wiwiwiwi“ oder Kaumimik.\nAtemanlasser: 4 Sek. ein, 4 halten, 8 aus.\nHalbton-Glissando: von tief nach hoch und zurück auf „ah“.",
         },
       ];
