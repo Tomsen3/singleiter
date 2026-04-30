@@ -1955,7 +1955,7 @@
           .replace(/â€/g, "”")
           .replace(/â€˜/g, "‘")
           .replace(/â€™/g, "’")
-          .replace(/ðŸ†•/g, "Update");
+          .replace(/\u00f0\u0178\u2020\u2022/g, "Update");
       }
 
       function songCardKey(event, id) {
@@ -5189,13 +5189,21 @@
           .then(function (data) {
              if (data.version && data.version !== APP_VERSION) {
               var t = document.getElementById("toast");
-              var changelogText = data.changelog ? '<br><em style="opacity:0.75;font-size:0.78rem;">' + data.changelog + '</em>' : '';
-              t.innerHTML =
-                "ðŸ†• Update " +
-                data.version +
-                " verfügbar" +
-                changelogText +
-                ' &nbsp;<button onclick="updateDurchfuehren()" style="background:var(--accent);color:white;border:none;padding:3px 10px;border-radius:6px;cursor:pointer;font-size:0.85rem;">Jetzt</button>';
+              t.textContent = "";
+              var title = document.createElement("strong");
+              title.textContent = "Update " + data.version + " verfügbar";
+              t.appendChild(title);
+              if (data.changelog) {
+                var changelog = document.createElement("em");
+                changelog.textContent = repariereTextAnzeige(data.changelog);
+                t.appendChild(document.createElement("br"));
+                t.appendChild(changelog);
+              }
+              var button = document.createElement("button");
+              button.type = "button";
+              button.textContent = "Jetzt";
+              button.onclick = updateDurchfuehren;
+              t.appendChild(button);
               t.classList.add("show");
             }
           })
