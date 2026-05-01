@@ -1,5 +1,5 @@
-var CACHE = "singleiter-v1.5.42";
-var URLS = ["/singleiter/", "/singleiter/index.html", "/singleiter/styles.css", "/singleiter/app.js?v=1.5.42", "/singleiter/sw.js", "/singleiter/manifest.json", "/singleiter/version.json"];
+var CACHE = "singleiter-v1.5.43";
+var URLS = ["/singleiter/", "/singleiter/index.html", "/singleiter/styles.css", "/singleiter/app.js?v=1.5.43", "/singleiter/sw.js", "/singleiter/manifest.json", "/singleiter/version.json"];
 
 self.addEventListener("install", function(e) {
   e.waitUntil(caches.open(CACHE).then(function(c) { return c.addAll(URLS); }));

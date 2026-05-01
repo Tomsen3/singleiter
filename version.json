@@ -1,4 +1,4 @@
 {
-  "version": "1.5.42",
-  "changelog": "Lieder zeigen jetzt ihre Herkunft an: zentrale Supabase-Datenbank oder lokaler Gerätespeicher. Zusätzlich wurde der Schutz gegen doppelte Liedeinträge beim Supabase-Abgleich verbessert."
+  "version": "1.5.43",
+  "changelog": "Admin-Passwort aktualisiert, lokaler Admin-Zugang kann zurückgesetzt werden und der Admin-Modus wird nicht mehr per URL-Parameter aktiviert."
 }

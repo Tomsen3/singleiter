@@ -757,7 +757,7 @@
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubGdwdml1cmdweGNyanRmeHFpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NjExMjQsImV4cCI6MjA4ODMzNzEyNH0.FQ842Ete0xJ1MgCM0aBejDVkBL15-OaCGuN_0Cu80Og";
       var sb = null;
       var ADMIN_WRITE_STORAGE_KEY = "singleiter_admin_write_mode";
-      var ADMIN_PASSWORD_HASH = "5c4ccdc0bdf317293b1aeaec117e2977d4efc0b2a3ded4b8b39c0da6145507ac";
+      var ADMIN_PASSWORD_HASH = "18e491a3cf85695e594596975ca70d0777ebcd3400986c1c8a8ba606c7ed1290";
 
       function initSupabase() {
         try {
@@ -769,10 +769,7 @@
 
       function isAdminWriteMode() {
         try {
-          return (
-            localStorage.getItem(ADMIN_WRITE_STORAGE_KEY) === "1" ||
-            /(?:\?|&)admin=1(?:&|$)/.test(window.location.search)
-          );
+          return localStorage.getItem(ADMIN_WRITE_STORAGE_KEY) === "1";
         } catch (e) {
           return false;
         }
@@ -833,6 +830,21 @@
         setAdminWriteMode(false);
       }
 
+      function resetAdminAccess() {
+        localStorage.removeItem(ADMIN_WRITE_STORAGE_KEY);
+        var input = document.getElementById("admin-password");
+        var message = document.getElementById("admin-status-message");
+        if (input) input.value = "";
+        if (window.history && window.history.replaceState && window.location.search) {
+          var url = new URL(window.location.href);
+          url.searchParams.delete("admin");
+          window.history.replaceState({}, document.title, url.toString());
+        }
+        updateAdminModeUi();
+        if (message) message.textContent = "Admin-Zugang auf diesem Gerät zurückgesetzt.";
+        showToast("Admin-Zugang zurückgesetzt");
+      }
+
       function updateAdminModeUi() {
         var active = isAdminWriteMode();
         var badge = document.getElementById("admin-mode-badge");
@@ -854,6 +866,7 @@
 
       window.adminLogin = adminLogin;
       window.adminLogout = adminLogout;
+      window.resetAdminAccess = resetAdminAccess;
 
       function getScrollEl() {
         // Findet das tatsaechlich scrollende Element

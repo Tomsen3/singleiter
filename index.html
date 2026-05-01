@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "1.5.42";
+      var APP_VERSION = "1.5.43";
       var GITHUB_VERSION_URL =
         "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
 
@@ -688,6 +688,14 @@
           >
             Sperren
           </button>
+          <button
+            class="action-btn"
+            id="admin-reset-btn"
+            type="button"
+            onclick="resetAdminAccess()"
+          >
+            Zugang zurücksetzen
+          </button>
         </div>
       </div>
       </div>
@@ -936,7 +944,7 @@
     </div>
 
     <div class="toast" id="toast"></div>
-    <script src="app.js?v=1.5.42"></script>
+    <script src="app.js?v=1.5.43"></script>
     <!-- SPICKZETTEL OVERLAY -->
     <div class="spickzettel" id="spickzettel" role="dialog" aria-modal="true" aria-labelledby="spick-title" aria-hidden="true">
       <div class="spick-header">
