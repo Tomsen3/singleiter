@@ -5549,6 +5549,20 @@
       // START
       // ============================================================
        document.getElementById("version-anzeige").textContent = APP_VERSION;
+      var APP_VERSION_STORAGE_KEY = "singleiter_last_seen_app_version";
+
+      function merkeAktuelleAppVersion() {
+        try {
+          var lastVersion = localStorage.getItem(APP_VERSION_STORAGE_KEY) || "";
+          if (lastVersion && lastVersion !== APP_VERSION) {
+            setTimeout(function () {
+              showToast("App aktualisiert auf Version " + APP_VERSION);
+            }, 600);
+          }
+          localStorage.setItem(APP_VERSION_STORAGE_KEY, APP_VERSION);
+        } catch (e) {}
+      }
+
       function versionIstNeuer(remoteVersion, currentVersion) {
         var remote = String(remoteVersion || "").split(".").map(function (part) {
           return parseInt(part, 10) || 0;
@@ -5566,7 +5580,7 @@
         return false;
       }
 
-      function pruefeAufUpdate() {
+      function pruefeAufUpdate(manuell) {
         fetch(GITHUB_VERSION_URL + "?t=" + Date.now())
           .then(function (r) {
             return r.json();
@@ -5590,9 +5604,13 @@
               button.onclick = updateDurchfuehren;
               t.appendChild(button);
               t.classList.add("show");
+            } else if (manuell) {
+              showToast("App ist aktuell: Version " + APP_VERSION);
             }
           })
-          .catch(function () {});
+          .catch(function () {
+            if (manuell) showToast("Update-Prüfung gerade nicht möglich");
+          });
       }
 
       function updateDurchfuehren() {
@@ -5628,4 +5646,7 @@
       }
 
       init();
-      setTimeout(pruefeAufUpdate, 3000);
+      merkeAktuelleAppVersion();
+      setTimeout(function () {
+        pruefeAufUpdate(false);
+      }, 3000);
