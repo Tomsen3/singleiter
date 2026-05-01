@@ -5550,6 +5550,8 @@
       // ============================================================
        document.getElementById("version-anzeige").textContent = APP_VERSION;
       var APP_VERSION_STORAGE_KEY = "singleiter_last_seen_app_version";
+      var lastAutoUpdateCheckAt = 0;
+      var AUTO_UPDATE_CHECK_INTERVAL_MS = 5 * 60 * 1000;
 
       function merkeAktuelleAppVersion() {
         try {
@@ -5581,6 +5583,7 @@
       }
 
       function pruefeAufUpdate(manuell) {
+        lastAutoUpdateCheckAt = Date.now();
         fetch(GITHUB_VERSION_URL + "?t=" + Date.now())
           .then(function (r) {
             return r.json();
@@ -5611,6 +5614,14 @@
           .catch(function () {
             if (manuell) showToast("Update-Prüfung gerade nicht möglich");
           });
+      }
+
+      function pruefeAufUpdateWennWiederSichtbar() {
+        if (document.hidden) return;
+        if (!navigator.onLine) return;
+        var now = Date.now();
+        if (now - lastAutoUpdateCheckAt < AUTO_UPDATE_CHECK_INTERVAL_MS) return;
+        pruefeAufUpdate(false);
       }
 
       function updateDurchfuehren() {
@@ -5647,6 +5658,8 @@
 
       init();
       merkeAktuelleAppVersion();
+      document.addEventListener("visibilitychange", pruefeAufUpdateWennWiederSichtbar);
+      window.addEventListener("focus", pruefeAufUpdateWennWiederSichtbar);
       setTimeout(function () {
         pruefeAufUpdate(false);
       }, 3000);

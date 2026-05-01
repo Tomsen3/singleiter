@@ -1,4 +1,4 @@
 {
-  "version": "1.5.45",
-  "changelog": "Update-Rückmeldung ergänzt: Nach einem erfolgreichen Versionswechsel zeigt die App jetzt an, dass sie aktualisiert wurde. Die manuelle Prüfung meldet außerdem, wenn die App bereits aktuell ist."
+  "version": "1.5.46",
+  "changelog": "Update-Prüfung erweitert: Wenn die App aus dem Hintergrund zurückkommt oder wieder Fokus erhält, prüft sie auf neue Versionen und fragt weiterhin per Hinweis mit „Jetzt“-Button."
 }
