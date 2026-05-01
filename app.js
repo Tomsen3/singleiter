@@ -5549,13 +5549,30 @@
       // START
       // ============================================================
        document.getElementById("version-anzeige").textContent = APP_VERSION;
+      function versionIstNeuer(remoteVersion, currentVersion) {
+        var remote = String(remoteVersion || "").split(".").map(function (part) {
+          return parseInt(part, 10) || 0;
+        });
+        var current = String(currentVersion || "").split(".").map(function (part) {
+          return parseInt(part, 10) || 0;
+        });
+        var len = Math.max(remote.length, current.length);
+        for (var i = 0; i < len; i++) {
+          var r = remote[i] || 0;
+          var c = current[i] || 0;
+          if (r > c) return true;
+          if (r < c) return false;
+        }
+        return false;
+      }
+
       function pruefeAufUpdate() {
         fetch(GITHUB_VERSION_URL + "?t=" + Date.now())
           .then(function (r) {
             return r.json();
           })
           .then(function (data) {
-             if (data.version && data.version !== APP_VERSION) {
+             if (data.version && versionIstNeuer(data.version, APP_VERSION)) {
               var t = document.getElementById("toast");
               t.textContent = "";
               var title = document.createElement("strong");

@@ -1,4 +1,4 @@
 {
-  "version": "1.5.43",
-  "changelog": "Admin-Passwort aktualisiert, lokaler Admin-Zugang kann zurückgesetzt werden und der Admin-Modus wird nicht mehr per URL-Parameter aktiviert."
+  "version": "1.5.44",
+  "changelog": "Update-Prüfung korrigiert: ältere veröffentlichte Changelogs werden nicht mehr als neues Update angezeigt."
 }
