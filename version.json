@@ -1,4 +1,4 @@
 {
-  "version": "1.5.41",
-  "changelog": "Lokale Nutzerinhalte werden bei offiziellen Admin-Updates bewahrt: eigene Lieder und lokales Praxiswissen werden nur ergänzt, nicht überschrieben."
+  "version": "1.5.42",
+  "changelog": "Lieder zeigen jetzt ihre Herkunft an: zentrale Supabase-Datenbank oder lokaler Gerätespeicher. Zusätzlich wurde der Schutz gegen doppelte Liedeinträge beim Supabase-Abgleich verbessert."
 }

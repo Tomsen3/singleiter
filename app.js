@@ -172,7 +172,7 @@
         },
         {
           id: 18,
-          titel: "la mar estaba srena",
+          titel: "la mar estaba serena",
           capo: "",
           akkorde: "Am Dm E Am E Am",
           stimmung: "verbindend",
@@ -324,7 +324,7 @@
         },
         {
           id: 33,
-          titel: "Sunrise",
+          titel: "Sunrise over the mountain",
           capo: "",
           akkorde: "D G D D G D A7 D G D G A7 D A7",
           stimmung: "verbindend",
@@ -919,14 +919,42 @@
         };
       }
 
+      var SONG_TITLE_ALIASES = {
+        "la mar estaba srena": "la mar estaba serena",
+        "sunrise": "sunrise over the mountain",
+      };
+      var SONG_TITLE_DB_ALIASES = {
+        "la mar estaba srena": "la mar estaba serena",
+        "sunrise": "Sunrise over the mountain",
+      };
+
+      function normalizeSongTitle(value) {
+        var key = String(value || "")
+          .trim()
+          .replace(/\s+/g, " ")
+          .toLowerCase();
+        return SONG_TITLE_ALIASES[key] || key;
+      }
+
+      function getSongTitleLookupValues(song) {
+        var raw = String((song && song.titel) || "").trim().replace(/\s+/g, " ");
+        var rawKey = raw.toLowerCase();
+        var normalized = normalizeSongTitle(raw);
+        var dbAlias = SONG_TITLE_DB_ALIASES[rawKey];
+        var values = [];
+        if (raw) values.push(raw);
+        if (dbAlias) values.push(dbAlias);
+        if (normalized && normalized !== rawKey) values.push(normalized);
+        return values.filter(function (value, index) {
+          return values.indexOf(value) === index;
+        });
+      }
+
       function songDedupeKey(song) {
         if (song && song.local_only) {
           return "local:" + (song.id || song.titel || "");
         }
-        return String((song && song.titel) || "")
-          .trim()
-          .replace(/\s+/g, " ")
-          .toLowerCase();
+        return normalizeSongTitle((song && song.titel) || "");
       }
 
       function mergeSongData(primary, secondary) {
@@ -1058,10 +1086,11 @@
             var res = await sb.from("lieder").upsert(dbSong).select();
             return res.error ? null : res.data[0];
           } else {
+            var titelWerte = getSongTitleLookupValues(song);
             var vorhandene = await sb
               .from("lieder")
               .select("*")
-              .eq("titel", song.titel || "")
+              .in("titel", titelWerte.length ? titelWerte : [song.titel || ""])
               .limit(1);
             if (!vorhandene.error && vorhandene.data && vorhandene.data[0]) {
               var remoteSong = dbSongToApp(vorhandene.data[0]);
@@ -1141,6 +1170,33 @@
         );
       }
 
+      function isCentralSong(song) {
+        return !!(song && song.supabase_id && !song.local_only);
+      }
+
+      function getSongOriginLabel(song) {
+        return isCentralSong(song) ? "Zentrale Datenbank" : "Lokal gespeichert";
+      }
+
+      function getSongOriginClass(song) {
+        return isCentralSong(song) ? "central" : "local";
+      }
+
+      function renderSongOriginBadge(song, detail) {
+        var label = getSongOriginLabel(song);
+        var visibleLabel = detail ? label : isCentralSong(song) ? "Zentral" : "Lokal";
+        return (
+          '<span class="' +
+          (detail ? "detail-info-badge detail-info-badge-origin " : "tag tag-origin ") +
+          getSongOriginClass(song) +
+          '" title="' +
+          escHtml(label) +
+          '">' +
+          escHtml(visibleLabel) +
+          "</span>"
+        );
+      }
+
       function syncPendingSongs() {
         if (!canWriteOfficialData()) return Promise.resolve();
         var pending = state.songs.filter(function (song) {
@@ -1182,6 +1238,7 @@
           "filter-mit-noten",
           "filter-ohne-sprache",
           "filter-ohne-kategorie",
+          "filter-herkunft",
         ].some(function (id) {
           var el = document.getElementById(id);
           return el && (el.checked || el.value);
@@ -1355,9 +1412,6 @@
             });
             var appSong = dbSongToApp(row);
             if (vorhandener) {
-              if (songHasPendingSync(vorhandener)) {
-                return vorhandener;
-              }
               appSong = mergeRemoteSongWithLocal(appSong, vorhandener);
           } else {
               appSong.id = Date.now() + Math.floor(Math.random() * 10000);
@@ -1926,6 +1980,7 @@
           "filter-land",
           "filter-kategorie",
           "filter-stimmung",
+          "filter-herkunft",
         ].forEach(function (id) {
           var el = document.getElementById(id);
           if (el) el.value = "";
@@ -1953,6 +2008,8 @@
           (document.getElementById("filter-kategorie") || {}).value || "";
         var stimmung =
           (document.getElementById("filter-stimmung") || {}).value || "";
+        var herkunft =
+          (document.getElementById("filter-herkunft") || {}).value || "";
         var nurFavoriten =
           !!(document.getElementById("filter-favoriten") || {}).checked;
         var mitNoten =
@@ -1976,6 +2033,8 @@
           if (land && !listenwerteGleich(s.land, land)) return false;
           if (kategorie && !listenwerteGleich(s.kategorie, kategorie)) return false;
           if (stimmung && s.stimmung !== stimmung) return false;
+          if (herkunft === "zentral" && !isCentralSong(s)) return false;
+          if (herkunft === "lokal" && isCentralSong(s)) return false;
           if (nurFavoriten && !state.favoriten.includes(s.id)) return false;
           if (mitNoten && !normalisiereListenwert(s.noten_abc)) return false;
           if (ohneSprache && normalisiereListenwert(s.sprache)) return false;
@@ -1996,6 +2055,7 @@
             (land ? 1 : 0) +
             (kategorie ? 1 : 0) +
             (stimmung ? 1 : 0) +
+            (herkunft ? 1 : 0) +
             (nurFavoriten ? 1 : 0) +
             (mitNoten ? 1 : 0) +
             (ohneSprache ? 1 : 0) +
@@ -2042,6 +2102,7 @@
                 '<span class="tag tag-akkorde">' +
                 escHtml(song.sprache) +
                 "</span>";
+            tags += renderSongOriginBadge(song, false);
             var title = escHtml(song.titel);
             return (
               '<div class="song-card">' +
@@ -2886,6 +2947,7 @@
           '<div class="detail-info-badges">' +
           tonartBadge +
           capoAnzeige +
+          renderSongOriginBadge(song, true) +
           "</div>" +
           "</div>" +
           "</div>" +

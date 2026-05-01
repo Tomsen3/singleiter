@@ -349,6 +349,22 @@
         font-family: monospace;
         font-size: 0.68rem;
       }
+      .tag-origin {
+        font-family: var(--font-body);
+        border: 1px solid transparent;
+      }
+      .tag-origin.central,
+      .detail-info-badge-origin.central {
+        background: #e0f2fe;
+        color: #075985;
+        border-color: #bae6fd;
+      }
+      .tag-origin.local,
+      .detail-info-badge-origin.local {
+        background: #f3e8ff;
+        color: #6b21a8;
+        border-color: #e9d5ff;
+      }
       .song-card-actions {
         display: flex;
         gap: 8px;
