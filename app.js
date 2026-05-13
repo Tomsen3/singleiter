@@ -1,4 +1,4 @@
-﻿      var DEFAULT_SONGS = [
+      var DEFAULT_SONGS = [
         {
           id: 1,
           titel: "Namaohm",
@@ -756,8 +756,8 @@
       var SUPABASE_KEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNubGdwdml1cmdweGNyanRmeHFpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3NjExMjQsImV4cCI6MjA4ODMzNzEyNH0.FQ842Ete0xJ1MgCM0aBejDVkBL15-OaCGuN_0Cu80Og";
       var sb = null;
-      var ADMIN_WRITE_STORAGE_KEY = "singleiter_admin_write_mode";
-      var ADMIN_PASSWORD_HASH = "18e491a3cf85695e594596975ca70d0777ebcd3400986c1c8a8ba606c7ed1290";
+      let adminWriteMode = false;
+      var ADMIN_PASSWORD_HASH = "00a691d5b27a4280299a6b1646f38ff511bd94586584f12493f3b0daca1b3de1";
 
       function initSupabase() {
         try {
@@ -768,11 +768,7 @@
       }
 
       function isAdminWriteMode() {
-        try {
-          return localStorage.getItem(ADMIN_WRITE_STORAGE_KEY) === "1";
-        } catch (e) {
-          return false;
-        }
+        return adminWriteMode === true;
       }
 
       function canWriteOfficialData() {
@@ -780,14 +776,10 @@
       }
 
       function setAdminWriteMode(enabled) {
-        localStorage.setItem(ADMIN_WRITE_STORAGE_KEY, enabled ? "1" : "0");
+        adminWriteMode = enabled === true;
         updateAdminModeUi();
         showToast(enabled ? "Admin-Schreibmodus aktiv" : "Admin-Schreibmodus aus");
       }
-
-      window.singleiterSetAdminWriteMode = function (enabled) {
-        setAdminWriteMode(enabled);
-      };
 
       function hashAdminPassword(value) {
         if (!window.crypto || !window.crypto.subtle || !window.TextEncoder) {
@@ -831,7 +823,7 @@
       }
 
       function resetAdminAccess() {
-        localStorage.removeItem(ADMIN_WRITE_STORAGE_KEY);
+        adminWriteMode = false;
         var input = document.getElementById("admin-password");
         var message = document.getElementById("admin-status-message");
         if (input) input.value = "";
@@ -1091,6 +1083,7 @@
       }
 
       async function speichereInSupabase(song) {
+        if (!canWriteOfficialData()) return null;
         if (!sb) return null;
         try {
           var dbSong = appSongToDb(song);
@@ -1150,6 +1143,14 @@
         song.sync_status = status;
         song.sync_error = message || "";
         song.sync_updated_at = new Date().toISOString();
+      }
+
+      function markSongLocalOnly(song) {
+        if (!song) return song;
+        song.local_only = true;
+        delete song.supabase_id;
+        markSongSyncStatus(song, "local", "");
+        return song;
       }
 
       function getSongSyncLabel(song) {
@@ -3293,7 +3294,11 @@
           0;
         var neuerCapo = capoBase + transpState.capoSession;
         song.capo = zuRoemisch(String(neuerCapo));
-        markSongSyncStatus(song, canWriteOfficialData() ? "syncing" : "local", "");
+        if (canWriteOfficialData()) {
+          markSongSyncStatus(song, "syncing", "");
+        } else {
+          markSongLocalOnly(song);
+        }
         state.songs = state.songs.map(function (s) {
           return s.id === song.id ? song : s;
         });
@@ -5370,7 +5375,11 @@
           state.songs = state.songs.map(function (s) {
             if (s.id !== editSongId) return s;
             var updated = Object.assign({}, s, felder);
-            markSongSyncStatus(updated, canWriteOfficialData() ? "syncing" : "local", "");
+            if (canWriteOfficialData()) {
+              markSongSyncStatus(updated, "syncing", "");
+            } else {
+              markSongLocalOnly(updated);
+            }
             return updated;
           });
           saveToStorage();
@@ -5423,7 +5432,7 @@
           state._songListScrollTop = savedScroll;
         } else {
           var newSong = Object.assign(
-            { id: Date.now(), stimmung: "verbindend", local_only: !isAdminWriteMode() },
+            { id: Date.now(), stimmung: "verbindend", local_only: !canWriteOfficialData() },
             felder,
           );
           markSongSyncStatus(newSong, canWriteOfficialData() ? "syncing" : "local", "");

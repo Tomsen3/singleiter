@@ -1,7 +1,9 @@
-﻿{
+{
   "name": "SingLeiter",
   "short_name": "SingLeiter",
+  "id": "./",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f7f4ef",
   "theme_color": "#1a1a2e",

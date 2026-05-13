@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -8,6 +8,7 @@
     />
     <meta name="theme-color" content="#1a1a2e" />
     <link rel="manifest" href="manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -17,9 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "2.0";
-      var GITHUB_VERSION_URL =
-        "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
+      var APP_VERSION = "2.1";
+      var GITHUB_VERSION_URL = "version.json";
 
       // Service Worker als Blob registrieren (kein separates File noetig)
       if ("serviceWorker" in navigator) {
@@ -1093,7 +1093,7 @@
     </div>
 
     <div class="toast" id="toast"></div>
-    <script src="app.js?v=2.0"></script>
+    <script src="app.js?v=2.1"></script>
     <!-- SPICKZETTEL OVERLAY -->
     <div class="spickzettel" id="spickzettel" role="dialog" aria-modal="true" aria-labelledby="spick-title" aria-hidden="true">
       <div class="spick-header">
