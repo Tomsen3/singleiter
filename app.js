@@ -1434,16 +1434,12 @@
 
         if (spickAnzahl > 0) {
           // Aktiver Spickzettel vorhanden
-          var liedNamen = state.spickListe.slice(0, 3).map(function (id) {
-            var s = (state.songs || []).find(function (x) { return x.id === id; });
-            return s ? s.titel : "";
-          }).filter(Boolean).join(", ");
+          var spickMeta = spickAnzahl + ' Lied' + (spickAnzahl !== 1 ? 'er' : '');
           heroHtml =
             '<div class="dash-hero">' +
               '<span class="dash-hero-eyebrow">Fortsetzen</span>' +
               '<div class="dash-hero-title">Spickzettel aktiv</div>' +
-              '<div class="dash-hero-meta">' + spickAnzahl + ' Lied' + (spickAnzahl !== 1 ? 'er' : '') +
-              (liedNamen ? ' · ' + liedNamen : '') + '</div>' +
+              '<div class="dash-hero-meta">' + spickMeta + '</div>' +
               '<button class="dash-hero-btn" onclick="showView(\'setlist\'); showSetlistSubtab(\'spick\');">' +
                 SPICK_ICON + ' Zum Spickzettel' +
               '</button>' +

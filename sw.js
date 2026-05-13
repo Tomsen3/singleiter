@@ -1,9 +1,9 @@
-var CACHE = "singleiter-v2.1";
+var CACHE = "singleiter-v2.2-resonanz";
 var URLS = [
   "./",
   "index.html",
   "styles.css",
-  "app.js?v=2.1",
+  "app.js?v=2.2",
   "sw.js",
   "manifest.json",
   "version.json",

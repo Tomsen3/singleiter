@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <meta name="theme-color" content="#1a1a2e" />
+    <meta name="theme-color" content="#607d68" />
     <link rel="manifest" href="manifest.json" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "2.1";
+      var APP_VERSION = "2.2";
       var GITHUB_VERSION_URL = "version.json";
 
       // Service Worker als Blob registrieren (kein separates File noetig)
@@ -31,7 +31,7 @@
     <!-- Framework: Tokens + Theme (muss VOR styles.css stehen) -->
     <link rel="stylesheet" href="core/css/tokens.css">
     <link rel="stylesheet" href="core/css/fonts.css">
-    <link rel="stylesheet" href="themes/theme-modern.css" id="sl-pwa-theme">
+    <link rel="stylesheet" href="themes/theme-forest.css" id="sl-pwa-theme">
     <!-- App-eigenes CSS (baut via var()-Br&uuml;cke auf Framework-Tokens) -->
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -1093,7 +1093,7 @@
     </div>
 
     <div class="toast" id="toast"></div>
-    <script src="app.js?v=2.1"></script>
+    <script src="app.js?v=2.2"></script>
     <!-- SPICKZETTEL OVERLAY -->
     <div class="spickzettel" id="spickzettel" role="dialog" aria-modal="true" aria-labelledby="spick-title" aria-hidden="true">
       <div class="spick-header">
@@ -1182,13 +1182,15 @@
   <script>
   (function() {
     var THEME_KEY   = 'sl-pwa-theme';
-    var DEFAULT     = 'theme-modern';
+    var THEME_DEFAULT_VERSION_KEY = 'sl-pwa-theme-default-version';
+    var DEFAULT     = 'theme-forest';
     var PFAD        = 'themes/';
     var themeLink   = document.getElementById('sl-pwa-theme');
     var themeListe  = document.getElementById('sl-pwa-theme-liste');
 
     function themeSetzen(id) {
       themeLink.href = PFAD + id + '.css';
+      document.documentElement.dataset.theme = id;
       localStorage.setItem(THEME_KEY, id);
       if (!themeListe) return;
       themeListe.querySelectorAll('[data-theme]').forEach(function(btn) {
@@ -1228,6 +1230,12 @@
 
     // Gespeichertes Theme sofort anwenden (verhindert Flackern)
     var gespeichert = localStorage.getItem(THEME_KEY);
+    if (gespeichert === 'theme-modern' && localStorage.getItem(THEME_DEFAULT_VERSION_KEY) !== 'resonanz-2.2') {
+      gespeichert = DEFAULT;
+      localStorage.setItem(THEME_KEY, gespeichert);
+    }
+    localStorage.setItem(THEME_DEFAULT_VERSION_KEY, 'resonanz-2.2');
+    document.documentElement.dataset.theme = gespeichert || DEFAULT;
     if (gespeichert) themeLink.href = PFAD + gespeichert + '.css';
 
     // Buttons erst laden wenn DOM bereit

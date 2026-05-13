@@ -1,17 +1,19 @@
 /* Tom App Framework - theme-forest.css v0.6 */
 
 :root {
-  --color-bg: #edf3ef;
-  --color-page-top: #f7f8f3;
-  --color-page-bottom: #eef4ee;
-  --color-surface: rgba(255,255,255,.9);
-  --color-surface-2: rgba(248,252,248,.78);
-  --color-surface-soft-a: #dff4e7;
-  --color-surface-soft-b: #f4fbf5;
+  --color-bg: #edf4ef;
+  --color-page-top: #f8f8f2;
+  --color-page-bottom: #eaf3ec;
+  --color-surface: rgba(255,255,252,.92);
+  --color-surface-2: rgba(248,252,247,.80);
+  --color-surface-soft-a: #dff3e8;
+  --color-surface-soft-b: #f5faf2;
   --color-text: #10201a;
   --color-muted: #60756b;
   --color-primary: #2f8f5b;
   --color-primary-rgb: 47,143,91;
+  --color-coral: #d88b65;
+  --color-coral-rgb: 216,139,101;
   --color-blue: #287d9c;
   --color-green: #2f8f5b;
   --color-eyebrow: #6d7d58;
@@ -49,4 +51,53 @@
   --color-focus-ring: rgba(47,143,91,.28);
   --color-focus-ring-soft: rgba(47,143,91,.12);
   --border-active: 1px solid rgba(47,143,91,.46);
+}
+
+/* SingLeiter signature palette: eucalyptus, sage, moss, paper and soft daylight. */
+:root {
+  --color-bg: #edf0e8;
+  --color-page-top: #fbfaf3;
+  --color-page-bottom: #e5ebe0;
+  --color-surface: rgba(255,253,246,.92);
+  --color-surface-2: rgba(244,248,239,.82);
+  --color-surface-soft-a: #dfe8d8;
+  --color-surface-soft-b: #faf7ed;
+  --color-text: #213329;
+  --color-muted: #667269;
+  --color-primary: #607d68;
+  --color-primary-rgb: 96,125,104;
+  --color-coral: #c88668;
+  --color-coral-rgb: 200,134,104;
+  --color-blue: #6d8588;
+  --color-green: #6f8566;
+  --color-eyebrow: #798571;
+  --color-pill-bg: #dfe9d9;
+  --color-focus-button-bg: #f1e4d8;
+  --color-focus-button-text: #895238;
+  --color-progress-track: #d9e1d3;
+  --color-slider-gradient-c: #a8b99f;
+  --color-slider-gradient-d: #f8f4ea;
+  --color-quote-bg-a: #f4f6ed;
+  --color-quote-bg-b: #fffdf7;
+  --color-control-active-bg: #dce8d4;
+  --color-toggle-track: #c4d0c0;
+  --color-control-soft-bg: #e5eddd;
+  --color-disabled-bg: rgba(224,228,218,.72);
+  --color-disabled-text: rgba(83,98,88,.68);
+  --color-success-bg: #deeade;
+  --color-success-text: #425f49;
+  --color-warning-bg: #f7efd2;
+  --color-warning-text: #665122;
+  --color-info-bg: #dfeaec;
+  --color-info-text: #496a70;
+  --color-danger-bg: #f2e1dc;
+  --color-danger-text: #8a3e2c;
+  --color-chart-bg-top: rgba(255,253,246,.82);
+  --color-chart-bg-bottom: rgba(217,229,209,.58);
+  --color-chart-line: rgba(96,125,104,.9);
+  --color-chart-fill-top: rgba(96,125,104,.18);
+  --color-chart-fill-bottom: rgba(96,125,104,0);
+  --color-focus-ring: rgba(96,125,104,.30);
+  --color-focus-ring-soft: rgba(96,125,104,.13);
+  --border-active: 1px solid rgba(96,125,104,.42);
 }
