@@ -1,0 +1,52 @@
+/* Tom App Framework - theme-ocean.css v0.6 */
+
+:root {
+  --color-bg: #eaf2f7;
+  --color-page-top: #f5f8fa;
+  --color-page-bottom: #edf4f8;
+  --color-surface: rgba(255,255,255,.9);
+  --color-surface-2: rgba(249,252,255,.8);
+  --color-surface-soft-a: #dceffd;
+  --color-surface-soft-b: #f2f8fc;
+  --color-text: #102033;
+  --color-muted: #607286;
+  --color-primary: #2179a8;
+  --color-primary-rgb: 33,121,168;
+  --color-blue: #2179a8;
+  --color-green: #2c9a78;
+  --color-eyebrow: #5c7890;
+  --color-pill-bg: #d8ecf8;
+  --color-focus-button-bg: #dff4ef;
+  --color-focus-button-text: #1f7d65;
+  --color-progress-track: #dce7ee;
+  --color-slider-gradient-c: #69bde2;
+  --color-slider-gradient-d: #f2f8fc;
+  --color-quote-bg-a: #eef7fc;
+  --color-quote-bg-b: #ffffff;
+  --color-control-active-bg: #dceffd;
+  --color-toggle-track: #bfd0dc;  /* Blau-Grau, passend zu bg #eaf2f7 */
+  --color-control-soft-bg: #eaf5fb;
+  --color-disabled-bg:  rgba(216,228,236,.72);
+  --color-disabled-text: rgba(68,88,105,.68); /* 5.60:1 */
+
+  /* Feedback & Status – theme-integriert (Option B), alle >= 4.5:1 WCAG AA */
+  --color-success-bg:   #ddf2e8;
+  --color-success-text: #0a6e47;  /* 5.02:1 */
+
+  --color-warning-bg:   #fdf3d4;
+  --color-warning-text: #6b4800;  /* 6.55:1 */
+
+  --color-info-bg:      #d4e9f6;
+  --color-info-text:    #0f5278;  /* Primärfarben-Familie, 6.48:1 */
+
+  --color-danger-bg:    #fae8e6;
+  --color-danger-text:  #962016;  /* 6.74:1 */
+  --color-chart-bg-top: rgba(255,255,255,.78);
+  --color-chart-bg-bottom: rgba(224,242,252,.62);
+  --color-chart-line: rgba(33,121,168,.9);
+  --color-chart-fill-top: rgba(33,121,168,.18);
+  --color-chart-fill-bottom: rgba(33,121,168,0);
+  --color-focus-ring: rgba(33,121,168,.28);
+  --color-focus-ring-soft: rgba(33,121,168,.12);
+  --border-active: 1px solid rgba(33,121,168,.46);
+}

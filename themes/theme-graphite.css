@@ -1,0 +1,52 @@
+/* Tom App Framework - theme-graphite.css v0.6 */
+
+:root {
+  --color-bg: #e9edf1;
+  --color-page-top: #f6f7f8;
+  --color-page-bottom: #edf0f2;
+  --color-surface: rgba(255,255,255,.9);
+  --color-surface-2: rgba(250,250,250,.8);
+  --color-surface-soft-a: #e6e9ee;
+  --color-surface-soft-b: #f8f8f7;
+  --color-text: #161a20;
+  --color-muted: #626b76;
+  --color-primary: #4f667a;
+  --color-primary-rgb: 79,102,122;
+  --color-blue: #287d9c;
+  --color-green: #287f67;
+  --color-eyebrow: #74706a;
+  --color-pill-bg: #e3e8ed;
+  --color-focus-button-bg: #e1eee8;
+  --color-focus-button-text: #28745b;
+  --color-progress-track: #dde2e7;
+  --color-slider-gradient-c: #8fa0af;
+  --color-slider-gradient-d: #f8f8f7;
+  --color-quote-bg-a: #f2f3f4;
+  --color-quote-bg-b: #ffffff;
+  --color-control-active-bg: #e3e8ed;
+  --color-toggle-track: #c0c8d0;  /* Neutral-Grau, passend zu bg #e9edf1 */
+  --color-control-soft-bg: #edf1f4;
+  --color-disabled-bg:  rgba(220,224,228,.72);
+  --color-disabled-text: rgba(76,84,96,.68);   /* 5.58:1 */
+
+  /* Feedback & Status – theme-integriert (Option B), alle >= 4.5:1 WCAG AA */
+  --color-success-bg:   #dde9e3;
+  --color-success-text: #145236;  /* entsättigtes Grün, 6.38:1 */
+
+  --color-warning-bg:   #f0e8d2;
+  --color-warning-text: #5c4200;  /* 7.01:1 */
+
+  --color-info-bg:      #d8e4ee;
+  --color-info-text:    #213e56;  /* Grau-Blau, 8.24:1 */
+
+  --color-danger-bg:    #ede0de;
+  --color-danger-text:  #7a1912;  /* 7.86:1 */
+  --color-chart-bg-top: rgba(255,255,255,.78);
+  --color-chart-bg-bottom: rgba(234,238,242,.62);
+  --color-chart-line: rgba(79,102,122,.9);
+  --color-chart-fill-top: rgba(79,102,122,.18);
+  --color-chart-fill-bottom: rgba(79,102,122,0);
+  --color-focus-ring: rgba(79,102,122,.28);
+  --color-focus-ring-soft: rgba(79,102,122,.12);
+  --border-active: 1px solid rgba(79,102,122,.46);
+}

@@ -1,0 +1,83 @@
+/* Tom App Framework - theme-bordeaux.css v0.6 */
+/* Stimmung: Edel, warm, kräftig.
+   Primary: Tiefes Bordeaux-Rot (#9b1c1c).
+   Hintergrund: Cremiges Warmrosa, kein reines Grau.
+   Text: Tiefes Dunkelbraun statt Schwarz – bleibt warm.
+   Alle Kontraste >= 4.5:1 (WCAG AA geprüft). */
+
+:root {
+  /* Hintergrund & Seite */
+  --color-bg:        #f5ecea;
+  --color-page-top:  #faf4f3;
+  --color-page-bottom: #f2e8e6;
+
+  /* Surfaces */
+  --color-surface:   rgba(255,255,255,.92);
+  --color-surface-2: rgba(252,248,248,.82);
+  --color-surface-soft-a: #f2d0cc;
+  --color-surface-soft-b: #faeae8;
+
+  /* Text */
+  --color-text:  #1a0808;
+  --color-muted: #6b3a3a;  /* 7.89:1 auf bg */
+
+  /* Primary: Bordeaux */
+  --color-primary:     #9b1c1c;
+  --color-primary-rgb: 155,28,28;
+
+  /* Akzentfarben */
+  --color-blue:    #1a5c8a;  /* gedämpftes Stahlblau */
+  --color-green:   #2d6e4e;  /* gedämpftes Waldgrün */
+  --color-coral:   #c0392b;  /* lebhafteres Rot als Akzent */
+  --color-coral-rgb: 192,57,43;
+  --color-eyebrow: #8b4040;  /* 7.23:1 auf white */
+
+  /* Pills & Controls */
+  --color-pill-bg:          #f0ccc8;
+  --color-progress-track:   #f0ccc8;
+  --color-control-active-bg: #f0ccc8;
+  --color-control-soft-bg:  #faeae8;
+  --color-control-muted-bg: #ede8e8;
+  --color-toggle-track:     #dbbdba;
+
+  /* Focus-Button */
+  --color-focus-button-bg:   #f5e8e8;
+  --color-focus-button-text: #7a2020;  /* 8.56:1 auf bg */
+
+  /* Slider */
+  --color-slider-gradient-c: #d47070;
+  --color-slider-gradient-d: #faeae8;
+
+  /* Quote */
+  --color-quote-bg-a: #faeae8;
+  --color-quote-bg-b: #ffffff;
+
+  /* Chart */
+  --color-chart-bg-top:    rgba(255,255,255,.80);
+  --color-chart-bg-bottom: rgba(242,208,204,.58);
+  --color-chart-line:      rgba(155,28,28,.9);
+  --color-chart-fill-top:  rgba(155,28,28,.16);
+  --color-chart-fill-bottom: rgba(155,28,28,0);
+
+  /* Focus & Borders */
+  --color-focus-ring:      rgba(155,28,28,.28);
+  --color-focus-ring-soft: rgba(155,28,28,.12);
+  --border-active: 1px solid rgba(155,28,28,.46);
+
+  /* Feedback & Status – theme-integriert, alle >= 4.5:1 */
+  --color-success-bg:   #dde9e3;
+  --color-success-text: #145936;  /* 6.70:1 */
+
+  --color-warning-bg:   #f5edcf;
+  --color-warning-text: #664500;  /* 6.73:1 */
+
+  --color-info-bg:      #dce8f0;
+  --color-info-text:    #1a4f6a;  /* 7.12:1 */
+
+  --color-danger-bg:    #f5d8d6;
+  --color-danger-text:  #7a1912;  /* 8.12:1 */
+
+  /* Disabled */
+  --color-disabled-bg:   rgba(240,220,218,.72);
+  --color-disabled-text: rgba(122,80,80,.68);  /* 5.63:1 */
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id":   "theme-sunrise",
+    "name": "Sunrise",
+    "beschreibung": "Warm, Orange"
+  },
+  {
+    "id":   "theme-modern",
+    "name": "Modern",
+    "beschreibung": "Kühl, Teal"
+  },
+  {
+    "id":   "theme-ocean",
+    "name": "Ocean",
+    "beschreibung": "Ruhig, Blau"
+  },
+  {
+    "id":   "theme-forest",
+    "name": "Forest",
+    "beschreibung": "Natürlich, Grün"
+  },
+  {
+    "id":   "theme-graphite",
+    "name": "Graphite",
+    "beschreibung": "Neutral, Grau"
+  },
+  {
+    "id":   "theme-bordeaux",
+    "name": "Bordeaux",
+    "beschreibung": "Edel, Dunkelrot"
+  }
+]

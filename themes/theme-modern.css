@@ -1,0 +1,99 @@
+/* Tom App Framework - theme-modern.css v0.6 */
+/* Stimmung: Frisch, modern, professionell.
+   Primary: Teal (#0d9488).
+   Sekundär: Coral/Terra (#e07055) – als eigene Farbe vollständig definiert.
+   color-green: Teal-nah (#0f9a80) – passt zum Primary, ersetzt Grasgrün.
+   color-blue: gedämpftes Slate (#5b7fa6) für neutrale Info-Elemente.
+   Hintergrund: kühles Neutralgrau, kein Beige-Stich.
+   Radien: reduziert – reifer, professioneller.
+   Schrift: minimal größer für bessere Lesbarkeit. */
+
+:root {
+  /* Hintergrund & Seite */
+  --color-bg: #f0f4f4;
+  --color-page-top: #f7fafa;
+  --color-page-bottom: #f0f4f4;
+
+  /* Surfaces */
+  --color-surface: rgba(255,255,255,.93);
+  --color-surface-2: rgba(248,252,252,.84);
+  --color-surface-soft-a: #ccf0ec;
+  --color-surface-soft-b: #f0faf9;
+
+  /* Text */
+  --color-text: #0f2320;
+  --color-muted: #5f7470;
+
+  /* Primary: Teal */
+  --color-primary: #0d9488;
+  --color-primary-rgb: 13,148,136;
+
+  /* Akzentfarben */
+  --color-blue: #5b7fa6;
+  --color-green: #0f9a80;
+  --color-eyebrow: #6b8280;
+
+  /* Coral – vollständig als eigene Farbe */
+  --color-coral: #e07055;
+  --color-coral-rgb: 224,112,85;
+
+  /* Pills & Controls */
+  --color-pill-bg: #ccf0ec;
+  --color-progress-track: #d1e8e6;
+  --color-control-active-bg: #ccf0ec;
+  --color-toggle-track: #c2d4d2;  /* Teal-Grau, passend zu bg #f0f4f4 */
+  --color-control-soft-bg: #e6f7f6;
+  --color-disabled-bg:  rgba(226,236,236,.72);
+  --color-disabled-text: rgba(78,100,96,.68);  /* 4.86:1 */
+
+  /* Focus-Buttons: Coral */
+  --color-focus-button-bg: #fdeee9;
+  --color-focus-button-text: #c0492a;
+
+  /* Slider */
+  --color-slider-gradient-c: #5eede6;
+  --color-slider-gradient-d: #f0faf9;
+
+  /* Quote-Hintergründe */
+  --color-quote-bg-a: #f0faf9;
+  --color-quote-bg-b: #ffffff;
+
+  /* Chart */
+  --color-chart-bg-top: rgba(255,255,255,.82);
+  --color-chart-bg-bottom: rgba(204,240,236,.55);
+  --color-chart-line: rgba(13,148,136,.9);
+  --color-chart-fill-top: rgba(13,148,136,.16);
+  --color-chart-fill-bottom: rgba(13,148,136,0);
+
+  /* Focus & Borders */
+  --color-focus-ring: rgba(13,148,136,.28);
+  --color-focus-ring-soft: rgba(13,148,136,.12);
+  --border-active: 1px solid rgba(13,148,136,.44);
+
+  /* Feedback & Status – theme-integriert (Option B), alle >= 4.5:1 WCAG AA */
+  --color-success-bg:   #d9f5f2;
+  --color-success-text: #0a7068;  /* Teal-Grün, 5.37:1 */
+
+  --color-warning-bg:   #fef5da;
+  --color-warning-text: #6b4a00;  /* 6.10:1 */
+
+  --color-info-bg:      #dceef6;
+  --color-info-text:    #1d5470;  /* Slate-Blau, 6.12:1 */
+
+  --color-danger-bg:    #fbe9e5;
+  --color-danger-text:  #9a2416;  /* 6.44:1 */
+
+  /* Radien – reduziert, professioneller */
+  --radius-card: 14px;
+  --radius-button: 11px;
+  --radius-control: 10px;
+  --radius-chip: 8px;
+  --radius-badge: 10px;
+
+  /* Schriftgrößen – minimal angehoben */
+  --text-display: 23px;
+  --text-hero: 17px;
+  --text-card-title: 15px;
+  --text-body: 14px;
+  --text-meta: 12.5px;
+}

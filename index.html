@@ -1,0 +1,1242 @@
+﻿<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta name="theme-color" content="#1a1a2e" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>SingLeiter &#8211; Deine Praxis-App</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
+    <script>
+      var APP_VERSION = "2.0";
+      var GITHUB_VERSION_URL =
+        "https://raw.githubusercontent.com/tomsen3/singleiter/main/version.json";
+
+      // Service Worker als Blob registrieren (kein separates File noetig)
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("sw.js").catch(function(e) {
+          console.warn("SW:", e);
+        });
+      }
+    </script>
+    <!-- Framework: Tokens + Theme (muss VOR styles.css stehen) -->
+    <link rel="stylesheet" href="core/css/tokens.css">
+    <link rel="stylesheet" href="core/css/fonts.css">
+    <link rel="stylesheet" href="themes/theme-modern.css" id="sl-pwa-theme">
+    <!-- App-eigenes CSS (baut via var()-Br&uuml;cke auf Framework-Tokens) -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-header">
+      <h1 class="brand-logo">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 28 28" focusable="false">
+            <path d="M9 4v20M19 4v20M8 9h12M7 15h14M8 21h12" />
+          </svg>
+        </span>
+        <span class="brand-text">Sing<span>Leiter</span></span>
+      </h1>
+      <div class="header-actions">
+        <button
+          class="icon-btn"
+          onclick="showView('repertoire'); setTimeout(function(){ var s = document.getElementById('search-input'); if (s) s.focus(); }, 0)"
+          title="Suche"
+          aria-label="Suche öffnen"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m16.5 16.5 4 4"></path>
+          </svg>
+        </button>
+        <button
+          class="icon-btn"
+          onclick="showView('einstellungen')"
+          title="Einstellungen"
+          aria-label="Einstellungen öffnen"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z"></path>
+            <path d="M19.4 15a1.8 1.8 0 0 0 .36 1.98l.04.04a2.1 2.1 0 0 1-2.97 2.97l-.04-.04a1.8 1.8 0 0 0-1.98-.36 1.8 1.8 0 0 0-1.1 1.65V21.3a2.1 2.1 0 0 1-4.2 0v-.06a1.8 1.8 0 0 0-1.1-1.65 1.8 1.8 0 0 0-1.98.36l-.04.04a2.1 2.1 0 0 1-2.97-2.97l.04-.04A1.8 1.8 0 0 0 3.8 15a1.8 1.8 0 0 0-1.65-1.1H2.1a2.1 2.1 0 0 1 0-4.2h.06A1.8 1.8 0 0 0 3.8 8.6a1.8 1.8 0 0 0-.36-1.98l-.04-.04a2.1 2.1 0 0 1 2.97-2.97l.04.04a1.8 1.8 0 0 0 1.98.36A1.8 1.8 0 0 0 9.5 2.36V2.1a2.1 2.1 0 0 1 4.2 0v.06a1.8 1.8 0 0 0 1.1 1.65 1.8 1.8 0 0 0 1.98-.36l.04-.04a2.1 2.1 0 0 1 2.97 2.97l-.04.04a1.8 1.8 0 0 0-.36 1.98 1.8 1.8 0 0 0 1.65 1.1h.06a2.1 2.1 0 0 1 0 4.2h-.06A1.8 1.8 0 0 0 19.4 15Z"></path>
+          </svg>
+        </button>
+        <button
+          class="icon-btn"
+          onclick="showAddView()"
+          title="Lied hinzuf&uuml;gen"
+          aria-label="Lied hinzuf&uuml;gen"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M12 5v14M5 12h14"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="bottom-nav" role="navigation" aria-label="Hauptnavigation">
+      <button
+        class="nav-tab active"
+        data-view="home"
+        onclick="showView('home')"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M3 11 12 3l9 8"></path>
+          <path d="M5 10v10h14V10"></path>
+        </svg>
+        <span>Home</span>
+      </button>
+      <button
+        class="nav-tab"
+        data-view="repertoire"
+        onclick="showView('repertoire')"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M9 18V5l11-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="17" cy="16" r="3"></circle>
+        </svg>
+        <span>Repertoire</span>
+      </button>
+      <button class="nav-tab" data-view="setlist" onclick="showView('setlist')">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M8 6h13M8 12h13M8 18h13"></path>
+          <path d="M3 6h.01M3 12h.01M3 18h.01"></path>
+        </svg>
+        <span>Setlist</span>
+      </button>
+      <button
+        class="nav-tab"
+        data-view="favoriten"
+        onclick="showView('favoriten')"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.2l-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path>
+        </svg>
+        <span>Favoriten</span>
+      </button>
+      <button
+        class="nav-tab"
+        data-view="handbuch"
+        onclick="showView('handbuch')"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 19.5V5.8A2.8 2.8 0 0 1 6.8 3H20v16H6.8A2.8 2.8 0 0 0 4 21.8"></path>
+          <path d="M8 7h8M8 11h6"></path>
+        </svg>
+        <span>Praxis</span>
+      </button>
+    </div>
+
+    <!-- HOME / DASHBOARD VIEW -->
+    <div id="view-home" class="view active">
+      <!-- Hero: letzter Spickzettel / letzte Setlist -->
+      <div id="dash-hero-area"></div>
+
+      <!-- Tile-Grid: Schnellzugriffe -->
+      <div class="dash-tiles">
+        <button class="dash-tile" onclick="showView('setlist'); setTimeout(function(){ showSetlistSubtab('sets'); }, 60);" aria-label="Neue Setlist erstellen">
+          <div class="dash-tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          </div>
+          <div>
+            <div class="dash-tile-title">Neue Setlist</div>
+            <div class="dash-tile-meta">aus Repertoire</div>
+          </div>
+        </button>
+        <button class="dash-tile" onclick="showView('favoriten')" aria-label="Favoriten öffnen">
+          <div class="dash-tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.2l-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"/></svg>
+          </div>
+          <div>
+            <div class="dash-tile-title">Favoriten</div>
+            <div class="dash-tile-meta" id="dash-fav-count">–</div>
+          </div>
+        </button>
+        <button class="dash-tile" onclick="dashZufallslied()" aria-label="Zufälliges Lied öffnen">
+          <div class="dash-tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+          </div>
+          <div>
+            <div class="dash-tile-title">Zufallslied</div>
+            <div class="dash-tile-meta">Inspiration</div>
+          </div>
+        </button>
+        <button class="dash-tile" onclick="dashNavToHandbuchAufbau()" aria-label="Stundenaufbau öffnen">
+          <div class="dash-tile-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5V5.8A2.8 2.8 0 0 1 6.8 3H20v16H6.8A2.8 2.8 0 0 0 4 21.8"/><path d="M8 7h8M8 11h6"/></svg>
+          </div>
+          <div>
+            <div class="dash-tile-title">Stundenaufbau</div>
+            <div class="dash-tile-meta">4-Phasen-Modell</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Tipp des Tages -->
+      <div class="dash-section-head">
+        <span class="dash-section-title">Aus dem Handbuch</span>
+        <button class="transpose-reset" onclick="showView('handbuch')">mehr →</button>
+      </div>
+      <div class="dash-tip-card">
+        <span class="dash-tip-eyebrow" id="dash-tip-eyebrow">Tipp des Tages</span>
+        <div class="dash-tip-title" id="dash-tip-title"></div>
+        <p class="dash-tip-body" id="dash-tip-body"></p>
+      </div>
+    </div>
+
+    <!-- REPERTOIRE VIEW -->
+    <div id="view-repertoire" class="view">
+      <div id="song-list-view">
+        <div class="search-row">
+          <label class="sr-only" for="search-input">Lied suchen</label>
+          <input
+            class="search-input"
+            type="text"
+            id="search-input"
+            placeholder="&#128269; Titel, Komponist, Text, Akkorde..."
+            oninput="filterSongs()"
+          />
+          <button
+            class="action-btn"
+            id="filter-toggle-btn"
+            onclick="toggleFilterPanel()"
+            aria-controls="filter-panel"
+            aria-expanded="false"
+          >
+            &#9881; Filter
+          </button>
+        </div>
+        <div id="filter-panel" class="filter-panel">
+          <div class="quick-filter-row" aria-label="Schnellfilter">
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-favoriten" onchange="filterSongs()" />
+              <span>Favoriten</span>
+            </label>
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-mit-noten" onchange="filterSongs()" />
+              <span>mit Noten</span>
+            </label>
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-ohne-sprache" onchange="filterSongs()" />
+              <span>ohne Sprache</span>
+            </label>
+            <label class="quick-filter">
+              <input type="checkbox" id="filter-ohne-kategorie" onchange="filterSongs()" />
+              <span>ohne Kategorie</span>
+            </label>
+          </div>
+          <div class="filter-grid">
+            <div>
+              <label class="form-label filter-label" for="filter-sprache">Sprache</label>
+              <select
+                class="filter-select"
+                id="filter-sprache"
+                onchange="filterSongs()"
+              >
+                <option value="">Alle</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label filter-label" for="filter-tonart">Tonart</label>
+              <select
+                class="filter-select"
+                id="filter-tonart"
+                onchange="filterSongs()"
+              >
+                <option value="">Alle</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label filter-label" for="filter-land">
+                Land/Herkunft
+              </label>
+              <select
+                class="filter-select"
+                id="filter-land"
+                onchange="filterSongs()"
+              >
+                <option value="">Alle</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label filter-label" for="filter-kategorie">Kategorie</label>
+              <select
+                class="filter-select"
+                id="filter-kategorie"
+                onchange="filterSongs()"
+              >
+                <option value="">Alle</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label filter-label" for="filter-stimmung">Stimmung</label>
+              <select
+                class="filter-select"
+                id="filter-stimmung"
+                onchange="filterSongs()"
+              >
+                <option value="">Alle</option>
+                <option value="verbindend">verbindend</option>
+                <option value="freudig">freudig</option>
+                <option value="ruhig">ruhig</option>
+                <option value="nachdenklich">nachdenklich</option>
+                <option value="feierlich">feierlich</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label filter-label" for="filter-herkunft">Herkunft</label>
+              <select
+                class="filter-select"
+                id="filter-herkunft"
+                onchange="filterSongs()"
+              >
+                <option value="">Alle</option>
+                <option value="zentral">Zentrale Datenbank</option>
+                <option value="lokal">Lokal gespeichert</option>
+              </select>
+            </div>
+          </div>
+          <div class="filter-footer">
+            <span id="filter-count" class="filter-count"></span>
+            <button class="transpose-reset" onclick="resetFilter()">
+              Filter zur&uuml;cksetzen
+            </button>
+          </div>
+        </div>
+        <div class="song-list" id="song-list"></div>
+      </div>
+      <div id="song-detail-view" class="song-detail"></div>
+    </div>
+
+    <!-- SETLIST VIEW -->
+    <div id="view-setlist" class="view">
+      <!-- Sub-Tabs -->
+      <div class="subtab-bar">
+        <button
+          class="subtab-btn active"
+          id="subtab-spick-btn"
+          onclick="showSetlistSubtab('spick')"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.15em" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v6h5M9 13h6M9 17h5"/></svg>
+          Spickzettel
+        </button>
+        <button
+          class="subtab-btn"
+          id="subtab-sets-btn"
+          onclick="showSetlistSubtab('sets')"
+        >
+          &#128203; Setlists
+          <span
+            id="setlist-count-badge"
+            class="count-badge"
+          ></span>
+        </button>
+      </div>
+
+      <!-- Spickzettel-Subtab -->
+      <div id="subtab-spick">
+        <div class="toolbar-row space-between tight">
+          <div
+            class="section-subtitle no-margin"
+            id="spick-list-subtitle"
+          >
+            Spontane Programmliste
+          </div>
+          <button
+            class="action-btn compact-btn"
+            onclick="clearSpickListe()"
+          >
+            &#128465; Leeren
+          </button>
+        </div>
+        <div id="spick-list-container"></div>
+        <button
+          class="action-btn full"
+          onclick="spickListeAddMode()"
+        >
+          &#10133; Lied hinzuf&uuml;gen
+        </button>
+        <div class="toolbar-row wrap spaced">
+          <button
+            class="action-btn primary flex"
+            onclick="startSpickzettelFromListe()"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.15em" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v6h5M9 13h6M9 17h5"/></svg>
+            Spickzettel starten
+          </button>
+          <button class="action-btn" onclick="spickListeAlsSetlistSpeichern()">
+            &#128190; Als Setlist speichern
+          </button>
+        </div>
+      </div>
+
+      <!-- Setlists-Subtab -->
+      <div id="subtab-sets" class="hidden-panel">
+        <div class="toolbar-row form-row">
+          <input
+            class="form-input flex-fill"
+            id="neue-setlist-name"
+            type="text"
+            placeholder="Name der neuen Setlist..."
+          />
+          <button
+            class="action-btn primary"
+            onclick="neueSetlist()"
+          >
+            + Neu
+          </button>
+        </div>
+        <div id="setlists-container"></div>
+      </div>
+    </div>
+
+    <!-- SETLIST EDITOR OVERLAY -->
+    <div
+      id="setlist-editor"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Setlist bearbeiten"
+      aria-hidden="true"
+      class="overlay-panel setlist-editor-panel"
+    >
+      <div class="toolbar-row form-row">
+        <button class="back-btn" onclick="closeSetlistEditor()" aria-label="Setlist-Editor schlie&szlig;en">&#8592;</button>
+        <label class="sr-only" for="setlist-editor-name">Setlist-Name</label>
+        <input
+          class="form-input editor-title-input"
+          id="setlist-editor-name"
+          type="text"
+          placeholder="Setlist-Name"
+        />
+      </div>
+      <div id="setlist-editor-container"></div>
+      <div class="setlist-editor-summary" id="setlist-editor-summary"></div>
+      <button
+        class="action-btn full"
+        onclick="setlistEditorAddMode()"
+      >
+        &#10133; Lied hinzuf&uuml;gen
+      </button>
+      <div class="toolbar-row wrap spaced">
+        <button
+          class="action-btn primary flex"
+          onclick="saveSetlistEditor()"
+        >
+          &#9989; Speichern
+        </button>
+        <button
+          class="action-btn flex"
+          onclick="setlistInSpickzettelLaden()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-.15em" aria-hidden="true"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v6h5M9 13h6M9 17h5"/></svg>
+          In Spickzettel laden
+        </button>
+        <button
+          class="action-btn flex"
+          onclick="startSetlistDirekt(editSetlistId)"
+        >
+          &#9654; Direkt starten
+        </button>
+        <button
+          class="action-btn danger icon"
+          onclick="deleteSetlist()"
+          aria-label="Setlist l&ouml;schen"
+        >
+          &#128465;
+        </button>
+      </div>
+    </div>
+
+    <!-- LIED-SUCH-OVERLAY (fuer Spickzettel + Setlist-Editor) -->
+    <div
+      id="lied-such-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Lied suchen"
+      aria-hidden="true"
+      class="overlay-panel search-overlay-panel"
+    >
+      <div class="toolbar-row form-row">
+        <button class="back-btn" onclick="closeLiedSuchOverlay()" aria-label="Liedsuche schlie&szlig;en">
+          &#8592;
+        </button>
+        <label class="sr-only" for="lied-such-input">Lied suchen</label>
+        <input
+          class="search-input search-overlay-input"
+          id="lied-such-input"
+          type="text"
+          placeholder="&#128269; Lied suchen..."
+          oninput="renderLiedSuchOverlay()"
+        />
+      </div>
+      <div id="lied-such-liste"></div>
+    </div>
+
+    <!-- FAVORITEN VIEW -->
+    <div id="view-favoriten" class="view">
+      <div class="section-title"><span class="section-icon favorite-title-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.2l-5.6 3 1.1-6.2L3 9.6l6.2-.9L12 3Z"></path></svg></span>Favoriten</div>
+      <div class="song-list" id="favoriten-list"></div>
+    </div>
+
+       <!-- HANDBUCH VIEW -->
+    <div id="view-handbuch" class="view">
+      <div class="section-title">Praxiswissen</div>
+      <div class="section-subtitle">Situationen, Checkliste, Stundenaufbau</div>
+
+      <!-- TABS -->
+      <div class="handbuch-tabs">
+        <button
+          class="handbuch-tab active"
+          onclick="handbuchTab('situationen', this)"
+        >
+          &#128218; Situationen
+        </button>
+        <button class="handbuch-tab" onclick="handbuchTab('checkliste', this)">
+          &#9989; Checkliste
+        </button>
+        <button class="handbuch-tab" onclick="handbuchTab('aufbau', this)">
+          &#127926; Stundenaufbau
+        </button>
+      </div>
+
+      <!-- SITUATIONEN -->
+      <div id="handbuch-situationen">
+        <div id="handbuch-container"></div>
+        <button class="handbuch-add-btn" onclick="handbuchNeu()">
+          &#43; Neue Situation hinzuf&uuml;gen
+        </button>
+      </div>
+
+      <!-- CHECKLISTE -->
+      <div id="handbuch-checkliste" style="display: none">
+        <div class="section-card">
+          <h3
+            style="
+              font-family: var(--font-display);
+              font-size: 1.05rem;
+              margin-bottom: 14px;
+            "
+          >
+            &#9989; Vor der Stunde
+          </h3>
+          <div id="checkliste-items"></div>
+          <div class="praxis-add-row">
+            <input class="form-input" id="checkliste-neu" type="text" placeholder="Punkt erg&auml;nzen..." />
+            <button class="action-btn" onclick="checklisteAdd()">+ Hinzuf&uuml;gen</button>
+          </div>
+          <button class="checkliste-reset" onclick="checklisteReset()">
+            &#8635; Alle zur&uuml;cksetzen
+          </button>
+        </div>
+      </div>
+
+      <!-- STUNDENAUFBAU -->
+      <div id="handbuch-aufbau" style="display: none">
+        <div id="aufbau-items"></div>
+        <div class="section-card praxis-edit-card">
+          <h3 class="praxis-card-title">Baustein erg&auml;nzen</h3>
+          <input class="form-input" id="aufbau-neu-titel" type="text" placeholder="Titel, z.B. Aufw&auml;rmen" />
+          <textarea class="form-textarea form-textarea-small" id="aufbau-neu-text" placeholder="Beschreibung, Ablauf oder Formulierung..."></textarea>
+          <button class="action-btn" onclick="aufbauAdd()">+ Hinzuf&uuml;gen</button>
+        </div>
+        <div class="legacy-aufbau">
+        <div class="stundenaufbau-phase">
+          <h4>&#127926; Ankommen &amp; Warmup (5&ndash;10 Min.)</h4>
+          <p>
+            Begr&uuml;&szlig;ung, pers&ouml;nliche Ansprache. Atemwahrnehmung,
+            Summen auf &bdquo;mmh&ldquo;. Ein bekanntes, einfaches Lied ohne
+            Text &ndash; Stimme wecken, nicht fordern.<br /><br /><em
+              >Formulierung: &bdquo;Wir fangen ganz sanft an &ndash; einfach
+              zuh&ouml;ren und mitmachen wenn m&ouml;glich.&ldquo;</em
+            >
+          </p>
+        </div>
+        <div class="stundenaufbau-phase">
+          <h4>&#127928; Hauptteil (20&ndash;30 Min.)</h4>
+          <p>
+            2&ndash;4 Lieder, Kontraste setzen (ruhig/bewegt, bekannt/neu).
+            Klatschen, Bewegung, Rhythmus einbauen. Auf Gruppenenergie achten
+            &ndash; Plan flexibel halten.<br /><br /><em
+              >Tipp: Bekanntes Lied als Anker, neues Lied einbetten.</em
+            >
+          </p>
+        </div>
+        <div class="stundenaufbau-phase">
+          <h4>&#128277; &Uuml;bergangslied (2&ndash;5 Min.)</h4>
+          <p>
+            Tempo reduzieren, Energie sanft herunterregulieren. Ruhigere
+            Melodie, weniger Stimme. Raum f&uuml;r das Ausklingen des
+            Hauptteils.<br /><br /><em
+              >Formulierung: &bdquo;Jetzt machen wir es etwas ruhiger &ndash;
+              einfach ankommen lassen.&ldquo;</em
+            >
+          </p>
+        </div>
+        <div class="stundenaufbau-phase">
+          <h4>&#127775; Abschluss (5&ndash;10 Min.)</h4>
+          <p>
+            Ein klar bekanntes Abschlusslied (immer dasselbe schafft Ritual).
+            Kurzer Moment der Stille danach. Pers&ouml;nliche Verabschiedung
+            &ndash; jeden anschauen.<br /><br /><em
+              >Formulierung: &bdquo;Das war sch&ouml;n heute. Danke, dass Sie da
+              waren.&ldquo;</em
+            >
+          </p>
+        </div>
+        <div class="section-card" style="margin-top: 16px">
+          <h3
+            style="
+              font-family: var(--font-display);
+              font-size: 1.05rem;
+              margin-bottom: 12px;
+            "
+          >
+            &#127932; Liedauswahl nach Zielgruppe
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.7">
+            <strong>Demenz:</strong> Lieder aus der Jugendzeit
+            (1940&ndash;1960), klare Melodie, langsames Tempo, viel
+            Wiederholung.<br />
+            <strong>Psychiatrie:</strong> Keine &uuml;berforderenden Texte, eher
+            Summen/Summlied m&ouml;glich, Wahlfreiheit lassen.<br />
+            <strong>Palliativ:</strong> Ruhig, vertraut, niemals aufpeitschend.
+            Schweigen ist auch Singen.<br />
+            <strong>Gemischte Gruppen:</strong> Bekanntheit vor
+            K&uuml;nstleranspruch &ndash; was alle kennen tr&auml;gt alle.<br />
+            <strong>Kinder/Jugendliche:</strong> Bewegung einbauen, kurze
+            Lieder, Wiederholung willkommen.<br />
+            <strong>Stimmungsabh&auml;ngig:</strong> Bei Unruhe &rarr; Rhythmus;
+            bei Traurigkeit &rarr; nicht forciert fr&ouml;hlich; bei
+            M&uuml;digkeit &rarr; Tempo raus.
+          </p>
+        </div>
+        <div class="section-card" style="margin-top: 16px">
+          <h3
+            style="
+              font-family: var(--font-display);
+              font-size: 1.05rem;
+              margin-bottom: 12px;
+            "
+          >
+            &#127908; Aufw&auml;rmen
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--text2); line-height: 1.7">
+            <strong>Summen auf &bdquo;mmh&ldquo;:</strong> Lippen locker,
+            Resonanz sp&uuml;ren &ndash; 1 Minute reicht.<br />
+            <strong>Kiefer lockern:</strong> &bdquo;Wiwiwiwi&ldquo; oder
+            Kaumimik &ndash; entspannt die Artikulationsmuskulatur.<br />
+            <strong>Gurgeln:</strong> Wasser im Rachen &ndash; aktiviert den
+            Gaumen.<br />
+            <strong>Atemanlasser:</strong> 4 Sek. ein, 4 halten, 8 aus &ndash;
+            vagal aktivierend.<br />
+            <strong>Halbton-Glissando:</strong> Von tief nach hoch und
+            zur&uuml;ck auf &bdquo;ah&ldquo; &ndash; Stimmumfang &ouml;ffnen.
+          </p>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HANDBUCH BEARBEITUNGS-MODAL -->
+    <div class="handbuch-modal-overlay" id="handbuch-modal" role="dialog" aria-modal="true" aria-labelledby="handbuch-modal-titel" aria-hidden="true">
+      <div class="handbuch-modal">
+        <h3 id="handbuch-modal-titel">Situation bearbeiten</h3>
+        <label for="hb-titel">Titel</label>
+        <input
+          type="text"
+          id="hb-titel"
+          placeholder="z.B. &#128522; Umgang mit Lachen"
+        />
+        <label for="hb-inhalt">Beschreibung / Hintergrund</label>
+        <textarea
+          id="hb-inhalt"
+          placeholder="Was passiert hier? Was hilft?"
+        ></textarea>
+        <label for="hb-formulierungen">Formulierungen (eine pro Zeile)</label>
+        <textarea
+          id="hb-formulierungen"
+          rows="5"
+          placeholder="&#8222;Erste Formulierung&#8220;&#10;&#8222;Zweite Formulierung&#8220;"
+        ></textarea>
+        <div class="handbuch-modal-actions">
+          <button class="btn-cancel" onclick="handbuchModalClose()">
+            Abbrechen
+          </button>
+          <button
+            class="btn-delete-entry"
+            id="hb-del-btn"
+            onclick="handbuchLoeschen()"
+            style="display: none"
+          >
+            L&ouml;schen
+          </button>
+          <button class="btn-save" onclick="handbuchSpeichern()">
+            Speichern
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- EINSTELLUNGEN VIEW -->
+    <div id="view-einstellungen" class="view">
+      <div class="section-title">Einstellungen</div>
+
+      <!-- Listenwerte verwalten -->
+      <!-- THEME-SWITCHER -->
+      <div class="settings-group-title">Design &amp; Theme</div>
+      <div class="settings-group">
+        <div class="backup-card settings-accordion-card">
+          <details class="settings-card-details" open>
+            <summary class="settings-card-summary"><span class="settings-card-heading"><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0 0 18h1.2a1.8 1.8 0 0 0 .8-3.4 1.5 1.5 0 0 1 .7-2.8h1.1A5.9 5.9 0 0 0 21 9c0-3.3-4-6-9-6Z"></path><circle cx="7.5" cy="10" r="1"></circle><circle cx="10.5" cy="7.5" r="1"></circle><circle cx="14" cy="7.5" r="1"></circle><circle cx="16.5" cy="10" r="1"></circle></svg></span>Erscheinungsbild</span></summary>
+            <div class="settings-card-body">
+              <p>W&auml;hle ein Farbthema f&uuml;r die App. Die Auswahl wird gespeichert.</p>
+              <div id="sl-pwa-theme-liste" style="display:flex;flex-direction:column;gap:6px;margin-top:4px;"></div>
+            </div>
+          </details>
+        </div>
+      </div>
+
+            <div class="settings-group-title">Repertoirepflege</div>
+      <div class="settings-group">
+      <div class="backup-card settings-accordion-card">
+        <details class="settings-card-details">
+          <summary class="settings-card-summary"><span class="settings-card-heading"><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path><path d="M8 4v16M16 4v16"></path></svg></span>Sprachen, L&auml;nder, Kategorien</span></summary>
+          <div class="settings-card-body">
+            <p>
+              Werte hinzuf&uuml;gen oder l&ouml;schen. Diese Auswahlen erscheinen im
+              Bearbeiten-Formular und im Filter.
+            </p>
+            <div id="listenverwaltung"></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="backup-card settings-accordion-card">
+        <details class="settings-card-details">
+          <summary class="settings-card-summary"><span class="settings-card-heading"><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m21 21-4.3-4.3"></path><circle cx="11" cy="11" r="7"></circle><path d="M8.5 11h5M11 8.5v5"></path></svg></span>Aufr&auml;umen</span></summary>
+          <div class="settings-card-body">
+            <p>
+              Pr&uuml;ft das Repertoire auf fehlende Angaben, doppelte Titel und
+              verwaiste Listenwerte.
+            </p>
+            <div id="datenqualitaet"></div>
+          </div>
+        </details>
+      </div>
+      </div>
+
+      <!-- Backup -->
+      <div class="settings-group-title">Datensicherung</div>
+      <details class="settings-group-details">
+        <summary class="settings-group-summary">Datensicherung</summary>
+      <div class="settings-group">
+      <div class="backup-card">
+        <h3><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20h14a2 2 0 0 0 2-2v-7l-4-6H7l-4 6v7a2 2 0 0 0 2 2Z"></path><path d="M12 8v8M8.5 12.5 12 16l3.5-3.5"></path></svg></span>Backup &amp; Import</h3>
+        <p>
+          Lieder, Setlists, Favoriten und Listenwerte als JSON sichern oder
+          gezielt importieren.
+        </p>
+        <div class="backup-actions">
+          <button class="action-btn primary" onclick="exportData()">
+            <span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12M8.5 6.5 12 3l3.5 3.5"></path><path d="M5 14v5h14v-5"></path></svg></span>Exportieren
+          </button>
+          <label class="action-btn file-input-label"
+            ><span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21V9M8.5 17.5 12 21l3.5-3.5"></path><path d="M5 10V5h14v5"></path></svg></span>Backup ausw&auml;hlen<input
+              type="file"
+              accept=".json"
+              style="display: none"
+              onchange="importData(event)"
+          /></label>
+        </div>
+        <div id="import-preview" class="import-preview" style="display: none"></div>
+      </div>
+      <div class="backup-card">
+        <h3><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.7M20 12a8 8 0 0 1-13.7 5.7"></path><path d="M17 3v4h4M7 21v-4H3"></path></svg></span>Offline &amp; Sync</h3>
+        <p>
+          Repertoire und gespeicherte Listen bleiben auf diesem Ger&auml;t
+          verf&uuml;gbar. Online werden Supabase-Sync, Update-Pr&uuml;fung,
+          Webfonts und Notenbibliothek nachgeladen.
+        </p>
+        <div id="offline-status" class="offline-status">
+          <span class="offline-dot"></span>
+          <span id="offline-status-text">Status wird gepr&uuml;ft...</span>
+        </div>
+      </div>
+      <div class="backup-card">
+        <h3><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"></path><path d="M9 18h6M9 7h6"></path></svg></span>Ger&auml;tesync</h3>
+        <p>
+          1. Auf Ger&auml;t A: Exportieren<br />2. Datei per E-Mail/Cloud
+          senden<br />3. Auf Ger&auml;t B: Importieren
+        </p>
+      </div>
+      </div>
+      </details>
+      <div class="settings-group-title">App</div>
+      <details class="settings-group-details">
+        <summary class="settings-group-summary">App</summary>
+      <div class="settings-group">
+      <div class="backup-card">
+        <h3><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.7"></path><path d="M17 3v4h4"></path><path d="M20 12a8 8 0 0 1-13.7 5.7"></path><path d="M7 21v-4H3"></path></svg></span>App-Version</h3>
+        <p>Aktuelle Version: <strong id="version-anzeige"></strong></p>
+        <button
+          class="action-btn"
+          onclick="pruefeAufUpdate(true)"
+        >
+          <span class="btn-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m21 21-4.3-4.3"></path><circle cx="11" cy="11" r="7"></circle></svg></span>Auf Updates pr&uuml;fen
+        </button>
+      </div>
+      <div class="backup-card settings-accordion-card">
+        <details class="settings-card-details">
+          <summary class="settings-card-summary"><span class="settings-card-heading"><span class="section-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg></span>Admin-Modus</span></summary>
+          <div class="settings-card-body">
+            <p>
+              Im Normalmodus bleiben neue Lieder und Bearbeitungen lokal. Im
+              Admin-Modus werden &Auml;nderungen in die offizielle Supabase-Liste
+              geschrieben.
+            </p>
+            <div class="admin-mode-row">
+              <span id="admin-mode-badge" class="admin-mode-badge">Normalmodus</span>
+              <span id="admin-status-message" class="admin-status-message">
+                &Auml;nderungen bleiben lokal auf diesem Ger&auml;t.
+              </span>
+            </div>
+            <div class="admin-login-row">
+              <input
+                class="form-input"
+                id="admin-password"
+                type="password"
+                placeholder="Admin-Passwort"
+                autocomplete="current-password"
+                onkeydown="if(event.key === 'Enter') adminLogin()"
+              />
+              <button
+                class="action-btn primary"
+                id="admin-login-btn"
+                type="button"
+                onclick="adminLogin()"
+              >
+                Freigeben
+              </button>
+              <button
+                class="action-btn"
+                id="admin-logout-btn"
+                type="button"
+                onclick="adminLogout()"
+              >
+                Sperren
+              </button>
+              <button
+                class="action-btn"
+                id="admin-reset-btn"
+                type="button"
+                onclick="resetAdminAccess()"
+              >
+                Zugang zur&uuml;cksetzen
+              </button>
+            </div>
+          </div>
+        </details>
+      </div>
+      </div>
+      </details>
+    </div>
+
+    <!-- ADD SONG VIEW -->
+    <div id="view-add" class="view">
+      <div class="toolbar-row form-row">
+        <button
+          class="back-btn"
+          id="add-back-btn"
+          onclick="cancelEdit()"
+          
+          aria-label="Formular schlie&szlig;en"
+        >
+          &#8592;
+        </button>
+        <div class="section-title no-margin" id="add-view-title">
+          Lied hinzuf&uuml;gen
+        </div>
+      </div>
+      <div class="add-form">
+        <div
+          class="form-draft-offer"
+          id="add-draft-offer"
+          hidden
+          aria-live="polite"
+        >
+          <span id="add-draft-offer-text"></span>
+          <div class="form-draft-actions">
+            <button class="action-btn compact" onclick="restoreSongDraft()">
+              Entwurf laden
+            </button>
+            <button class="transpose-reset" onclick="discardSongDraft()">
+              Verwerfen
+            </button>
+          </div>
+        </div>
+        <section class="form-section">
+          <h3 class="form-section-title">Grunddaten</h3>
+          <div class="form-group">
+            <label class="form-label" for="add-titel">Titel *</label>
+            <input
+              class="form-input"
+              id="add-titel"
+              type="text"
+              placeholder="Liedtitel"
+              autocomplete="off"
+              required
+              aria-describedby="add-titel-error"
+            />
+            <div class="form-error" id="add-titel-error" aria-live="polite"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="add-komponist">Komponist:in / Interpret:in</label>
+            <input
+              class="form-input"
+              id="add-komponist"
+              list="komponist-vorschlaege"
+              type="text"
+              placeholder="z.B. Karl Adamek"
+              autocomplete="off"
+            />
+            <datalist id="komponist-vorschlaege"></datalist>
+            <div class="form-hint">
+              Beim Tippen erscheinen bereits vorhandene Komponist:innen.
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h3 class="form-section-title">Tonart &amp; Begleitung</h3>
+          <div class="form-grid form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="add-grundton">Grundton</label>
+            <select class="form-select" id="add-grundton">
+              <option value="">-- kein --</option>
+              <option>C</option>
+              <option>C#</option>
+              <option>D</option>
+              <option>Eb</option>
+              <option>E</option>
+              <option>F</option>
+              <option>F#</option>
+              <option>G</option>
+              <option>Ab</option>
+              <option>A</option>
+              <option>Bb</option>
+              <option>B</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="add-tonmodus">Modus</label>
+            <select class="form-select" id="add-tonmodus">
+              <option value="Dur">Dur</option>
+              <option value="Moll">Moll</option>
+            </select>
+          </div>
+        </div>
+          <div class="form-grid form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="add-capo">Capo (Bund)</label>
+            <input
+              class="form-input"
+              id="add-capo"
+              type="text"
+              inputmode="numeric"
+              placeholder="z.B. II oder 2"
+            />
+            <div class="form-hint">
+              Leer = kein Capo. Zahl oder r&ouml;m. Ziffer.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="add-akkorde">Akkorde (Griffakkorde)</label>
+            <input
+              class="form-input"
+              id="add-akkorde"
+              type="text"
+              placeholder="Am G C Em"
+              autocomplete="off"
+            />
+          </div>
+        </div>
+        </section>
+
+        <section class="form-section">
+          <h3 class="form-section-title">Text &amp; Notizen</h3>
+        <div class="form-group">
+          <label class="form-label" for="add-text">Liedtext</label>
+          <textarea
+            class="form-textarea form-textarea-large"
+            id="add-text"
+            placeholder="Liedtext zeilenweise eingeben..."
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="add-notizen">Notizen</label>
+          <textarea
+            class="form-textarea form-textarea-small"
+            id="add-notizen"
+            placeholder="Hinweise zur Auff&uuml;hrung..."
+          ></textarea>
+        </div>
+        </section>
+
+        <section class="form-section">
+          <h3 class="form-section-title">Noten</h3>
+        <div class="form-group">
+          <label class="form-label" for="add-noten-abc">ABC-Format</label>
+          <textarea
+            class="form-textarea form-textarea-code"
+            id="add-noten-abc"
+            placeholder="X:1&#10;T:Titel&#10;M:4/4&#10;L:1/4&#10;K:C&#10;C D E F | G A B c |"
+          ></textarea>
+          <div class="form-hint">ABC-Notation &ndash; Hilfe: <a href="https://editor.drawthedots.com" target="_blank">editor.drawthedots.com</a></div>
+        </div>
+        </section>
+
+        <section class="form-section">
+          <h3 class="form-section-title">Einordnung</h3>
+        <div class="form-grid form-grid-2">
+          <div class="form-group">
+            <label class="form-label" for="add-sprache">Sprache</label>
+            <div class="form-inline-control">
+              <select
+                class="form-select"
+                id="add-sprache"
+              ></select>
+              <button
+                class="transpose-btn form-add-option"
+                onclick="neuerListenwert('sprachen')"
+                title="Neue Sprache"
+                aria-label="Neue Sprache"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="add-land">Land/Herkunft</label>
+            <div class="form-inline-control">
+              <select
+                class="form-select"
+                id="add-land"
+              ></select>
+              <button
+                class="transpose-btn form-add-option"
+                onclick="neuerListenwert('laender')"
+                title="Neues Land"
+                aria-label="Neues Land"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="add-kategorie">Kategorie</label>
+            <div class="form-inline-control">
+              <select
+                class="form-select"
+                id="add-kategorie"
+              ></select>
+              <button
+                class="transpose-btn form-add-option"
+                onclick="neuerListenwert('kategorien')"
+                title="Neue Kategorie"
+                aria-label="Neue Kategorie"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="add-stimmung">Stimmung</label>
+            <select class="form-select" id="add-stimmung">
+              <option value="">-- keine --</option>
+              <option value="verbindend">verbindend</option>
+              <option value="freudig">freudig</option>
+              <option value="ruhig">ruhig</option>
+              <option value="nachdenklich">nachdenklich</option>
+              <option value="feierlich">feierlich</option>
+            </select>
+          </div>
+        </div>
+        </section>
+
+        <div class="form-actions">
+          <div class="form-save-status" id="add-save-status" aria-live="polite"></div>
+          <button
+            class="action-btn primary"
+            onclick="saveSong()"
+            id="add-save-btn"
+          >
+            &#9989; Lied speichern
+          </button>
+          <button
+            class="action-btn danger"
+            id="add-delete-btn"
+            onclick="deleteSongFromForm()"
+          >
+            &#128465; L&ouml;schen
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <script src="app.js?v=2.0"></script>
+    <!-- SPICKZETTEL OVERLAY -->
+    <div class="spickzettel" id="spickzettel" role="dialog" aria-modal="true" aria-labelledby="spick-title" aria-hidden="true">
+      <div class="spick-header">
+        <div class="spick-nav">
+          <button id="spick-prev-btn" onclick="spickPrev()" aria-label="Vorheriges Lied">
+            &#9664;
+          </button>
+          <span id="spick-counter">1 / 1</span>
+          <button id="spick-next-btn" onclick="spickNext()" aria-label="N&auml;chstes Lied">
+            &#9654;
+          </button>
+        </div>
+        <div class="spick-actions">
+          <div class="spick-font-controls" aria-label="Schriftgr&ouml;&szlig;e">
+            <button onclick="changeSpickFontScale(-0.1)" aria-label="Schrift kleiner">
+              A-
+            </button>
+            <span id="spick-font-label">100%</span>
+            <button onclick="changeSpickFontScale(0.1)" aria-label="Schrift gr&ouml;&szlig;er">
+              A+
+            </button>
+          </div>
+          <button
+            class="spick-close"
+            onclick="spickzettelAddMode()"
+            aria-label="Lied hinzuf&uuml;gen"
+          >
+            &#10133;
+          </button>
+          <button class="spick-close" onclick="closeSpickzettel()" aria-label="Spickzettel beenden">
+            &#10005; Beenden
+          </button>
+        </div>
+      </div>
+      <div class="spick-title" id="spick-title"></div>
+      <div class="spick-capo" id="spick-capo" style="display: none"></div>
+      <div class="spick-transpose-info" id="spick-transpose-info">
+        <div class="spick-transpose-label">Akkorde (transponiert)</div>
+        <div class="spick-transpose-akkorde" id="spick-transpose-akkorde"></div>
+      </div>
+      <div
+        class="spick-akkorde-block"
+        id="spick-akkorde-block"
+        style="display: none"
+      >
+        <div class="spick-akkorde-label">Griffakkorde</div>
+        <div class="spick-akkorde-text" id="spick-akkorde-text"></div>
+      </div>
+      <div class="spick-text" id="spick-text"></div>
+      <div id="spick-noten-toggle" style="display:none;">
+        <button onclick="toggleSpickNoten()" id="spick-noten-btn" aria-expanded="false" aria-controls="spick-noten-box">&#9834; Noten einblenden</button>
+      </div>
+      <div id="spick-noten-box" style="display:none;">
+        <div>
+          <label for="spick-noten-slider">Gr&ouml;&szlig;e:</label>
+          <input type="range" id="spick-noten-slider" min="50" max="150" value="100" step="5" oninput="spickNotenScaleAendern(this.value)" aria-describedby="spick-noten-label">
+          <span id="spick-noten-label">100%</span>
+        </div>
+        <div id="spick-noten-render"></div>
+      </div>
+        <button class="spick-notfall" onclick="toggleNotfall()" aria-label="Notfall-Hinweise &ouml;ffnen">
+        &#9888;&#65039; Notfall
+      </button>
+      <div class="notfall-modal" id="notfall-modal" role="dialog" aria-modal="true" aria-labelledby="notfall-modal-title" aria-hidden="true">
+        <h3 id="notfall-modal-title">&#9888;&#65039; Gruppe kippt &ndash; was jetzt?</h3>
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
+          &#127925; Bekanntes Lied einwerfen &ndash; Sicherheit schaffen
+        </div>
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
+          &#129330; Alle atmen gemeinsam &ndash; 3 tiefe Atemz&uuml;ge
+        </div>
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
+          &#128079; K&ouml;rper aktivieren &ndash; klatschen, schnippen,
+          stampfen
+        </div>
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
+          &#128172; Kurze Pause ansagen &ndash; "Was braucht ihr gerade?"
+        </div>
+        <div class="notfall-tip" role="button" tabindex="0" onclick="closeNotfall()" onkeydown="if(event.key === 'Enter' || event.key === ' '){ event.preventDefault(); closeNotfall(); }">
+          &#128263; Stille zulassen &ndash; nicht sofort auff&uuml;llen
+        </div>
+      </div>
+    </div>
+  
+  <!-- THEME-SWITCHER (l&auml;dt themes.json aus Framework) -->
+  <script>
+  (function() {
+    var THEME_KEY   = 'sl-pwa-theme';
+    var DEFAULT     = 'theme-modern';
+    var PFAD        = 'themes/';
+    var themeLink   = document.getElementById('sl-pwa-theme');
+    var themeListe  = document.getElementById('sl-pwa-theme-liste');
+
+    function themeSetzen(id) {
+      themeLink.href = PFAD + id + '.css';
+      localStorage.setItem(THEME_KEY, id);
+      if (!themeListe) return;
+      themeListe.querySelectorAll('[data-theme]').forEach(function(btn) {
+        var ind = btn.querySelector('.sl-theme-check');
+        var aktiv = btn.dataset.theme === id;
+        if (ind) ind.innerHTML = aktiv
+          ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>'
+          : '';
+        btn.classList.toggle('sl-theme-active', aktiv);
+      });
+    }
+
+    function themeButtonErstellen(theme) {
+      var btn = document.createElement('button');
+      btn.dataset.theme = theme.id;
+      btn.className = 'sl-theme-option';
+      btn.innerHTML =
+        '<span>' +
+          '<span class="sl-theme-name">' + theme.name + '</span>' +
+          '<span class="sl-theme-desc">' + theme.beschreibung + '</span>' +
+        '</span>' +
+        '<span class="sl-theme-check"></span>';
+      btn.addEventListener('click', function() { themeSetzen(theme.id); });
+      themeListe.appendChild(btn);
+    }
+
+    function themesLaden() {
+      if (!themeListe) return;
+      fetch(PFAD + 'themes.json')
+        .then(function(r) { return r.json(); })
+        .then(function(themes) {
+          themes.forEach(themeButtonErstellen);
+          themeSetzen(localStorage.getItem(THEME_KEY) || DEFAULT);
+        })
+        .catch(function() { themeSetzen(DEFAULT); });
+    }
+
+    // Gespeichertes Theme sofort anwenden (verhindert Flackern)
+    var gespeichert = localStorage.getItem(THEME_KEY);
+    if (gespeichert) themeLink.href = PFAD + gespeichert + '.css';
+
+    // Buttons erst laden wenn DOM bereit
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', themesLaden);
+    } else {
+      themesLaden();
+    }
+  })();
+  </script>
+</body>
+</html>
