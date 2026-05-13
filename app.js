@@ -4996,10 +4996,14 @@
       }
 
       function cleanAufbauTitle(value) {
-        return String(value || "")
+        var title = String(value || "")
           .replace(/^(?:\s*(?:&#\d+;|&#x[0-9a-fA-F]+;|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u2600-\u27BF]\uFE0F?)+\s*)/, "")
           .replace(/^[^\w???????]+/u, "")
           .trim();
+        if (/bergangslied/i.test(title)) {
+          title = title.replace(/^.*bergangslied/i, "Übergangslied");
+        }
+        return title;
       }
 
       function cleanAufbauItem(item) {
