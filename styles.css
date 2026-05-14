@@ -163,9 +163,9 @@ textarea:disabled {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 38px;
-  flex: 0 0 20px;
+  width: 22px;
+  height: 40px;
+  flex: 0 0 22px;
   margin-right: 2px;
   opacity: .86;
   text-decoration: none;
@@ -174,6 +174,17 @@ textarea:disabled {
     drop-shadow(0 6px 10px rgba(var(--color-primary-rgb), .10))
     drop-shadow(0 1px 0 rgba(255, 255, 255, .62));
   transition: opacity .16s ease, transform .16s ease, filter .16s ease;
+}
+
+.brand-partner-emblem img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: grayscale(1) contrast(.62) brightness(1.52);
+  opacity: .74;
 }
 
 .brand-partner-emblem:hover,
@@ -186,12 +197,7 @@ textarea:disabled {
 }
 
 .brand-partner-emblem::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("assets/logo-singende-krankenhaeuser.png") center / contain no-repeat;
-  filter: grayscale(1) contrast(.62) brightness(1.52);
-  opacity: .70;
+  content: none;
 }
 
 .brand-partner-emblem::after {
@@ -206,10 +212,12 @@ textarea:disabled {
       color-mix(in srgb, var(--color-primary) 38%, #fff 62%) 45%,
       color-mix(in srgb, var(--color-primary) 56%, #fff 44%)
     );
-  -webkit-mask: url("assets/logo-singende-krankenhaeuser.png") center / contain no-repeat;
-  mask: url("assets/logo-singende-krankenhaeuser.png") center / contain no-repeat;
+  -webkit-mask: url("assets/logo-singende-krankenhaeuser.png?v=2.7") center / contain no-repeat;
+  mask: url("assets/logo-singende-krankenhaeuser.png?v=2.7") center / contain no-repeat;
   mix-blend-mode: multiply;
   opacity: .46;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .header-actions {

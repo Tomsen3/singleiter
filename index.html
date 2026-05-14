@@ -18,8 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "2.4";
-      var GITHUB_VERSION_URL = "version.json";
+    var APP_VERSION = "2.7";
+    var ASSET_VERSION = APP_VERSION;
+    var GITHUB_VERSION_URL = "version.json";
 
       // Service Worker als Blob registrieren (kein separates File noetig)
       if ("serviceWorker" in navigator) {
@@ -29,11 +30,11 @@
       }
     </script>
     <!-- Framework: Tokens + Theme (muss VOR styles.css stehen) -->
-    <link rel="stylesheet" href="core/css/tokens.css">
-    <link rel="stylesheet" href="core/css/fonts.css">
-    <link rel="stylesheet" href="themes/theme-forest.css" id="sl-pwa-theme">
+  <link rel="stylesheet" href="core/css/tokens.css?v=2.7">
+  <link rel="stylesheet" href="core/css/fonts.css?v=2.7">
+  <link rel="stylesheet" href="themes/theme-forest.css?v=2.7" id="sl-pwa-theme">
     <!-- App-eigenes CSS (baut via var()-Br&uuml;cke auf Framework-Tokens) -->
-    <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=2.7" />
   </head>
   <body>
     <div class="app-header">
@@ -46,7 +47,9 @@
         <span class="brand-text">Sing<span>Leiter</span></span>
       </h1>
       <div class="header-actions">
-        <a class="brand-partner-emblem" href="https://www.singende-krankenhaeuser.de/" target="_blank" rel="noopener noreferrer" aria-label="Homepage der Singenden Krankenhäuser e.V. öffnen"></a>
+        <a class="brand-partner-emblem" href="https://www.singende-krankenhaeuser.de/" target="_blank" rel="noopener noreferrer" aria-label="Homepage der Singenden Krankenhäuser e.V. öffnen">
+          <img src="assets/logo-singende-krankenhaeuser.png?v=2.7" alt="" aria-hidden="true" />
+        </a>
         <button
           class="icon-btn"
           onclick="showView('repertoire'); setTimeout(function(){ var s = document.getElementById('search-input'); if (s) s.focus(); }, 0)"
@@ -693,7 +696,7 @@
       <div class="section-title">Einstellungen</div>
 
       <a class="settings-affiliation-card" href="https://www.singende-krankenhaeuser.de/" target="_blank" rel="noopener noreferrer" aria-label="Homepage der Singenden Krankenhäuser e.V. öffnen">
-        <img src="assets/logo-singende-krankenhaeuser.png" alt="" aria-hidden="true" />
+        <img src="assets/logo-singende-krankenhaeuser.png?v=2.7" alt="" aria-hidden="true" />
         <span>
           <strong>Singende Krankenhäuser e.V.</strong>
           <em>in Verbindung mit den Singenden Krankenhäusern e.V.</em>
@@ -1103,7 +1106,7 @@
     </div>
 
     <div class="toast" id="toast"></div>
-    <script src="app.js?v=2.4"></script>
+  <script src="app.js?v=2.7"></script>
     <!-- SPICKZETTEL OVERLAY -->
     <div class="spickzettel" id="spickzettel" role="dialog" aria-modal="true" aria-labelledby="spick-title" aria-hidden="true">
       <div class="spick-header">
@@ -1197,9 +1200,10 @@
     var PFAD        = 'themes/';
     var themeLink   = document.getElementById('sl-pwa-theme');
     var themeListe  = document.getElementById('sl-pwa-theme-liste');
+    var THEME_SUFFIX = window.ASSET_VERSION ? '?v=' + encodeURIComponent(window.ASSET_VERSION) : '';
 
     function themeSetzen(id) {
-      themeLink.href = PFAD + id + '.css';
+      themeLink.href = PFAD + id + '.css' + THEME_SUFFIX;
       document.documentElement.dataset.theme = id;
       localStorage.setItem(THEME_KEY, id);
       if (!themeListe) return;
@@ -1229,7 +1233,7 @@
 
     function themesLaden() {
       if (!themeListe) return;
-      fetch(PFAD + 'themes.json')
+      fetch(PFAD + 'themes.json' + THEME_SUFFIX)
         .then(function(r) { return r.json(); })
         .then(function(themes) {
           themes.forEach(themeButtonErstellen);
@@ -1246,7 +1250,7 @@
     }
     localStorage.setItem(THEME_DEFAULT_VERSION_KEY, 'resonanz-2.2');
     document.documentElement.dataset.theme = gespeichert || DEFAULT;
-    if (gespeichert) themeLink.href = PFAD + gespeichert + '.css';
+    if (gespeichert) themeLink.href = PFAD + gespeichert + '.css' + THEME_SUFFIX;
 
     // Buttons erst laden wenn DOM bereit
     if (document.readyState === 'loading') {
