@@ -1,9 +1,9 @@
-var CACHE = "singleiter-v2.2-resonanz";
+var CACHE = "singleiter-v2.4-header-emblem";
 var URLS = [
   "./",
   "index.html",
   "styles.css",
-  "app.js?v=2.2",
+  "app.js?v=2.4",
   "sw.js",
   "manifest.json",
   "version.json",
@@ -20,6 +20,7 @@ var URLS = [
   "assets/fonts/plus-jakarta-sans/PlusJakartaSans-Italic[wght].ttf",
   "assets/fonts/source-sans-3/SourceSans3[wght].ttf",
   "assets/fonts/source-sans-3/SourceSans3-Italic[wght].ttf",
+  "assets/logo-singende-krankenhaeuser.png",
   "icon-192.png",
   "icon-512.png"
 ];

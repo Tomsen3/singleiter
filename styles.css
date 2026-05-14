@@ -158,6 +158,60 @@ textarea:disabled {
   color: var(--color-primary);
 }
 
+.brand-partner-emblem {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 38px;
+  flex: 0 0 20px;
+  margin-right: 2px;
+  opacity: .86;
+  text-decoration: none;
+  cursor: pointer;
+  filter:
+    drop-shadow(0 6px 10px rgba(var(--color-primary-rgb), .10))
+    drop-shadow(0 1px 0 rgba(255, 255, 255, .62));
+  transition: opacity .16s ease, transform .16s ease, filter .16s ease;
+}
+
+.brand-partner-emblem:hover,
+.brand-partner-emblem:focus-visible {
+  opacity: .98;
+  transform: translateY(-1px);
+  filter:
+    drop-shadow(0 8px 14px rgba(var(--color-primary-rgb), .14))
+    drop-shadow(0 1px 0 rgba(255, 255, 255, .68));
+}
+
+.brand-partner-emblem::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("assets/logo-singende-krankenhaeuser.png") center / contain no-repeat;
+  filter: grayscale(1) contrast(.62) brightness(1.52);
+  opacity: .70;
+}
+
+.brand-partner-emblem::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 32% 18%, rgba(255, 255, 255, .42), transparent 33%),
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--color-primary) 18%, #fff 82%),
+      color-mix(in srgb, var(--color-primary) 38%, #fff 62%) 45%,
+      color-mix(in srgb, var(--color-primary) 56%, #fff 44%)
+    );
+  -webkit-mask: url("assets/logo-singende-krankenhaeuser.png") center / contain no-repeat;
+  mask: url("assets/logo-singende-krankenhaeuser.png") center / contain no-repeat;
+  mix-blend-mode: multiply;
+  opacity: .46;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -2783,6 +2837,58 @@ textarea:disabled {
   line-height: 1.6;
 }
 
+.settings-affiliation-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-control);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(150deg, rgba(255, 253, 247, .92), rgba(243, 247, 237, .84)),
+    var(--sing-paper-grain);
+  box-shadow: var(--sing-surface-glow), var(--shadow-soft);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+.settings-affiliation-card:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--color-primary) 32%, rgba(255, 255, 255, .52));
+  box-shadow: var(--sing-surface-glow), 0 18px 42px rgba(69, 80, 66, .12);
+}
+
+.settings-affiliation-card img {
+  width: 28px;
+  height: 46px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  filter: saturate(.9) contrast(.96);
+}
+
+.settings-affiliation-card span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settings-affiliation-card strong {
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-body);
+  line-height: 1.2;
+}
+
+.settings-affiliation-card em {
+  color: var(--color-muted);
+  font-size: var(--text-meta);
+  font-style: normal;
+  line-height: 1.35;
+}
+
 /* ============================================================
    LIED-SUCH-OVERLAY (Song-Picker in Setlist / Spickzettel)
    Kompakte Einzeilen-Karten mit Badges und + am Ende
@@ -3259,6 +3365,7 @@ html:not([data-theme="theme-forest"]) .dash-tip-card {
 html:not([data-theme="theme-forest"]) .dash-tile,
 html:not([data-theme="theme-forest"]) .dash-hero-empty,
 html:not([data-theme="theme-forest"]) .picker-card,
+html:not([data-theme="theme-forest"]) .settings-affiliation-card,
 html:not([data-theme="theme-forest"]) .setlist-item,
 html:not([data-theme="theme-forest"]) .backup-card,
 html:not([data-theme="theme-forest"]) .cleanup-section,
@@ -3273,10 +3380,14 @@ html:not([data-theme="theme-forest"]) .settings-list-add,
 html:not([data-theme="theme-forest"]) .data-quality-card,
 html:not([data-theme="theme-forest"]) .setlist-list-header,
 html:not([data-theme="theme-forest"]) .setlist-card {
-  border-color: color-mix(in srgb, var(--color-primary) 12%, rgba(255, 255, 255, .70));
+  border-color: color-mix(in srgb, var(--color-primary) 18%, rgba(255, 255, 255, .62));
   background:
-    radial-gradient(82% 72% at 12% 0%, color-mix(in srgb, var(--color-surface-soft-a) 28%, transparent), transparent 58%),
-    linear-gradient(150deg, color-mix(in srgb, var(--color-surface) 92%, var(--color-surface-soft-b)), var(--color-surface));
+    radial-gradient(88% 76% at 12% 0%, color-mix(in srgb, var(--color-surface-soft-a) 62%, transparent), transparent 60%),
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--color-surface-soft-b) 72%, var(--color-surface)),
+      color-mix(in srgb, var(--color-surface-soft-a) 46%, var(--color-surface))
+    );
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .68),
     0 14px 30px rgba(15, 23, 42, .052),
@@ -3287,10 +3398,14 @@ html:not([data-theme="theme-forest"]) .handbuch-section,
 html:not([data-theme="theme-forest"]) .section-card,
 html:not([data-theme="theme-forest"]) .stundenaufbau-phase,
 html:not([data-theme="theme-forest"]) .praxis-editable-item {
-  border-color: color-mix(in srgb, var(--color-primary) 14%, rgba(255, 255, 255, .68));
+  border-color: color-mix(in srgb, var(--color-primary) 20%, rgba(255, 255, 255, .60));
   background:
-    radial-gradient(84% 70% at 12% 0%, color-mix(in srgb, var(--color-surface-soft-a) 34%, transparent), transparent 58%),
-    linear-gradient(150deg, color-mix(in srgb, var(--color-surface) 90%, var(--color-surface-soft-b)), var(--color-surface));
+    radial-gradient(88% 74% at 12% 0%, color-mix(in srgb, var(--color-surface-soft-a) 68%, transparent), transparent 60%),
+    linear-gradient(
+      150deg,
+      color-mix(in srgb, var(--color-surface-soft-b) 74%, var(--color-surface)),
+      color-mix(in srgb, var(--color-surface-soft-a) 50%, var(--color-surface))
+    );
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .68),
     0 14px 30px rgba(15, 23, 42, .052),

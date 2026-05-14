@@ -18,7 +18,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/abcjs@6.4.4/dist/abcjs-basic-min.js"></script>
     <script>
-      var APP_VERSION = "2.2";
+      var APP_VERSION = "2.4";
       var GITHUB_VERSION_URL = "version.json";
 
       // Service Worker als Blob registrieren (kein separates File noetig)
@@ -46,6 +46,7 @@
         <span class="brand-text">Sing<span>Leiter</span></span>
       </h1>
       <div class="header-actions">
+        <a class="brand-partner-emblem" href="https://www.singende-krankenhaeuser.de/" target="_blank" rel="noopener noreferrer" aria-label="Homepage der Singenden Krankenhäuser e.V. öffnen"></a>
         <button
           class="icon-btn"
           onclick="showView('repertoire'); setTimeout(function(){ var s = document.getElementById('search-input'); if (s) s.focus(); }, 0)"
@@ -190,6 +191,7 @@
         <div class="dash-tip-title" id="dash-tip-title"></div>
         <p class="dash-tip-body" id="dash-tip-body"></p>
       </div>
+
     </div>
 
     <!-- REPERTOIRE VIEW -->
@@ -455,7 +457,7 @@
       </div>
     </div>
 
-    <!-- LIED-SUCH-OVERLAY (fuer Spickzettel + Setlist-Editor) -->
+    <!-- LIED-SUCH-OVERLAY (für Spickzettel + Setlist-Editor) -->
     <div
       id="lied-such-overlay"
       role="dialog"
@@ -689,6 +691,14 @@
     <!-- EINSTELLUNGEN VIEW -->
     <div id="view-einstellungen" class="view">
       <div class="section-title">Einstellungen</div>
+
+      <a class="settings-affiliation-card" href="https://www.singende-krankenhaeuser.de/" target="_blank" rel="noopener noreferrer" aria-label="Homepage der Singenden Krankenhäuser e.V. öffnen">
+        <img src="assets/logo-singende-krankenhaeuser.png" alt="" aria-hidden="true" />
+        <span>
+          <strong>Singende Krankenhäuser e.V.</strong>
+          <em>in Verbindung mit den Singenden Krankenhäusern e.V.</em>
+        </span>
+      </a>
 
       <!-- Listenwerte verwalten -->
       <!-- THEME-SWITCHER -->
@@ -1093,7 +1103,7 @@
     </div>
 
     <div class="toast" id="toast"></div>
-    <script src="app.js?v=2.2"></script>
+    <script src="app.js?v=2.4"></script>
     <!-- SPICKZETTEL OVERLAY -->
     <div class="spickzettel" id="spickzettel" role="dialog" aria-modal="true" aria-labelledby="spick-title" aria-hidden="true">
       <div class="spick-header">
