@@ -212,8 +212,8 @@ textarea:disabled {
       color-mix(in srgb, var(--color-primary) 38%, #fff 62%) 45%,
       color-mix(in srgb, var(--color-primary) 56%, #fff 44%)
     );
-  -webkit-mask: url("assets/logo-singende-krankenhaeuser.png?v=2.23") center / contain no-repeat;
-  mask: url("assets/logo-singende-krankenhaeuser.png?v=2.23") center / contain no-repeat;
+  -webkit-mask: url("assets/logo-singende-krankenhaeuser.png?v=2.25") center / contain no-repeat;
+  mask: url("assets/logo-singende-krankenhaeuser.png?v=2.25") center / contain no-repeat;
   mix-blend-mode: multiply;
   opacity: .46;
   z-index: 2;
