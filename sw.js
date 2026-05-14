@@ -1,28 +1,28 @@
-var CACHE = "singleiter-v2.7-header-logo-no-bg";
+var CACHE = "singleiter-v2.8-install-icons";
 var URLS = [
   "./",
   "index.html",
-  "styles.css?v=2.7",
-  "app.js?v=2.7",
+  "styles.css?v=2.8",
+  "app.js?v=2.8",
   "sw.js",
-  "manifest.json",
+  "manifest.json?v=2.8",
   "version.json",
-  "core/css/tokens.css?v=2.7",
-  "core/css/fonts.css?v=2.7",
-  "themes/theme-modern.css?v=2.7",
-  "themes/theme-sunrise.css?v=2.7",
-  "themes/theme-ocean.css?v=2.7",
-  "themes/theme-forest.css?v=2.7",
-  "themes/theme-graphite.css?v=2.7",
-  "themes/theme-bordeaux.css?v=2.7",
-  "themes/themes.json?v=2.7",
+  "core/css/tokens.css?v=2.8",
+  "core/css/fonts.css?v=2.8",
+  "themes/theme-modern.css?v=2.8",
+  "themes/theme-sunrise.css?v=2.8",
+  "themes/theme-ocean.css?v=2.8",
+  "themes/theme-forest.css?v=2.8",
+  "themes/theme-graphite.css?v=2.8",
+  "themes/theme-bordeaux.css?v=2.8",
+  "themes/themes.json?v=2.8",
   "assets/fonts/plus-jakarta-sans/PlusJakartaSans[wght].ttf",
   "assets/fonts/plus-jakarta-sans/PlusJakartaSans-Italic[wght].ttf",
   "assets/fonts/source-sans-3/SourceSans3[wght].ttf",
   "assets/fonts/source-sans-3/SourceSans3-Italic[wght].ttf",
-  "assets/logo-singende-krankenhaeuser.png?v=2.7",
-  "icon-192.png",
-  "icon-512.png"
+  "assets/logo-singende-krankenhaeuser.png?v=2.8",
+  "icon-192-v2.8.png",
+  "icon-512-v2.8.png"
 ];
 
 self.addEventListener("install", function(e) {
